@@ -49,3 +49,42 @@ logs/
 tmp/
 backup/
 passenger_wsgi.py
+
+
+
+# کش و فایل‌های موقت
+.cache/
+tmp/
+.spamassassin/
+.trash/
+.local/share/virtualenv/
+.virtualenv/
+
+# تنظیمات کاربر و شل
+.bash_history
+.bash_logout
+.bash_profile
+.bashrc
+.zshrc
+.gemrc
+.lesshst
+.lastlogin
+
+# سیستمی / cPanel / CageFS
+.cagefs/
+.cpanel/
+.wp-toolkit-identifier
+.cl.selector
+.clwpos
+
+# فایل‌های ایمیل و لاگ
+logs/
+mail/
+access-logs/
+
+# SSL و سایر فایل‌های امنیتی
+ssl/
+
+# فایل‌های سیستمی عمومی
+etc/
+.initial
