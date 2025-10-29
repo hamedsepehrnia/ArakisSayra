@@ -1,10 +1,15 @@
 from core.models import SiteInfo
 from products.models import Category
+from django.utils import translation
 
 
 def site_info(request):
     try:
         info = SiteInfo.objects.first()
+        # تشخیص جهت زبان
+        lang_code = translation.get_language()
+        html_dir = 'ltr' if lang_code == 'en' else 'rtl'
+        
         return {
             'phone_number1': info.phone_number1 if info else '',
             'phone_number2': info.phone_number2 if info else '',
@@ -16,7 +21,7 @@ def site_info(request):
             'work_hour2': info.work_hour2 if info else '',
             'work_hour3': info.work_hour3 if info else '',
             'instagram_page': info.instagram_page if info else '',
-
+            'html_dir': html_dir,  # اضافه کردن جهت صفحه
         }
     except:
         return {
@@ -26,7 +31,7 @@ def site_info(request):
             'address': '',
             'email': '',
             'about_text': '',
-
+            'html_dir': 'rtl',  # پیش‌فرض RTL
         }
 
 def categories_context(request):

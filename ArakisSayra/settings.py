@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-i(!kp*wcc8a)8p7(@ng(x4ulj-!9y=00q3p&=%t34brfqx@#q("
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['arakissayra.ir', 'www.arakissayra.ir', 'arakissayra.com', 'www.arakissayra.com']
+ALLOWED_HOSTS = ['arakissayra.ir', 'www.arakissayra.ir', 'arakissayra.com', 'www.arakissayra.com', "localhost", "127.0.0.1"]
 
 # Application definition
 
@@ -104,12 +104,41 @@ WSGI_APPLICATION = "ArakisSayra.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# ========================================
+# تنظیمات دیتابیس برای Development (SQLite)
+# ========================================
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+# ========================================
+# تنظیمات دیتابیس برای Production (PostgreSQL)
+# برای فعال کردن در production:
+# 1. کد SQLite بالا را comment کنید
+# 2. کد PostgreSQL پایین را uncomment کنید
+# 3. اطلاعات دیتابیس (NAME, USER, PASSWORD, HOST) را تنظیم کنید
+# 4. پکیج psycopg2-binary را نصب کنید: pip install psycopg2-binary
+# ========================================
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'arakissa_db',              # نام دیتابیس
+#         'USER': 'arakissa_user',            # کاربر دیتابیس
+#         'PASSWORD': 'your_password_here',   # رمز عبور
+#         'HOST': 'localhost',                # آدرس سرور (معمولاً localhost)
+#         'PORT': '5432',                     # پورت PostgreSQL (پیش‌فرض 5432)
+#         'OPTIONS': {
+#             'charset': 'utf8',
+#         },
+#     }
+# }
+
+# ========================================
+# تنظیمات قدیمی MySQL (برای مرجع)
+# ========================================
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -162,13 +191,25 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
+#my pg:
+# STATIC_URL = "/static/"
+# STATICFILES_DIRS = [BASE_DIR / "static"]
+# MEDIA_URL = "/media/"
+# MEDIA_ROOT = "/home/arakissa/public_html/media"
+# STATIC_ROOT = "/home/arakissa/public_html/static"
 
-STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+#local:
+STATIC_URL = "/static/"                     # همیشه با / شروع بشه
+STATICFILES_DIRS = [BASE_DIR / "static"]    # فایل‌های استاتیک پروژه و اپ‌ها
+STATIC_ROOT = BASE_DIR / "staticfiles"      # مسیر جمع‌آوری‌شده توسط collectstatic
 MEDIA_URL = "/media/"
-MEDIA_ROOT = "/home/arakissa/public_html/media"
-STATIC_ROOT = "/home/arakissa/public_html/static"
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+MEDIA_ROOT = BASE_DIR / "media"             # فایل‌های آپلود شده کاربر
+
+#production:
+# STATIC_URL = "/static/"
+# STATICFILES_DIRS = []                        # فقط collectstatic مسیر STATIC_ROOT رو استفاده می‌کنه
+# STATIC_ROOT = "/home/arakissa/public_html/static"   # مسیر نهایی استاتیک روی هاست
+# MEDIA_URL = "/media/"
+# MEDIA_ROOT = "/home/arakissa/public_html/media"     # مسیر آپلود کاربران روی هاست
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

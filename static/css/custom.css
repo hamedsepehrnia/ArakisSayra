@@ -1,1 +1,17 @@
 /* استایل فلش ساب‌منوها */
+
+/* تغییر جهت برای زبان انگلیسی */
+html[dir="ltr"] {
+    direction: ltr;
+}
+
+html[dir="ltr"] body {
+    text-align: left;
+    direction: ltr;
+}
+
+html[dir="ltr"] .container,
+html[dir="ltr"] .row,
+html[dir="ltr"] [class*="text-"] {
+    direction: ltr;
+}
