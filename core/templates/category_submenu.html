@@ -1,0 +1,15 @@
+{% for subcat in subcategories %}
+    {% if subcat.get_full_slug %}
+    <li class="{% if subcat.children.all %}dropdown-submenu{% endif %}">
+        <a class="dropdown-item {% if subcat.children.all %}dropdown-toggle{% endif %}"
+           href="{% url 'products_category' full_path=subcat.get_full_slug %}">
+            {{ subcat.name }}
+        </a>
+        {% if subcat.children.all %}
+            <ul class="dropdown-menu">
+                {% include "category_submenu.html" with subcategories=subcat.children.all %}
+            </ul>
+        {% endif %}
+    </li>
+    {% endif %}
+{% endfor %}

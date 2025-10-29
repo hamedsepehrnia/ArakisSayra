@@ -1,0 +1,152 @@
+{% extends 'core/base.html' %}
+{% load mptt_tags %}
+{#{% load mptt_tags %}#}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <div class="main shop py-4" role="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            {% if breadcrumb %}
+            <div class="row mb-4">
+                <div class="col">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-light p-3 rounded">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'index' %}">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'all_products' %}">محصولات</a>
+                            </li>
+                            {% for category in breadcrumb %}
+                                {% if forloop.last %}
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ category.name }}
+                                    </li>
+                                {% else %}
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'products_category' full_path=category.get_full_slug %}">
+                                            {{ category.name }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="row">
+                <div class="col-lg-3">
+                    <aside class="sidebar mb-5 mb-lg-0 pb-3 pb-lg-0">
+                        <form action="{% url 'product_search' %}" method="get">
+                            <div class="input-group mb-3 pb-1">
+                                <input class="form-control text-1" id="s" name="query" placeholder="جستجو ..." type="text"/>
+                                <span class="input-group-append">
+<button class="btn btn-dark text-1 p-2" type="submit"><i class="fas fa-search m-2"></i></button>
+</span>
+                            </div>
+                        </form>
+                        <ul class="nav flex-column">
+                            {% if category %}
+                                {% for child in category.get_children %}
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           href="{% url 'products_category' full_path=child.get_full_slug %}">
+                                            {{ child.name }}
+                                        </a>
+                                    </li>
+                                    {% empty %}
+                                    <li class="nav-item text-muted">زیر‌دسته‌ای ندارد</li>
+                                {% endfor %}
+                            {% else %}
+                                {% for cat in categories %}
+                                    {% if not cat.parent %}
+                                        <li class="nav-item">
+                                            <a class="nav-link"
+                                               href="{% url 'products_category' full_path=cat.get_full_slug %}">
+                                                {{ cat.name }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+
+
+                        <div class="row mb-3">
+                            <div class="col">
+
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-lg-9">
+                    <div class="masonry-loader masonry-loader-showing">
+                        <div class="row products product-thumb-info-list" data-plugin-masonry=""
+                             data-plugin-options="{'layoutMode': 'fitRows'}">
+                                                        {% for product in products %}
+                                                            <div class="col-sm-6 col-lg-4 product">
+                            <span class="product-thumb-info border-0">
+                            <a class="add-to-cart-product bg-color-primary" href="{% url 'product_detail' product.slug %}">
+                            <span class="text-1">جزییات</span>
+                            </a>
+                            <a href="{% url 'product_detail' product.slug %}">
+                            <span class="product-thumb-info-image">
+                            <img alt="" class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}https://placehold.co/600x400?text=No+Image{% endif %}" />
+                            </span>
+                            </a>
+                            <span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
+                            <a href="{% url 'product_detail' product.slug %}">
+                            <h4 class="text-4 text-primary">{{ product.title }}</h4>
+                            <span class="price">
+                            </span>
+                            </a>
+                            </span>
+                            </span>
+                                                            </div>
+                                                        {% endfor %}
+
+                        </div>
+                        <div class="row mt-4 mb-n3">
+                            <div class="col">
+                                <ul class="pagination float-right">
+                                    {% if products.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ products.previous_page_number }}">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+
+                                    {% for num in products.paginator.page_range %}
+                                        {% if num == 1 or num == products.paginator.num_pages or num >= products.number|add:'-2' and num <= products.number|add:'2' %}
+                                            {% if products.number == num %}
+                                                <li class="page-item active"><a class="page-link" href="#">{{ num }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="page-item"><a class="page-link"
+                                                                         href="?page={{ num }}">{{ num }}</a></li>
+                                            {% endif %}
+                                        {% elif num == products.number|add:'-3' or num == products.number|add:'3' %}
+                                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if products.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ products.next_page_number }}">
+                                                <i class="fas fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

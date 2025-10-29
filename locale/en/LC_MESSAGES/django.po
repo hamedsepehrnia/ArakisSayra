@@ -1,0 +1,479 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-02 11:13+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: blog/templates/blog/blog-post.html:11
+msgid "آخرین اخبار ما را مطالعه کنید"
+msgstr "Read our latest news"
+
+#: blog/templates/blog/blog-post.html:15 core/templates/404.html:10
+#: core/templates/404.html:34 core/templates/core/about-us.html:14
+#: core/templates/core/base.html:142 core/templates/core/sitemap.html:18
+#: core/templates/core/sitemap.html:47
+#: products/templates/products/single-product.html:14
+msgid "خانه"
+msgstr "Home"
+
+#: blog/templates/blog/blog-post.html:16 core/templates/core/base.html:177
+msgid "بلاگ"
+msgstr "Blog"
+
+#: blog/templates/blog/blog-post.html:44
+msgid "توسط"
+msgstr "By"
+
+#: blog/templates/blog/blog.html:30
+#, fuzzy
+#| msgid "دسته ها"
+msgid "دسته‌بندی ها"
+msgstr "Categories"
+
+#: core/templates/404.html:11 core/templates/core/about-us.html:15
+msgid "صفحات"
+msgstr "Pages"
+
+#: core/templates/404.html:17
+msgid "404 - صفحه یافت نشد"
+msgstr "404 - Page Not Found"
+
+#: core/templates/404.html:27
+msgid "404!"
+msgstr "404!"
+
+#: core/templates/404.html:28
+msgid "متاسفیم، صفحه ای که به دنبال آن هستید وجود ندارد."
+msgstr "Sorry, the page you are looking for does not exist."
+
+#: core/templates/404.html:32
+msgid "برخی لینک های مفید"
+msgstr "Some Useful Links"
+
+#: core/templates/404.html:35 core/templates/core/about-us.html:10
+#: core/templates/core/base.html:182 core/templates/core/sitemap.html:57
+msgid "درباره ما"
+msgstr "About us"
+
+#: core/templates/404.html:36
+msgid "سوالات متداول"
+msgstr "FAQ"
+
+#: core/templates/404.html:37 core/templates/core/base.html:266
+#: core/templates/core/sitemap.html:5 core/templates/core/sitemap.html:13
+#: core/templates/core/sitemap.html:19
+msgid "نقشه سایت"
+msgstr "site map"
+
+#: core/templates/404.html:38 core/templates/core/base.html:188
+#: core/templates/core/base.html:248 core/templates/core/base.html:269
+#: core/templates/core/contact-us.html:17 core/templates/core/sitemap.html:68
+msgid "تماس با ما"
+msgstr "Contact us"
+
+#: core/templates/core/about-us.html:29
+msgid "راهی جدید برای"
+msgstr "A new way to"
+
+#: core/templates/core/about-us.html:31
+msgid "موفقیت"
+msgstr "Success"
+
+#: core/templates/core/about-us.html:32
+msgid "نوآوری"
+msgstr "Innovation"
+
+#: core/templates/core/about-us.html:33
+msgid "پیشرفت"
+msgstr "Progress"
+
+#: core/templates/core/about-us.html:45
+msgid ""
+"در دنیای پرشتاب امروز، کیفیت، نوآوری و مسئولیت‌پذیری، کلید موفقیت پایدار "
+"هستند. ما با تکیه بر دانش روز و احترام به محیط زیست، گامی فراتر از "
+"استانداردهای رایج برداشته‌ایم تا راه‌حل‌هایی مطمئن، سازگار و هوشمندانه برای "
+"نیازهای امروز و فردای جامعه ارائه دهیم."
+msgstr ""
+"In today's fast-paced world, quality, innovation, and responsibility are the "
+"keys to sustainable success. Relying on current knowledge and respect for "
+"the environment, we have taken a step beyond common standards to provide "
+"reliable, compatible, and intelligent solutions for today's and tomorrow's "
+"societal needs."
+
+#: core/templates/core/about-us.html:109
+msgid "معرفی ما"
+msgstr "About Us"
+
+#: core/templates/core/base.html:11
+msgid "آراکیس سایرا"
+msgstr "Arakis Sayra"
+
+#: core/templates/core/base.html:149 core/templates/core/sitemap.html:83
+#: core/templates/core/sitemap.html:120
+#: products/templates/products/single-product.html:17
+msgid "محصولات"
+msgstr "products"
+
+#: core/templates/core/base.html:172 core/templates/core/sitemap.html:163
+msgid "اخبار"
+msgstr "News"
+
+#: core/templates/core/base.html:232
+#, fuzzy
+#| msgid "تماس با ما"
+msgid "در ارتباط باشید"
+msgstr "Contact us"
+
+#: core/templates/core/base.html:244
+msgid "مشاهده بیشتر"
+msgstr "View More"
+
+#: core/templates/core/base.html:282
+msgid "شرکت ماهان سپهر اصفهان"
+msgstr "Mahan Sepehr Isfahan Company"
+
+#: core/templates/core/base.html:282
+msgid "تمامی حقوق محفوظ است."
+msgstr "All rights reserved."
+
+#: core/templates/core/base.html:284
+msgid "طراحی و توسعه"
+msgstr "Designed and Developed by"
+
+#: core/templates/core/base.html:284
+msgid "حامد سپهرنیا"
+msgstr "Hamed Sepehrnia"
+
+#: core/templates/core/contact-us.html:22
+msgid ""
+"اگر سوال، پیشنهاد یا نیاز به پشتیبانی دارید، لطفاً از طریق فرم زیر با ما در "
+"تماس باشید. تیم ما در کوتاه‌ترین زمان ممکن پاسخگوی شما خواهد بود."
+msgstr ""
+"If you have any questions, suggestions, or need support, please contact us "
+"using the form below. Our team will get back to you as soon as possible."
+
+#: core/templates/core/contact-us.html:29
+msgid "خطا!"
+msgstr "Error!"
+
+#: core/templates/core/contact-us.html:29
+msgid "خطایی در ارسال پیام شما پیش آمد."
+msgstr "An error occurred while sending your message."
+
+#: core/templates/core/contact-us.html:43
+#, fuzzy
+#| msgid "موفقیت"
+msgid "موفقیت!"
+msgstr "Success"
+
+#: core/templates/core/contact-us.html:43
+msgid "پیام شما به ما ارسال شد."
+msgstr "your message has been sent to us"
+
+#: core/templates/core/contact-us.html:49
+msgid "نام کامل"
+msgstr "full name"
+
+#: core/templates/core/contact-us.html:53
+msgid "آدرس ایمیل"
+msgstr "email adress"
+
+#: core/templates/core/contact-us.html:60
+msgid "موضوع"
+msgstr "subject"
+
+#: core/templates/core/contact-us.html:67
+msgid "پیام"
+msgstr "message"
+
+#: core/templates/core/contact-us.html:75
+msgid "ارسال پیام"
+msgstr "send"
+
+#: core/templates/core/contact-us.html:83
+msgid "دفتر ما"
+msgstr "Our office"
+
+#: core/templates/core/contact-us.html:86
+msgid "آدرس:"
+msgstr "address: "
+
+#: core/templates/core/contact-us.html:92
+msgid "تلفن:"
+msgstr ""
+
+#: core/templates/core/contact-us.html:102
+msgid "تلفن ۱:"
+msgstr "1st telephone: "
+
+#: core/templates/core/contact-us.html:106
+msgid "تلفن ۲:"
+msgstr "2nd telephone: "
+
+#: core/templates/core/contact-us.html:110
+msgid "تلفن ۳:"
+msgstr "3rd telephone: "
+
+#: core/templates/core/contact-us.html:114
+msgid "ایمیل:"
+msgstr "email: "
+
+#: core/templates/core/contact-us.html:117
+msgid "پیج اینستاگرام:"
+msgstr "instagram: "
+
+#: core/templates/core/contact-us.html:122
+msgid "ساعات کاری"
+msgstr "business hours"
+
+#: core/templates/core/index-corporate-3.html:44
+#: core/templates/core/index.html:44
+msgid "پاکیزگی، امضای ماست"
+msgstr "Cleanliness is our signature"
+
+#: core/templates/core/index-corporate-3.html:45
+#: core/templates/core/index.html:45
+msgid ""
+"هر محصول ما با استانداردهای جهانی پاکیزگی، ایمنی و اصالت تولید شده؛ برای "
+"خانه‌هایی که ارزش واقعی را در جزئیات می‌جویند."
+msgstr ""
+"Each of our products is crafted with global standards of cleanliness, "
+"safety, and authenticity—for homes that seek true value in the details."
+
+#: core/templates/core/index-corporate-3.html:67
+#: core/templates/core/index.html:67
+msgid "علم در خدمت سلامت"
+msgstr "Science in the service of health"
+
+#: core/templates/core/index-corporate-3.html:68
+#: core/templates/core/index.html:68
+msgid ""
+"در اراکیس سایرا، فناوری صرفاً ابزار نیست؛ فلسفه‌ای است برای حفظ سلامت انسان، "
+"محیط‌زیست و آینده‌ای پاک‌تر."
+msgstr ""
+"At Arakis Sayra, technology is not just a tool—it is a philosophy for "
+"preserving human health, the environment, and a cleaner future."
+
+#: core/templates/core/index-corporate-3.html:86
+#: core/templates/core/index.html:86
+msgid "ما پاکی را بازآفرینی کرده‌ایم"
+msgstr "We have redefined cleanliness"
+
+#: core/templates/core/index-corporate-3.html:87
+#: core/templates/core/index.html:87
+msgid ""
+"آنچه می‌سازیم فراتر از تمیزی است؛ بازآفرینی پاکی‌ست برای زمینی که سزاوار عشق، "
+"احترام و مسئولیت‌پذیری است."
+msgstr ""
+"What we build goes beyond cleanliness; it's a reinvention of purity for a "
+"planet that deserves love, respect, and responsibility."
+
+#: core/templates/core/index-corporate-3.html:100
+#: core/templates/core/index.html:100
+msgid "ما چه کسی هستیم"
+msgstr "Who are we"
+
+#: core/templates/core/index-corporate-3.html:103
+#: core/templates/core/index.html:103
+msgid "آشنایی بیشتر"
+msgstr "Learn More"
+
+#: core/templates/core/index-corporate-3.html:126
+#: core/templates/core/index.html:126
+msgid "آخرین مطالب"
+msgstr "Latest Posts"
+
+#: core/templates/core/index-corporate-3.html:160
+#: core/templates/core/index.html:160
+msgid "بیشتر بخوانید"
+msgstr "Read More"
+
+#: core/templates/core/index-corporate-3.html:168
+#: core/templates/core/index.html:168
+msgid "هیچ مطلبی یافت نشد."
+msgstr "No posts found."
+
+#: core/templates/core/sitemap.html:14
+#, fuzzy
+#| msgid "تمامی حقوق محفوظ است."
+msgid "تمام صفحات و محتوای سایت"
+msgstr "All rights reserved."
+
+#: core/templates/core/sitemap.html:36
+#, fuzzy
+#| msgid "صفحات"
+msgid "صفحات اصلی"
+msgstr "Pages"
+
+#: core/templates/core/sitemap.html:46
+msgid "صفحه اصلی"
+msgstr ""
+
+#: core/templates/core/sitemap.html:58
+#, fuzzy
+#| msgid "اطلاعات بیشتر"
+msgid "اطلاعات شرکت"
+msgstr "More info"
+
+#: core/templates/core/sitemap.html:69
+#, fuzzy
+#| msgid "تماس با ما"
+msgid "ارتباط با ما"
+msgstr "Contact us"
+
+#: core/templates/core/sitemap.html:93
+#, fuzzy
+#| msgid "محصولات"
+msgid "تمام محصولات"
+msgstr "products"
+
+#: core/templates/core/sitemap.html:94
+#, fuzzy
+#| msgid "محصولات"
+msgid "محصول"
+msgstr "products"
+
+#: core/templates/core/sitemap.html:103
+#, fuzzy
+#| msgid "دسته ها"
+msgid "دسته‌بندی محصولات"
+msgstr "Categories"
+
+#: core/templates/core/sitemap.html:142
+#, fuzzy
+#| msgid "اخبار"
+msgid "بلاگ و اخبار"
+msgstr "News"
+
+#: core/templates/core/sitemap.html:152
+msgid "مقالات"
+msgstr ""
+
+#: core/templates/core/sitemap.html:153
+msgid "مقاله"
+msgstr ""
+
+#: core/templates/core/sitemap.html:164
+#, fuzzy
+#| msgid "اخبار"
+msgid "خبر"
+msgstr "News"
+
+#: core/templates/core/sitemap.html:173
+#, fuzzy
+#| msgid "دسته ها"
+msgid "دسته‌بندی مقالات"
+msgstr "Categories"
+
+#: core/templates/core/sitemap.html:190
+#, fuzzy
+#| msgid "آخرین مطالب"
+msgid "آخرین مقالات"
+msgstr "Latest Posts"
+
+#: core/templates/core/sitemap.html:207
+#, fuzzy
+#| msgid "آخرین مطالب"
+msgid "آخرین اخبار"
+msgstr "Latest Posts"
+
+#: core/templates/core/sitemap.html:229
+#, fuzzy
+#| msgid "نقشه سایت"
+msgid "نقشه سایت XML"
+msgstr "site map"
+
+#: core/templates/core/sitemap.html:233
+msgid "برای موتورهای جستجو، نقشه سایت XML در دسترس است:"
+msgstr ""
+
+#: core/templates/core/sitemap.html:236
+#, fuzzy
+#| msgid "نقشه سایت"
+msgid "دانلود نقشه سایت XML"
+msgstr "site map"
+
+#: products/templates/products/products.html:51
+#, fuzzy
+#| msgid "دسته ها"
+msgid "دسته بندی ها: "
+msgstr "Categories: "
+
+#: products/templates/products/products_left.html:77
+msgid "فارسی"
+msgstr "Farsi"
+
+#: products/templates/products/products_left.html:81
+msgid "انگلیسی"
+msgstr "English"
+
+#: products/templates/products/products_left.html:82
+msgid "اسپانیایی"
+msgstr ""
+
+#: products/templates/products/products_left.html:83
+msgid "فرانسوی"
+msgstr ""
+
+#: products/templates/products/products_left.html:109
+msgid "برای ما یک ایمیل ارسال کنید"
+msgstr "Email us"
+
+#: products/templates/products/products_left.html:115
+msgid "هم اکنون تماس بگیرید"
+msgstr "Call us now"
+
+#: products/templates/products/products_left.html:1096
+#: products/templates/products/products_left.html:1343
+msgid "دوربین عکاسی"
+msgstr "Camera"
+
+#: products/templates/products/products_left.html:1099
+#: products/templates/products/products_left.html:1345
+msgid "299,000 تومان"
+msgstr "299,000 Tomans"
+
+#: products/templates/products/products_left.html:1332
+#, fuzzy
+#| msgid "محصولات"
+msgid "محصولات ویژه"
+msgstr "Products"
+
+#: products/templates/products/single-product.html:89
+msgid "توضیحات"
+msgstr "Description"
+
+#: products/templates/products/single-product.html:92
+msgid "اطلاعات بیشتر"
+msgstr "More info"
+
+#: products/templates/products/single-product.html:104
+msgid "اندازه "
+msgstr "Size"
+
+#: products/templates/products/single-product.html:112
+msgid "نوع ظرف"
+msgstr "Type of container"
+
+#: products/templates/products/single-product.html:120
+msgid "سایر خصوصیات"
+msgstr "Other info"
+
+#, fuzzy
+#~| msgid "دسته ها"
+#~ msgid "دسته‌بندی‌ها"
+#~ msgstr "Categories"

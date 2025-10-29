@@ -1,0 +1,138 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    <div class="main" role="main">
+        <!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
+
+        <div id="map" style="height: 450px; width: 1500px"></div>
+
+
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-lg-6">
+                    <div class="overflow-hidden mb-1">
+                        <h2 class="font-weight-normal text-7 mt-2 mb-0 appear-animation" data-appear-animation="maskUp"
+    data-appear-animation-delay="200">
+    <strong class="font-weight-extra-bold">{% trans 'تماس با ما' %}</strong>
+</h2>
+                    </div>
+                    <div class="overflow-hidden mb-4 pb-3">
+                        <p class="mb-0 appear-animation" data-appear-animation="maskUp"
+                           data-appear-animation-delay="400">{% trans "اگر سوال، پیشنهاد یا نیاز به پشتیبانی دارید، لطفاً از طریق فرم زیر با ما در تماس باشید. تیم ما در کوتاه‌ترین زمان ممکن پاسخگوی شما خواهد بود." %}</p>
+                    </div>
+                    <form action="" method="POST" class="contact-form mb-5 mb-lg-0">
+                        {% csrf_token %}
+
+                        {% if form.errors %}
+                            <div class="contact-form-error alert alert-danger mt-4">
+                                <strong>{% trans "خطا!" %}</strong> {% trans "خطایی در ارسال پیام شما پیش آمد." %}
+                                <ul>
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% elif request.GET.success %}
+                            <div class="contact-form-success alert alert-success mt-4">
+                                <strong>{% trans "موفقیت!" %}</strong> {% trans "پیام شما به ما ارسال شد." %}
+                            </div>
+                        {% endif %}
+
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label class="required font-weight-bold text-dark text-2">{% trans "نام کامل" %}</label>
+                                {{ form.fullname }}
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label class="required font-weight-bold text-dark text-2">{% trans "آدرس ایمیل" %}</label>
+                                {{ form.email }}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label class="font-weight-bold text-dark text-2">{% trans "موضوع" %}</label>
+                                {{ form.subject }}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label class="required font-weight-bold text-dark text-2">{% trans "پیام" %}</label>
+                                {{ form.message }}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <input class="btn btn-primary btn-modern" type="submit"
+                                       value="{% trans 'ارسال پیام' %}"/>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="800">
+                        <h4 class="mt-2 mb-1">{% trans "دفتر ما" %}</h4>
+                        <ul class="list list-icons list-icons-style-2 mt-2">
+                            <li class="line-height-9"><i class="fas fa-map-marker-alt top-6"></i> <strong
+                                    class="text-dark">{% trans 'آدرس:' %}</strong>
+                                <span
+                                        class="rtl-text">{{ address }}
+                                    </span>
+                            </li>
+                            <!--<li class="line-height-9"><i class="fas fa-phone top-6"></i> <strong-->
+                            <!--        class="text-dark">{% trans 'تلفن:' %}</strong> <span-->
+                            <!--        class="rtr-text">{{ phone_number3 }}</span>-->
+                            <!--    <span-->
+                            <!--            class="rtr-text">{{ phone_number2 }}</span>-->
+                            <!--    <span-->
+                            <!--            class="rtr-text">{{ phone_number1 }}</span>-->
+
+
+                            <!--</li>-->
+                            <li class="line-height-9"><i class="fas fa-phone top-6"></i> <strong
+                                    class="text-dark">{% trans 'تلفن ۱:' %}</strong> <span
+                                    class="rtr-text">{{ phone_number1 }}</span>
+                            </li>
+                            <li class="line-height-9"><i class="fas fa-phone top-6"></i> <strong
+                                    class="text-dark">{% trans 'تلفن ۲:' %}</strong> <span
+                                    class="rtr-text">{{ phone_number2 }}</span>
+                            </li>
+                            <li class="line-height-9"><i class="fas fa-phone top-6"></i> <strong
+                                    class="text-dark">{% trans 'تلفن ۳:' %}</strong> <span
+                                    class="rtr-text">{{ phone_number3 }}</span>
+                            </li>
+                            <li class="line-height-9"><i class="fas fa-envelope top-6"></i> <strong
+                                    class="text-dark">{% trans 'ایمیل:' %}</strong>
+                                <a href="{{ email }}">{{ email }}</a></li>
+                                <li class="line-height-9"><i class="fas fa-envelope top-6"></i> <strong
+                                    class="text-dark">{% trans "پیج اینستاگرام:" %}</strong>
+                                <a href="https://www.instagram.com/{{ instagram_page }}" target='_blank' rel="nooper">{{ instagram_page }}</a></li>
+                        </ul>
+                    </div>
+                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="950">
+                        <h4 class="pt-5"> {% trans 'ساعات کاری' %}</h4>
+                        <ul class="list list-icons list-dark mt-2">
+                            <li><i class="far fa-clock top-6"></i> {{ work_hour1 }}</li>
+                            <li><i class="far fa-clock top-6"></i> {{ work_hour2 }}</li>
+                            <li><i class="far fa-clock top-6"></i>{{ work_hour3 }}</li>
+                        </ul>
+                    </div>
+{#                    <h4 class="pt-5"> {% trans "ارتباط با ما" %}</h4>#}
+{#                    <h4> {% trans "ارتباط با ما" %}</h4>#}
+{#                    <p class="lead mb-0 text-1rem">{{ about_text }}</p>#}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

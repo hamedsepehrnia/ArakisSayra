@@ -1,0 +1,228 @@
+{% extends 'core/base.html' %}
+
+{% load i18n %}
+{% block content %}
+    {% load static %}
+    <div class="main shop pt-4" role="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="row mb-4">
+                <div class="col">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-light p-3 rounded">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'index' %}">{% trans 'خانه' %}</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'all_products' %}">{% trans 'محصولات' %}</a>
+                            </li>
+                            {% for category in breadcrumb %}
+                                {% if forloop.last %}
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ category.name }}
+                                    </li>
+                                {% else %}
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'products_category' full_path=category.get_full_slug %}">
+                                            {{ category.name }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" dir="rtl">
+                        <div class="carousel-inner">
+{#                            {% for image in product.images.all %}#}
+{#                                <div class="carousel-item {% if forloop.first %}active{% endif %}">#}
+{#                                    <img src="{{ image.url }}" class="d-block w-100 img-fluid"#}
+{#                                         alt="{{ product.title }}">#}
+{#                                </div>#}
+{#                            {% endfor %}#}
+{#                            {% if not product.images.all %}#}
+                                <div class="carousel-item active">
+                                    <img src="{% if product.image %}{{ product.image.url }}{% else %}https://placehold.co/600x400?text=No+Image{% endif %}"
+                                         class="d-block w-100 img-fluid" alt="Default Product Image">
+                                </div>
+{#                            {% endif %}#}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="summary entry-summary">
+                        <h1 class="mb-2 font-weight-bold text-7">{{ product.title }}</h1>
+                        <div class="py-1 clearfix">
+                            <div class="float-left" title="Rated 3 out of 5">
+                                <input class="d-none"
+                                       data-plugin-options="{'displayOnly': true, 'color': 'primary', 'size':'xs', 'language':'fa'}"
+                                       data-plugin-star-rating="" data-rtl="true" title="" type="text" value="3"/>
+                            </div>
+                        </div>
+                        <p class="mb-4">{{ product.short_description }}</p>
+
+                        <div class="product-meta">
+                            {#                                                        <span class="posted-in">{% trans 'دسته ها' %}:#}
+                            {#                            {% for category in breadcrumb %}#}
+                            {#                                {% if forloop.last %}#}
+                            {#                                    <span class="text-muted">{{ category.name }}</span>#}
+                            {#                                {% else %}#}
+                            {#                                    <a href="{% url 'products_category' full_path=category.get_full_slug %}"#}
+                            {#                                       rel="tag">{{ category.name }}</a>#}
+                            {#                                    {% if not forloop.last %} > {% endif %}#}
+                            {#                                {% endif %}#}
+                            {#                            {% endfor %}#}
+                            {#                            </span>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="tabs tabs-product mb-2">
+                        <ul class="nav nav-tabs d-block d-sm-flex">
+                            <li class="nav-item active"><a class="nav-link py-3 px-4" data-toggle="tab"
+                                                           href="#productDescription">{% trans "توضیحات" %}</a></li>
+                            <li class="nav-item"><a class="nav-link py-3 px-4" data-toggle="tab" href="#productInfo">
+{#                                {% trans 'اطلاعات تکمیلی ' %}#}
+                                {% trans "اطلاعات بیشتر" %}
+                            </a></li>
+                        </ul>
+                        <div class="tab-content p-0">
+                            <div class="tab-pane p-4 active" id="productDescription">
+                                <p>{{ product.description }}</p>
+                            </div>
+                            <div class="tab-pane p-4" id="productInfo">
+                                <table class="table m-0">
+                                    <tbody>
+                                    <tr>
+                                        <th class="border-top-0">
+                                            {% trans 'اندازه ' %}
+                                        </th>
+                                        <td class="border-top-0">
+                                            {{ product.size }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {%trans 'نوع ظرف' %}
+                                        </th>
+                                        <td>
+                                            {{ product.container_type }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {% trans 'سایر خصوصیات' %}
+                                        </th>
+                                        <td>
+                                            {{ product.attributes }}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#            <div class="row">#}
+        {#                <div class="col">#}
+        {#                    <hr class="solid my-5"/>#}
+        {#                    <h4 class="mb-4"><strong>محصولات</strong> مرتبط</h4>#}
+        {#                    <div class="masonry-loader masonry-loader-showing">#}
+        {#                        <div class="row products product-thumb-info-list mt-3" data-plugin-masonry=""#}
+        {#                             data-plugin-options="{'layoutMode': 'fitRows'}">#}
+        {#                            <div class="col-12 col-sm-6 col-lg-3 product">#}
+        {#<span class="product-thumb-info border-0">#}
+        {#<a class="add-to-cart-product bg-color-primary" href="shop-cart.html">#}
+        {#<span class="text-1">افزودن به سبد</span>#}
+        {#</a>#}
+        {#<a href="shop-product-sidebar-right.html">#}
+        {#<span class="product-thumb-info-image">#}
+        {#<img alt="" class="img-fluid" src='{% static "img/products/product-grey-1.jpg" %}'/>#}
+        {#</span>#}
+        {#</a>#}
+        {#<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">#}
+        {#<a href="shop-product-sidebar-right.html">#}
+        {#<h4 class="text-4 text-primary">دوربین عکاسی</h4>#}
+        {#<span class="price">#}
+        {#<del><span class="amount">325,000 تومان</span></del>#}
+        {#<ins><span class="amount text-dark font-weight-semibold">299,000 تومان</span></ins>#}
+        {#</span>#}
+        {#</a>#}
+        {#</span>#}
+        {#</span>#}
+        {#                            </div>#}
+        {#                            <div class="col-12 col-sm-6 col-lg-3 product">#}
+        {#<span class="product-thumb-info border-0">#}
+        {#<a class="add-to-cart-product bg-color-primary" href="shop-cart.html">#}
+        {#<span class="text-1">افزودن به سبد</span>#}
+        {#</a>#}
+        {#<a href="shop-product-sidebar-right.html">#}
+        {#<span class="product-thumb-info-image">#}
+        {#<img alt="" class="img-fluid" src='{% static "img/products/product-grey-2.jpg" %}'/>#}
+        {#</span>#}
+        {#</a>#}
+        {#<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">#}
+        {#<a href="shop-product-sidebar-right.html">#}
+        {#<h4 class="text-4 text-primary">کیف گلف</h4>#}
+        {#<span class="price">#}
+        {#<span class="amount text-dark font-weight-semibold">72,000 تومان</span>#}
+        {#</span>#}
+        {#</a>#}
+        {#</span>#}
+        {#</span>#}
+        {#                            </div>#}
+        {#                            <div class="col-12 col-sm-6 col-lg-3 product">#}
+        {#<span class="product-thumb-info border-0">#}
+        {#<a class="add-to-cart-product bg-color-primary" href="shop-cart.html">#}
+        {#<span class="text-1">افزودن به سبد</span>#}
+        {#</a>#}
+        {#<a href="shop-product-sidebar-right.html">#}
+        {#<span class="product-thumb-info-image">#}
+        {#<img alt="" class="img-fluid" src='{% static "img/products/product-grey-3.jpg" %}'/>#}
+        {#</span>#}
+        {#</a>#}
+        {#<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">#}
+        {#<a href="shop-product-sidebar-right.html">#}
+        {#<h4 class="text-4 text-primary">لوازم ورزشی</h4>#}
+        {#<span class="price">#}
+        {#<span class="amount text-dark font-weight-semibold">60,000 تومان</span>#}
+        {#</span>#}
+        {#</a>#}
+        {#</span>#}
+        {#</span>#}
+        {#                            </div>#}
+        {#                            <div class="col-12 col-sm-6 col-lg-3 product">#}
+        {#<span class="product-thumb-info border-0">#}
+        {#<a class="add-to-cart-product bg-color-primary" href="shop-cart.html">#}
+        {#<span class="text-1">افزودن به سبد</span>#}
+        {#</a>#}
+        {#<a href="shop-product-sidebar-right.html">#}
+        {#<span class="product-thumb-info-image">#}
+        {#<img alt="" class="img-fluid" src='{% static "img/products/product-grey-4.jpg" %}'/>#}
+        {#</span>#}
+        {#</a>#}
+        {#<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">#}
+        {#<a href="shop-product-sidebar-right.html">#}
+        {#<h4 class="text-4 text-primary">کیف لوکس</h4>#}
+        {#<span class="price">#}
+        {#<span class="amount text-dark font-weight-semibold">199,000 تومان</span>#}
+        {#</span>#}
+        {#</a>#}
+        {#</span>#}
+        {#</span>#}
+        {#                            </div>#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            </div>#}
+    </div>
+    </div>
+{% endblock %}

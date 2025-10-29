@@ -1,0 +1,175 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    <div class="main" role="main">
+        <div class="slider-container light rev_slider_wrapper" style="height: 650px;">
+            <div class="slider rev_slider"
+                 data-plugin-options="{'delay': 9000, 'gridwidth': 1170, 'gridheight': 650, 'disableProgressBar': 'on', 'responsiveLevels': [4096,1200,992,500], 'navigation' : {'arrows': { 'enable': true, 'style': 'arrows-style-1 arrows-big arrows-dark' }, 'bullets': {'enable': false, 'style': 'bullets-style-1 bullets-color-primary', 'h_align': 'center', 'v_align': 'bottom', 'space': 7, 'v_offset': 70, 'h_offset': 0}}}"
+                 data-plugin-revolution-slider="" data-version="5.4.8" id="revolutionSlider">
+                <ul>
+                    {% for banner in banners %}
+                        <li data-transition="fade"
+                            data-link="{{ banner.url }}"
+                            data-target="_blank"
+                            data-slideindex="{{ forloop.counter }}">
+
+                            <img alt="" class="rev-slidebg"
+                                 data-bgfit="cover"
+                                 data-bgposition="center center"
+                                 data-bgrepeat="no-repeat"
+                                 src="{{ banner.image.url }}"/>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <section class="section bg-color-light border-0 m-0">
+            <div class="container">
+                <div class="row text-center text-md-left mt-4">
+                    <div class="col-md-4 mb-5 mb-md-0 appear-animation" data-appear-animation="fadeInLeftShorter"
+                         data-appear-animation-delay="200">
+                        <div class="row justify-content-center justify-content-md-start">
+                            <div class="col-4">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="img-fluid mb-4" color="#009345">
+                                    <path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"/>
+                                    <path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"/>
+                                    <path d="M5 21h14"/>
+                                </svg>
+                            </div>
+                            <div class="col-lg-8">
+                                <h2 class="font-weight-bold text-5 line-height-8 mb-1">{% trans "پاکیزگی، امضای ماست" %}</h2>
+                                <p class="mb-0">{% trans "هر محصول ما با استانداردهای جهانی پاکیزگی، ایمنی و اصالت تولید شده؛ برای خانه‌هایی که ارزش واقعی را در جزئیات می‌جویند." %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5 mb-md-0 appear-animation" data-appear-animation="fadeIn">
+                        <div class="row justify-content-center justify-content-md-start">
+                            <div class="col-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     class="img-fluid mb-4"
+                                     color="#009345">
+                                    <path d="M6 18h8"/>
+                                    <path d="M3 22h18"/>
+                                    <path d="M14 22a7 7 0 1 0 0-14h-1"/>
+                                    <path d="M9 14h2"/>
+                                    <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/>
+                                    <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>
+                                </svg>
+                            </div>
+                            <div class="col-lg-8">
+                                <h2 class="font-weight-bold text-5 line-height-8 mb-1">{% trans "علم در خدمت سلامت" %}</h2>
+                                <p class="mb-0">{% trans "در اراکیس سایرا، فناوری صرفاً ابزار نیست؛ فلسفه‌ای است برای حفظ سلامت انسان، محیط‌زیست و آینده‌ای پاک‌تر." %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 appear-animation" data-appear-animation="fadeInRightShorter"
+                         data-appear-animation-delay="200">
+                        <div class="row justify-content-center justify-content-md-start">
+                            <div class="col-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="img-fluid mb-4" color="#009345">
+                                    <path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/>
+                                    <path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/>
+                                    <path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/>
+                                    <circle cx="12" cy="12" r="10"/>
+                                </svg>
+                            </div>
+                            <div class="col-lg-8">
+                                <h2 class="font-weight-bold text-5 line-height-8 mb-1">{% trans "ما پاکی را بازآفرینی کرده‌ایم" %}</h2>
+                                <p class="mb-0">{% trans "آنچه می‌سازیم فراتر از تمیزی است؛ بازآفرینی پاکی‌ست برای زمینی که سزاوار عشق، احترام و مسئولیت‌پذیری است." %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <section class="section section-height-3 bg-color-grey-scale-1 m-0 border-0">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-lg-6 pb-4 pb-lg-0 pr-lg-5 mb-sm-5 mb-lg-0">
+                        <h2 class="text-color-dark font-weight-normal text-6 mb-2"><strong
+                                class="font-weight-extra-bold">{% trans 'ما چه کسی هستیم' %}</strong> </h2>
+                        <p class="lead">{{ about_text|slice:":200" }}...</p>
+                        <a class="btn btn-dark font-weight-semibold btn-px-4 btn-py-2 text-2"
+                           href="{% url 'about' %}">{% trans 'آشنایی بیشتر' %}</a>
+                    </div>
+                    <div class="col-sm-8 col-md-6 col-lg-4 offset-sm-4 offset-md-4 offset-lg-2 mt-sm-5"
+                         style="top: 1.7rem;">
+                        <img alt="" class="img-fluid position-absolute d-none d-sm-block appear-animation"
+                             data-appear-animation="expandIn" data-appear-animation-delay="300"
+                             src='{% static "img/generic/generic-corporate-3-1.jpg" %}' style="top: 10%; right: -50%;"/>
+                        <img alt="" class="img-fluid position-absolute d-none d-sm-block appear-animation"
+                             data-appear-animation="expandIn" src='{% static "img/generic/generic-corporate-3-2.jpg" %}'
+                             style="top: -33%; right: -29%;"/>
+                        <img alt="" class="img-fluid position-relative appear-animation mb-2"
+                             data-appear-animation="expandIn" data-appear-animation-delay="600"
+                             src='{% static "img/generic/generic-corporate-3-3.jpg" %}'/>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section-height-3 bg-primary border-0 m-0 appear-animation"
+                 data-appear-animation="fadeIn">
+            <div class="container">
+                <div class="row">
+                    <div class="col appear-animation" data-appear-animation="fadeInUpShorter"
+                         data-appear-animation-delay="200">
+                        <h2 class="font-weight-bold text-color-light text-6 pb-1">{% trans 'آخرین مطالب' %}</h2>
+                    </div>
+                </div>
+                <div class="row recent-posts appear-animation" data-appear-animation="fadeInUpShorter"
+                     data-appear-animation-delay="200">
+                    {% for post in latest_posts %}
+                        <div class="col-md-6 col-lg-3 {% if forloop.counter == 1 %}mb-5 mb-lg-0{% elif forloop.counter == 2 %}mb-5 mb-lg-0{% elif forloop.counter == 3 %}mb-5 mb-md-0{% endif %}">
+                            <article>
+                                <div class="row">
+                                    <div class="col">
+                                        <a class="text-decoration-none" href="{% url 'post_detail' post.slug %}">
+                                            {% if post.image %}
+                                                <img alt="{{ post.title }}" class="img-fluid hover-effect-2 mb-3"
+                                                     src="{{ post.image.url }}"/>
+                                            {% else %}
+                                                <img alt="{{ post.title }}" class="img-fluid hover-effect-2 mb-3"
+                                                     src='{% static "img/blog/blog-corporate-3-1.jpg" %}'/>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-auto pr-0">
+                                        <div class="date">
+                                            <span class="day bg-color-light text-color-dark font-weight-extra-bold">{{ post.created_date.day }}</span>
+                                            <span class="month bg-color-light font-weight-semibold text-color-primary text-1 top-1">{{ post.month_name }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col pl-1">
+                                        <h4 class="line-height-8 text-4 primary-font mt-n1"><a class="text-light"
+                                                                                               href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a>
+                                        </h4>
+                                        <p class="text-color-light opacity-6 pr-4 mb-1">{{ post.content|truncatewords:15 }}</p>
+                                        <a class="read-more text-color-light font-weight-semibold text-2 mt-1"
+                                           href="{% url 'post_detail' post.slug %}">{% trans 'بیشتر بخوانید' %} <i
+                                                class="fas fa-chevron-left text-1 ml-1"></i></a>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    {% empty %}
+                        <div class="col-12 text-center">
+                            <p class="text-color-light">{% trans 'هیچ مطلبی یافت نشد.' %}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

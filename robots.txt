@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://arakissayra.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /static/admin/
+Disallow: /media/admin/
+
+# Allow important directories
+Allow: /static/
+Allow: /media/
+Allow: /blog/
+Allow: /products/
+Allow: /about
+Allow: /contact 

@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="main" role="main">
+    <section class="page-header page-header-classic">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <ul class="breadcrumb">
+                        <li><a href="{% url 'index' %}">{% trans "خانه" %}</a></li>
+                        <li class="active">{% trans "صفحات" %}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col p-static mt-1 mb-n1">
+                    <h1 data-title-border="">{% trans "404 - صفحه یافت نشد" %}</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <section class="http-error">
+            <div class="row justify-content-center py-3">
+                <div class="col-md-7 text-center">
+                    <div class="http-error-main">
+                        <h2>{% trans "404!" %}</h2>
+                        <p>{% trans "متاسفیم، صفحه ای که به دنبال آن هستید وجود ندارد." %}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-4 mt-md-0">
+                    <h4 class="text-primary">{% trans "برخی لینک های مفید" %}</h4>
+                    <ul class="nav nav-list flex-column">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">{% trans "خانه" %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">{% trans "درباره ما" %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">{% trans "سوالات متداول" %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">{% trans "نقشه سایت" %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">{% trans "تماس با ما" %}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

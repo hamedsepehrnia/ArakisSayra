@@ -1,0 +1,244 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "نقشه سایت" %} - {{ site_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header page-header-modern page-header-background page-header-background-sm overlay overlay-color-dark overlay-show overlay-op-7" style="background-image: url({% static 'img/page-header/page-header-1.jpg' %});">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 align-self-center p-static order-2 text-center">
+                <h1 class="text-light font-weight-bold text-8">{% trans "نقشه سایت" %}</h1>
+                <span class="sub-title text-light opacity-7">{% trans "تمام صفحات و محتوای سایت" %}</span>
+            </div>
+            <div class="col-md-12 align-self-center order-1">
+                <ul class="breadcrumb d-block text-center">
+                    <li><a href="{% url 'index' %}">{% trans "خانه" %}</a></li>
+                    <li class="active">{% trans "نقشه سایت" %}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-12">
+            
+            <!-- Static Pages -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-home text-primary me-2"></i>
+                        {% trans "صفحات اصلی" %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'index' %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-3 border rounded">
+                                    <i class="fas fa-home text-primary me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">{% trans "صفحه اصلی" %}</h6>
+                                        <small class="text-muted">{% trans "خانه" %}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'about' %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-3 border rounded">
+                                    <i class="fas fa-info-circle text-info me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">{% trans "درباره ما" %}</h6>
+                                        <small class="text-muted">{% trans "اطلاعات شرکت" %}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'contact' %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-3 border rounded">
+                                    <i class="fas fa-envelope text-success me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">{% trans "تماس با ما" %}</h6>
+                                        <small class="text-muted">{% trans "ارتباط با ما" %}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-shopping-cart text-success me-2"></i>
+                        {% trans "محصولات" %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <a href="{% url 'all_products' %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-3 border rounded">
+                                    <i class="fas fa-boxes text-success me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">{% trans "تمام محصولات" %}</h6>
+                                        <small class="text-muted">{{ products.count }} {% trans "محصول" %}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Categories -->
+                    {% if product_categories %}
+                    <h5 class="mt-4 mb-3">{% trans "دسته‌بندی محصولات" %}</h5>
+                    <div class="row">
+                        {% for category in product_categories %}
+                        <div class="col-md-4 mb-2">
+                            <a href="{% url 'products_category' category.get_full_slug %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-2 border rounded">
+                                    <i class="fas fa-folder text-warning me-2"></i>
+                                    <span>{{ category.name }}</span>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Individual Products -->
+                    {% if products %}
+                    <h5 class="mt-4 mb-3">{% trans "محصولات" %}</h5>
+                    <div class="row">
+                        {% for product in products %}
+                        <div class="col-md-4 mb-2">
+                            <a href="{% url 'product_detail' product.slug %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-2 border rounded">
+                                    <i class="fas fa-box text-primary me-2"></i>
+                                    <span>{{ product.title }}</span>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Blog Section -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-blog text-info me-2"></i>
+                        {% trans "بلاگ و اخبار" %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <a href="{% url 'post_list' %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-3 border rounded">
+                                    <i class="fas fa-newspaper text-info me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">{% trans "مقالات" %}</h6>
+                                        <small class="text-muted">{{ posts.count }} {% trans "مقاله" %}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a href="{% url 'news' %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-3 border rounded">
+                                    <i class="fas fa-rss text-warning me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">{% trans "اخبار" %}</h6>
+                                        <small class="text-muted">{{ news.count }} {% trans "خبر" %}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Blog Categories -->
+                    {% if blog_categories %}
+                    <h5 class="mt-4 mb-3">{% trans "دسته‌بندی مقالات" %}</h5>
+                    <div class="row">
+                        {% for category in blog_categories %}
+                        <div class="col-md-4 mb-2">
+                            <a href="{% url 'category_post' category.slug %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-2 border rounded">
+                                    <i class="fas fa-tag text-info me-2"></i>
+                                    <span>{{ category.name }}</span>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Recent Posts -->
+                    {% if posts %}
+                    <h5 class="mt-4 mb-3">{% trans "آخرین مقالات" %}</h5>
+                    <div class="row">
+                        {% for post in posts|slice:":9" %}
+                        <div class="col-md-4 mb-2">
+                            <a href="{% url 'post_detail' post.slug %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-2 border rounded">
+                                    <i class="fas fa-file-alt text-primary me-2"></i>
+                                    <span>{{ post.title|truncatechars:30 }}</span>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Recent News -->
+                    {% if news %}
+                    <h5 class="mt-4 mb-3">{% trans "آخرین اخبار" %}</h5>
+                    <div class="row">
+                        {% for news_item in news|slice:":9" %}
+                        <div class="col-md-4 mb-2">
+                            <a href="{% url 'news_details' news_item.slug %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-2 border rounded">
+                                    <i class="fas fa-bullhorn text-warning me-2"></i>
+                                    <span>{{ news_item.title|truncatechars:30 }}</span>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- XML Sitemap Link -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-sitemap text-secondary me-2"></i>
+                        {% trans "نقشه سایت XML" %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p class="mb-3">{% trans "برای موتورهای جستجو، نقشه سایت XML در دسترس است:" %}</p>
+                    <a href="/sitemap.xml" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-download me-2"></i>
+                        {% trans "دانلود نقشه سایت XML" %}
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,218 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    <div class="main" role="main">
+        <section class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 align-self-center order-1">
+                        <ul class="breadcrumb d-block text-center">
+                            <li><a href="{% url 'index' %}">خانه</a></li>
+                            <li class="active">بلاگ</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-3">
+                    <aside class="sidebar mb-5 mb-lg-0 pb-2 pb-lg-0">
+{#                        <form action="page-search-results.html" method="get">#}
+{#                            <div class="input-group mb-3 pb-1">#}
+{#                                <input class="form-control text-1" id="s" name="s" placeholder="جستجو ..." type="text"/>#}
+{#                                <span class="input-group-append">#}
+{#<button class="btn btn-dark text-1 p-2" type="submit"><i class="fas fa-search m-2"></i></button>#}
+{#</span>#}
+{#                            </div>#}
+{#                        </form>#}
+                        <h5 class="font-weight-bold pt-4">{% trans 'دسته‌بندی ها' %}</h5>
+                        <ul class="nav nav-list flex-column mb-5">
+                            {% for cat in blog_categories %}
+                                <li class="nav-item"><a class="nav-link"
+                                                        href="{% url 'category_post' cat.slug %}">{{ cat.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="tabs tabs-dark mb-4 pb-2">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item active"><a class="nav-link text-1 font-weight-bold text-uppercase"
+                                                               data-toggle="tab" href="">جدید ها</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="popularPosts">
+                                    <ul class="simple-post-list">
+                                        {% for post in latest_three_posts %}
+                                            <li>
+                                                <div class="post-image">
+                                                    <div class="img-thumbnail img-thumbnail-no-borders d-block">
+                                                        <a href="{% url 'post_detail' post.slug %}">
+                                                            {% if post.image %}
+                                                                <img alt="" height="50" src="{{ post.image.url }}"
+                                                                     width="50"/>
+                                                            {% else %}
+                                                                <img alt="No Image" height="50"
+                                                                     src="/path/to/default-image.jpg" width="50"/>
+                                                            {% endif %}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="post-info">
+                                                    <a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a>
+                                                    <div class="post-meta">
+                                                        {{ post.created_date|date:"Y-m-d" }}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% empty %}
+                                            <li>No posts available.</li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" id="recentPosts">
+                                    <ul class="simple-post-list">
+                                        <li>
+                                            <div class="post-image">
+                                                <div class="img-thumbnail img-thumbnail-no-borders d-block">
+                                                    <a href="blog-post.html">
+                                                        <img alt="" height="50"
+                                                             src='{% static "img/blog/square/blog-24.jpg" %}'
+                                                             width="50"/>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="post-info">
+                                                <a href="blog-post.html">لورم ایپسوم متن ساختگی با</a>
+                                                <div class="post-meta">
+                                                    10 مرداد 1399
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="post-image">
+                                                <div class="img-thumbnail img-thumbnail-no-borders d-block">
+                                                    <a href="blog-post.html">
+                                                        <img alt="" height="50"
+                                                             src='{% static "img/blog/square/blog-42.jpg" %}'
+                                                             width="50"/>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="post-info">
+                                                <a href="blog-post.html">لورم ایپسوم متن ساختگی</a>
+                                                <div class="post-meta">
+                                                    10 مرداد 1399
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="post-image">
+                                                <div class="img-thumbnail img-thumbnail-no-borders d-block">
+                                                    <a href="blog-post.html">
+                                                        <img alt="" height="50"
+                                                             src='{% static "img/blog/square/blog-11.jpg" %}'
+                                                             width="50"/>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="post-info">
+                                                <a href="blog-post.html">لورم ایپسوم متن ساختگی با تولید</a>
+                                                <div class="post-meta">
+                                                    10 مرداد 1399
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-lg-9">
+                    <div class="blog-posts">
+                        {% for post in post_list %}
+                            <article class="post post-medium">
+                                <div class="row mb-3">
+                                    <div class="col-lg-5">
+                                        <div class="post-image">
+                                            <a href="{% url 'post_detail' post.slug %}">
+                                                {% if post.image %}
+                                                <img alt=""
+                                                     class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0"
+                                                     src="{{ post.image.url }}"/>
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="post-content">
+                                            <h2 class="font-weight-semibold pt-4 pt-lg-0 text-5 line-height-7 mb-2 pb-1">
+                                                <a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a>
+                                            </h2>
+                                            <p class="mb-0">{{ post.summary|truncatewords:50 }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="post-meta mt-1">
+                                            <span><i class="far fa-calendar-alt"></i> {{ post.jalali_date }}</span>
+                                            <span><i class="far fa-user"></i> توسط <a
+                                                    href="#">{{ post.author }}</a></span>
+                                            <span><i class="far fa-folder"></i>
+                                                {% for category in post.category.all %}
+                                                    <a href="#">{{ category.name }}</a>{% if not forloop.last %},
+                                                {% endif %}
+                                                {% endfor %}
+                </span>
+
+                                            <span class="d-block d-sm-inline-block float-sm-right mt-3 mt-sm-0">
+                    <a class="btn btn-xs btn-light text-1 text-uppercase" href="{% url 'post_detail' post.slug %}">بیشتر بخوانید</a>
+                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+
+                        <ul class="pagination float-right">
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                        <i class="fas fa-angle-right"></i>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link"><i class="fas fa-angle-right"></i></span>
+                                </li>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                        <i class="fas fa-angle-left"></i>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link"><i class="fas fa-angle-left"></i></span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

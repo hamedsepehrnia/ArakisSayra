@@ -1,0 +1,61 @@
+//COMMON IMPORTS
+@import "../config/imports";
+
+//CONFIG
+$custom-font-size-1: 2em;
+$custom-font-size-2: 3.5em;
+
+//DEMO BASE
+@import "demo-photography-base";
+
+.portfolio-grid-item,
+.portfolio-vertical-item,
+.horizontal-scroll-item,
+.portfolio-detail-image-item {
+
+	.thumb-info .thumb-info-wrapper {
+
+		.thumb-info-title {
+			padding-top: 0;
+			padding-bottom: 0;
+	
+			span {
+				margin-bottom: 15px;
+				margin-top: 6px;
+				opacity: 0;
+			}
+		}
+	}
+}
+
+.portfolio-stripes .owl-item .portfolio-item .thumb-info .thumb-info-wrapper {
+	height: calc(100vh - 81px);
+	
+	.thumb-info-title {
+		margin-bottom: -10px;
+	}
+}
+
+@media (max-width: 767px) {
+	.tp-caption-main-custom {
+		font-size: 28px !important;
+		bottom: 10px;
+		margin: 0 !important;
+	}
+
+	.tp-caption-sub-custom {
+		font-size: 18px !important;
+		top: 10px;
+	}
+}
+
+
+@media (min-width: 992px) {
+	#horizontalScrollBox {
+		height: calc( 100vh - 187px);
+	
+		.content .horizontal-scroll-item-wrapper .horizontal-scroll-item .thumb-info .thumb-info-wrapper img {
+			height: calc( 100vh - 237px);
+		}
+	}
+}

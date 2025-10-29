@@ -1,0 +1,51 @@
+__pycache__/
+*.pyc
+*.pyo
+*.zip
+*.log
+venv/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+
+# Virtual environments
+venv/
+env/
+.venv/
+virtualenv/
+bin/
+lib/
+include/
+
+# Django stuff
+/staticfiles/
+media/
+*.pot
+*.pyc
+local_settings.py
+db.sqlite3
+
+# Environment & IDE files
+.env
+*.env
+*.ini
+*.cfg
+*.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+*.bak
+
+# cPanel logs or configs
+logs/
+tmp/
+backup/
+passenger_wsgi.py

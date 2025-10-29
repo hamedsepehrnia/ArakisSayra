@@ -1,0 +1,48 @@
+/* Slider */
+.slider .dione .tp-bullet.selected,
+.slider .dione .tp-bullet:hover {
+  background: #FFF;
+}
+
+@media (max-width: 991px) {
+  .tp-bullets, .tparrows {
+    display: none;
+  }
+}
+
+/* Custom Team Carousel */
+.owl-team-custom.owl-carousel.show-nav-title .owl-nav {
+  margin-top: 140px;
+  right: auto;
+  top: 0;
+  width: 100%;
+  left: 0;
+}
+
+.owl-team-custom.owl-carousel.show-nav-title .owl-nav button.owl-prev {
+  right: -41px;
+  left: auto;
+}
+
+.owl-team-custom.owl-carousel.show-nav-title .owl-nav button.owl-next {
+  left: -32px;
+  right: auto;
+}
+
+.owl-team-custom.owl-carousel.show-nav-title img {
+  -webkit-transform-style: unset;
+          transform-style: unset;
+}
+
+/* Features Box */
+.feature-box.feature-box-style-2 .feature-box-icon {
+  height: 0;
+  top: 6px;
+}
+
+@media (min-width: 992px) {
+  #header .header-nav.header-nav-stripe nav > ul > li > a {
+    height: 100%;
+    padding-bottom: 1px !important;
+  }
+}

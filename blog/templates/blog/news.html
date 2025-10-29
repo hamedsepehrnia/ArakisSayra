@@ -1,0 +1,119 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="main" role="main">
+{#        <div class="slider-container bg-color-light-scale-1 rev_slider_wrapper m-0" style="height: 600px;">#}
+{#            <div class="slider rev_slider"#}
+{#                 data-plugin-options="{'delay': 9000, 'gridwidth': [1110,930,690,500], 'gridheight': 600, 'disableProgressBar': 'on', 'responsiveLevels': [4096,1200,992,768], 'parallax': { 'type': 'scroll', 'origo': 'enterpoint', 'speed': 1000, 'levels': [2,3,4,5,6,7,8,9,12,50], 'disable_onmobile': 'on' }, 'navigation' : {'arrows': { 'enable': true }, 'bullets': {'enable': false, 'style': 'bullets-style-2 bullets-color-primary', 'h_align': 'center', 'v_align': 'bottom', 'space': 7, 'v_offset': 70, 'h_offset': 0}}}"#}
+{#                 data-plugin-revolution-slider="" data-version="5.4.8" id="revolutionSlider">#}
+{#                <ul>#}
+{##}
+{#                    {% for post in latest_three_news %}#}
+{#                        {% if post.image %}#}
+{#                        <li class="slide-overlay slide-overlay-level-5" data-link="blog-post.html"#}
+{#                            data-transition="fade">#}
+{#                            <img alt="The post image" class="rev-slidebg" data-bgfit="cover"#}
+{#                                 data-bgposition="center center"#}
+{#                                 data-bgrepeat="no-repeat" src='{{post.image.url}}'/>#}
+{#                            <div class="tp-caption ws-normal px-3 px-sm-0" data-hoffset="['0','0','0','20']"#}
+{#                                 data-start="1000" data-transform_in="y:[-50%];opacity:0;s:500;"#}
+{#                                 data-voffset="['50','50','50','50']" data-width="['1110','930','690','500']" data-x="0"#}
+{#                                 data-y="bottom" style="z-index: 5;">#}
+{#                                <span class="badge badge-dark bg-color-primary badge-sm mb-1">جدید ترین اخبار</span>#}
+{#                                <h2 class="text-light text-9 font-weight-bold mb-2 primary-font line-height-7 py-1">#}
+{#                                    {{ post.title }}</h2>#}
+{#                                <p class="text-light opacity-6 text-4">#}
+{#                                    {{ post.content.summary|truncatewords:50 }}#}
+{#                                </p>#}
+{#                            </div>#}
+{#                        </li>#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
+{##}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+        <section class="section border-0 mt-0 mb-4">
+
+        </section>
+        <div class="container py-4">
+            <div class="row">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="blog-posts">
+                        <div class="masonry-loader masonry-loader-showing">
+                            <div class="masonry row" data-plugin-masonry=""
+                                 data-plugin-options="{'itemSelector': '.masonry-item'}">
+                                {% for i in news_list %}
+                                    <div class="masonry-item no-default-style col-md-4">
+                                        <article class="post post-medium border-0 pb-0 mb-5">
+                                            <div class="post-image">
+                                                <a href="{% url 'news_details' i.slug %}">
+                                                    {% if i.image %}
+                                                    <img alt="Top Camper Trailer Towing Tips"
+                                                         class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0"
+                                                         src='{{ i.image.url }}'/>
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                            <div class="post-content">
+                                                <h2 class="font-weight-semibold text-5 line-height-7 mt-3 mb-2 pt-1"><a
+                                                        href="{% url 'news_details' i.slug %}">{{ i.title }}</a></h2>
+                                                <p>{{ post.summary|truncatewords:50 }}</p>
+                                                <div class="post-meta">
+                                                    <span class="d-block mt-2 pt-1"><a
+                                                            class="btn btn-xs btn-light text-1 text-uppercase"
+                                                            href="{% url 'news_details' i.slug %}">بیشتر بخوانید</a></span>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <ul class="pagination float-right">
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-right"></i></span>
+                                        </li>
+                                    {% endif %}
+
+                                    {% for num in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == num %}
+                                            <li class="page-item active"><a class="page-link" href="#">{{ num }}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item"><a class="page-link"
+                                                                     href="?page={{ num }}">{{ num }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                                <i class="fas fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-left"></i></span>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
