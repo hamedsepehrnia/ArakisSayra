@@ -1,5 +1,6 @@
 from django.db import models
 from products.models import Product
+from .image_optimizer import optimize_banner_image, optimize_about_image
 
 
 class SiteInfo(models.Model):
@@ -24,6 +25,13 @@ class SiteInfo(models.Model):
     class Meta:
         verbose_name = 'اطلاعات وبسایت'
         verbose_name_plural = 'اطلاعات وبسایت'
+    
+    def save(self, *args, **kwargs):
+        # بهینه‌سازی تصویر درباره ما قبل از ذخیره
+        if self.about_image:
+            self.about_image = optimize_about_image(self.about_image)
+        super().save(*args, **kwargs)
+    
     def __str__(self):
         return 'وبرایش اطلاعات وبسایت'
 class Message(models.Model):
@@ -44,6 +52,13 @@ class Banner(models.Model):
     )
     url = models.URLField(max_length=255, null=True, blank=True, verbose_name='لینک (اختیاری)')
     created_date = models.DateTimeField(auto_now_add=True)
+    
     class Meta:
         verbose_name = 'بنر'
         verbose_name_plural = 'بنر ها'
+    
+    def save(self, *args, **kwargs):
+        # بهینه‌سازی تصویر بنر قبل از ذخیره
+        if self.image:
+            self.image = optimize_banner_image(self.image)
+        super().save(*args, **kwargs)

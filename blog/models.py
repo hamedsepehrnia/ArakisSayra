@@ -8,6 +8,7 @@ from oauth2client.transport import request
 from slugify import slugify
 from django.db import models
 from django_jalali.db import models as jmodels
+from core.image_optimizer import optimize_blog_image
 
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name='دسته بندی')
@@ -79,6 +80,11 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        
+        # بهینه‌سازی تصویر پست قبل از ذخیره
+        if self.image:
+            self.image = optimize_blog_image(self.image)
+        
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -134,7 +140,13 @@ class News(models.Model):
                 return "اسفند"
             case _:
                 return month
+    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        
+        # بهینه‌سازی تصویر خبر قبل از ذخیره
+        if self.image:
+            self.image = optimize_blog_image(self.image)
+        
         super().save(*args, **kwargs)

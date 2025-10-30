@@ -4,6 +4,7 @@ import re
 from mptt.models import MPTTModel, TreeForeignKey
 
 from slugify import slugify
+from core.image_optimizer import optimize_product_image
 
 
 class Category(MPTTModel):
@@ -100,5 +101,9 @@ class Product(models.Model):
                 counter += 1
 
             self.slug = slug
+        
+        # بهینه‌سازی تصویر محصول قبل از ذخیره
+        if self.image:
+            self.image = optimize_product_image(self.image)
 
         super().save(*args, **kwargs)
