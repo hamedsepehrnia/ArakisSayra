@@ -1,228 +1,557 @@
 {% extends 'core/base.html' %}
 
 {% load i18n %}
+{% load category_filters %}
 {% block content %}
     {% load static %}
+    
+    <style>
+        .product-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: #f8f9fa;
+            width: 100%;
+            padding-top: 100%; /* Aspect ratio 1:1 - مربعی */
+            margin-top: 20px;
+        }
+        
+        .product-image-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* یا contain برای نمایش کامل عکس */
+            transition: transform 0.4s ease;
+        }
+        
+        .product-image-wrapper:hover img {
+            transform: scale(1.05);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #009345;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 147, 69, 0.4);
+        }
+        
+        .product-summary {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .product-category-badge {
+            display: inline-block;
+            background: #edf2f7;
+            color: #4a5568;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .product-short-desc {
+            font-size: 1.1rem;
+            color: #718096;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .product-info-box {
+            background: linear-gradient(135deg, #009345 0%, #00b359 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 147, 69, 0.3);
+        }
+        
+        .product-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .product-info-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .product-info-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            font-size: 20px;
+        }
+        
+        .product-info-label {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-bottom: 3px;
+        }
+        
+        .product-info-value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .contact-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .btn-contact {
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-contact-primary {
+            background: linear-gradient(135deg, #009345 0%, #00b359 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(0, 147, 69, 0.4);
+        }
+        
+        .btn-contact-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 147, 69, 0.5);
+            color: white;
+        }
+        
+        .btn-contact-secondary {
+            background: white;
+            color: #009345;
+            border: 2px solid #009345;
+        }
+        
+        .btn-contact-secondary:hover {
+            background: #009345;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .product-tabs {
+            margin-top: 60px;
+        }
+        
+        .product-tabs .nav-tabs {
+            border: none;
+            gap: 10px;
+        }
+        
+        .product-tabs .nav-link {
+            border: none;
+            background: #edf2f7;
+            color: #4a5568;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .product-tabs .nav-link.active {
+            background: linear-gradient(135deg, #009345 0%, #00b359 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(0, 147, 69, 0.3);
+        }
+        
+        .product-tabs .tab-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            margin-top: 20px;
+        }
+        
+        .product-tabs .tab-pane p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #4a5568;
+        }
+        
+        .info-table {
+            width: 100%;
+        }
+        
+        .info-table tr {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .info-table tr:last-child {
+            border-bottom: none;
+        }
+        
+        .info-table th {
+            width: 40%;
+            padding: 20px 15px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 15px;
+        }
+        
+        .info-table td {
+            padding: 20px 15px;
+            color: #718096;
+            font-size: 15px;
+        }
+        
+        .feature-badge {
+            display: inline-block;
+            background: #edf2f7;
+            color: #009345;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin: 5px 5px 5px 0;
+            font-weight: 500;
+        }
+        
+        .breadcrumb-modern {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb-modern .breadcrumb {
+            margin: 0;
+            background: transparent;
+            padding: 0;
+        }
+        
+        .breadcrumb-modern .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            font-size: 18px;
+            color: #cbd5e0;
+        }
+        
+        .breadcrumb-modern a {
+            color: #009345;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-modern a:hover {
+            color: #00b359;
+        }
+        
+        .related-product-image {
+            position: relative;
+            width: 100%;
+            padding-top: 75%; /* Aspect ratio 4:3 */
+            overflow: hidden;
+        }
+        
+        .related-product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        @media (max-width: 991px) {
+            .contact-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .share-buttons {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .share-button {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            text-align: center;
+            line-height: 40px;
+            margin-left: 10px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .share-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+            color: white;
+        }
+    </style>
+    
     <div class="main shop pt-4" role="main">
         <div class="container">
-            <!-- Breadcrumb -->
-            <div class="row mb-4">
-                <div class="col">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb bg-light p-3 rounded">
-                            <li class="breadcrumb-item">
-                                <a href="{% url 'index' %}">{% trans 'خانه' %}</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{% url 'all_products' %}">{% trans 'محصولات' %}</a>
-                            </li>
-                            {% for category in breadcrumb %}
-                                {% if forloop.last %}
-                                    <li class="breadcrumb-item active" aria-current="page">
+            <!-- Breadcrumb مدرن -->
+            <div class="breadcrumb-modern">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                                <i class="fas fa-home ms-1"></i>
+                                {% trans 'خانه' %}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'all_products' %}">{% trans 'محصولات' %}</a>
+                        </li>
+                        {% for category in breadcrumb %}
+                            {% if forloop.last %}
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ category.name }}
+                                </li>
+                            {% else %}
+                                <li class="breadcrumb-item">
+                                    <a href="{% url 'products_category' full_path=category.get_full_slug %}">
                                         {{ category.name }}
-                                    </li>
-                                {% else %}
-                                    <li class="breadcrumb-item">
-                                        <a href="{% url 'products_category' full_path=category.get_full_slug %}">
-                                            {{ category.name }}
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ol>
-                    </nav>
-                </div>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                </nav>
             </div>
 
             <div class="row">
-                <div class="col-lg-6">
-                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" dir="rtl">
-                        <div class="carousel-inner">
-{#                            {% for image in product.images.all %}#}
-{#                                <div class="carousel-item {% if forloop.first %}active{% endif %}">#}
-{#                                    <img src="{{ image.url }}" class="d-block w-100 img-fluid"#}
-{#                                         alt="{{ product.title }}">#}
-{#                                </div>#}
-{#                            {% endfor %}#}
-{#                            {% if not product.images.all %}#}
-                                <div class="carousel-item active">
-                                    <img src="{% if product.image %}{{ product.image.url }}{% else %}https://placehold.co/600x400?text=No+Image{% endif %}"
-                                         class="d-block w-100 img-fluid" alt="Default Product Image">
-                                </div>
-{#                            {% endif %}#}
+                <!-- تصویر محصول -->
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="product-image-wrapper" data-aos="fade-right">
+                        <div class="product-badge">
+                            <i class="fas fa-star ms-1"></i>
+                            محصول برتر
                         </div>
+                        <img src="{% if product.image %}{{ product.image.url }}{% else %}https://placehold.co/800x600/009345/ffffff?text=تصویر+موجود+نیست{% endif %}"
+                             alt="{{ product.title }}"
+                             class="img-fluid">
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="summary entry-summary">
-                        <h1 class="mb-2 font-weight-bold text-7">{{ product.title }}</h1>
-                        <div class="py-1 clearfix">
-                            <div class="float-left" title="Rated 3 out of 5">
-                                <input class="d-none"
-                                       data-plugin-options="{'displayOnly': true, 'color': 'primary', 'size':'xs', 'language':'fa'}"
-                                       data-plugin-star-rating="" data-rtl="true" title="" type="text" value="3"/>
+                
+                <!-- اطلاعات محصول -->
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="product-summary">
+                        <span class="product-category-badge">
+                            <i class="fas fa-tag ms-1"></i>
+                            {{ product.category.name }}
+                        </span>
+                        
+                        <h1 class="product-title">{{ product.title }}</h1>
+                        
+                        <p class="product-short-desc">{{ product.short_description }}</p>
+                        
+                        <!-- جعبه اطلاعات محصول -->
+                        <div class="product-info-box">
+                            <div class="product-info-item">
+                                <div class="product-info-icon">
+                                    <i class="fas fa-ruler-combined"></i>
+                                </div>
+                                <div>
+                                    <div class="product-info-label">{% trans 'اندازه' %}</div>
+                                    <div class="product-info-value">{{ product.size }}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="product-info-item">
+                                <div class="product-info-icon">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div>
+                                    <div class="product-info-label">{% trans 'نوع ظرف' %}</div>
+                                    <div class="product-info-value">{{ product.container_type }}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="product-info-item">
+                                <div class="product-info-icon">
+                                    <i class="fas fa-list-ul"></i>
+                                </div>
+                                <div>
+                                    <div class="product-info-label">{% trans 'سایر خصوصیات' %}</div>
+                                    <div class="product-info-value">{{ product.attributes }}</div>
+                                </div>
+                            </div>
+                            
+                            <!-- دکمه‌های اشتراک‌گذاری -->
+                            <div class="share-buttons">
+                                <small class="d-block mb-2">{% trans 'اشتراک‌گذاری:' %}</small>
+                                <a href="#" class="share-button" onclick="shareOnTelegram(); return false;">
+                                    <i class="fab fa-telegram-plane"></i>
+                                </a>
+                                <a href="#" class="share-button" onclick="shareOnWhatsapp(); return false;">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="#" class="share-button" onclick="copyLink(); return false;">
+                                    <i class="fas fa-link"></i>
+                                </a>
                             </div>
                         </div>
-                        <p class="mb-4">{{ product.short_description }}</p>
-
-                        <div class="product-meta">
-                            {#                                                        <span class="posted-in">{% trans 'دسته ها' %}:#}
-                            {#                            {% for category in breadcrumb %}#}
-                            {#                                {% if forloop.last %}#}
-                            {#                                    <span class="text-muted">{{ category.name }}</span>#}
-                            {#                                {% else %}#}
-                            {#                                    <a href="{% url 'products_category' full_path=category.get_full_slug %}"#}
-                            {#                                       rel="tag">{{ category.name }}</a>#}
-                            {#                                    {% if not forloop.last %} > {% endif %}#}
-                            {#                                {% endif %}#}
-                            {#                            {% endfor %}#}
-                            {#                            </span>#}
+                        
+                        <!-- دکمه‌های تماس -->
+                        <div class="contact-buttons">
+                            <a href="{% url 'contact' %}" class="btn btn-contact btn-contact-primary">
+                                <i class="fas fa-phone-alt"></i>
+                                {% trans 'تماس با ما' %}
+                            </a>
+                            <a href="{% url 'contact' %}" class="btn btn-contact btn-contact-secondary">
+                                <i class="fas fa-shopping-cart"></i>
+                                {% trans 'درخواست خرید' %}
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- توضیحات محصول -->
             <div class="row">
                 <div class="col">
-                    <div class="tabs tabs-product mb-2">
-                        <ul class="nav nav-tabs d-block d-sm-flex">
-                            <li class="nav-item active"><a class="nav-link py-3 px-4" data-toggle="tab"
-                                                           href="#productDescription">{% trans "توضیحات" %}</a></li>
-                            <li class="nav-item"><a class="nav-link py-3 px-4" data-toggle="tab" href="#productInfo">
-{#                                {% trans 'اطلاعات تکمیلی ' %}#}
-                                {% trans "اطلاعات بیشتر" %}
-                            </a></li>
-                        </ul>
-                        <div class="tab-content p-0">
-                            <div class="tab-pane p-4 active" id="productDescription">
-                                <p>{{ product.description }}</p>
-                            </div>
-                            <div class="tab-pane p-4" id="productInfo">
-                                <table class="table m-0">
-                                    <tbody>
-                                    <tr>
-                                        <th class="border-top-0">
-                                            {% trans 'اندازه ' %}
-                                        </th>
-                                        <td class="border-top-0">
-                                            {{ product.size }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            {%trans 'نوع ظرف' %}
-                                        </th>
-                                        <td>
-                                            {{ product.container_type }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            {% trans 'سایر خصوصیات' %}
-                                        </th>
-                                        <td>
-                                            {{ product.attributes }}
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                    <div class="product-tabs" data-aos="fade-up">
+                        <div class="tab-content">
+                            <div>
+                                <h3 class="mb-4 text-primary">
+                                    <i class="fas fa-file-alt ms-2"></i>
+                                    {% trans "توضیحات کامل" %}
+                                </h3>
+                                <p class="text-justify">{{ product.description }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- محصولات مرتبط -->
+            {% if related_products %}
+            <div class="row mt-5" data-aos="fade-up">
+                <div class="col">
+                    <div class="text-center mb-5">
+                        <h2 class="text-primary">
+                            <i class="fas fa-th-large ms-2"></i>
+                            {% trans "محصولات مرتبط" %}
+                        </h2>
+                        <p class="text-muted">{% trans "محصولات دیگری که ممکن است علاقه‌مند باشید" %}</p>
+                    </div>
+                    
+                    <div class="row">
+                        {% for related in related_products|slice:":4" %}
+                        <div class="col-md-6 col-lg-3 mb-4">
+                            <div class="card border-0 shadow-sm h-100" style="border-radius: 15px; overflow: hidden; transition: all 0.3s ease;">
+                                <div class="related-product-image">
+                                    <img src="{% if related.image %}{{ related.image.url }}{% else %}https://placehold.co/400x300/009345/ffffff?text=بدون+تصویر{% endif %}" 
+                                         alt="{{ related.title }}">
+                                </div>
+                                <div class="card-body text-center">
+                                    <h6 class="card-title mb-3">{{ related.title }}</h6>
+                                    <p class="card-text text-muted small mb-3">{{ related.short_description|truncatewords:10 }}</p>
+                                    <a href="{% url 'product_detail' slug=related.slug %}" class="btn btn-sm btn-outline-primary" style="border-radius: 20px;">
+                                        {% trans "مشاهده محصول" %}
+                                        <i class="fas fa-arrow-left ms-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
-        {#            <div class="row">#}
-        {#                <div class="col">#}
-        {#                    <hr class="solid my-5"/>#}
-        {#                    <h4 class="mb-4"><strong>محصولات</strong> مرتبط</h4>#}
-        {#                    <div class="masonry-loader masonry-loader-showing">#}
-        {#                        <div class="row products product-thumb-info-list mt-3" data-plugin-masonry=""#}
-        {#                             data-plugin-options="{'layoutMode': 'fitRows'}">#}
-        {#                            <div class="col-12 col-sm-6 col-lg-3 product">#}
-        {#<span class="product-thumb-info border-0">#}
-        {#<a class="add-to-cart-product bg-color-primary" href="shop-cart.html">#}
-        {#<span class="text-1">افزودن به سبد</span>#}
-        {#</a>#}
-        {#<a href="shop-product-sidebar-right.html">#}
-        {#<span class="product-thumb-info-image">#}
-        {#<img alt="" class="img-fluid" src='{% static "img/products/product-grey-1.jpg" %}'/>#}
-        {#</span>#}
-        {#</a>#}
-        {#<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">#}
-        {#<a href="shop-product-sidebar-right.html">#}
-        {#<h4 class="text-4 text-primary">دوربین عکاسی</h4>#}
-        {#<span class="price">#}
-        {#<del><span class="amount">325,000 تومان</span></del>#}
-        {#<ins><span class="amount text-dark font-weight-semibold">299,000 تومان</span></ins>#}
-        {#</span>#}
-        {#</a>#}
-        {#</span>#}
-        {#</span>#}
-        {#                            </div>#}
-        {#                            <div class="col-12 col-sm-6 col-lg-3 product">#}
-        {#<span class="product-thumb-info border-0">#}
-        {#<a class="add-to-cart-product bg-color-primary" href="shop-cart.html">#}
-        {#<span class="text-1">افزودن به سبد</span>#}
-        {#</a>#}
-        {#<a href="shop-product-sidebar-right.html">#}
-        {#<span class="product-thumb-info-image">#}
-        {#<img alt="" class="img-fluid" src='{% static "img/products/product-grey-2.jpg" %}'/>#}
-        {#</span>#}
-        {#</a>#}
-        {#<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">#}
-        {#<a href="shop-product-sidebar-right.html">#}
-        {#<h4 class="text-4 text-primary">کیف گلف</h4>#}
-        {#<span class="price">#}
-        {#<span class="amount text-dark font-weight-semibold">72,000 تومان</span>#}
-        {#</span>#}
-        {#</a>#}
-        {#</span>#}
-        {#</span>#}
-        {#                            </div>#}
-        {#                            <div class="col-12 col-sm-6 col-lg-3 product">#}
-        {#<span class="product-thumb-info border-0">#}
-        {#<a class="add-to-cart-product bg-color-primary" href="shop-cart.html">#}
-        {#<span class="text-1">افزودن به سبد</span>#}
-        {#</a>#}
-        {#<a href="shop-product-sidebar-right.html">#}
-        {#<span class="product-thumb-info-image">#}
-        {#<img alt="" class="img-fluid" src='{% static "img/products/product-grey-3.jpg" %}'/>#}
-        {#</span>#}
-        {#</a>#}
-        {#<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">#}
-        {#<a href="shop-product-sidebar-right.html">#}
-        {#<h4 class="text-4 text-primary">لوازم ورزشی</h4>#}
-        {#<span class="price">#}
-        {#<span class="amount text-dark font-weight-semibold">60,000 تومان</span>#}
-        {#</span>#}
-        {#</a>#}
-        {#</span>#}
-        {#</span>#}
-        {#                            </div>#}
-        {#                            <div class="col-12 col-sm-6 col-lg-3 product">#}
-        {#<span class="product-thumb-info border-0">#}
-        {#<a class="add-to-cart-product bg-color-primary" href="shop-cart.html">#}
-        {#<span class="text-1">افزودن به سبد</span>#}
-        {#</a>#}
-        {#<a href="shop-product-sidebar-right.html">#}
-        {#<span class="product-thumb-info-image">#}
-        {#<img alt="" class="img-fluid" src='{% static "img/products/product-grey-4.jpg" %}'/>#}
-        {#</span>#}
-        {#</a>#}
-        {#<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">#}
-        {#<a href="shop-product-sidebar-right.html">#}
-        {#<h4 class="text-4 text-primary">کیف لوکس</h4>#}
-        {#<span class="price">#}
-        {#<span class="amount text-dark font-weight-semibold">199,000 تومان</span>#}
-        {#</span>#}
-        {#</a>#}
-        {#</span>#}
-        {#</span>#}
-        {#                            </div>#}
-        {#                        </div>#}
-        {#                    </div>#}
-        {#                </div>#}
-        {#            </div>#}
     </div>
-    </div>
+    
+    <!-- JavaScript برای انیمیشن‌ها و اشتراک‌گذاری -->
+    <script>
+        // افکت hover برای کارت‌های محصولات مرتبط
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+                this.style.boxShadow = '0 15px 40px rgba(0, 147, 69, 0.3)';
+                const img = this.querySelector('img');
+                if (img) img.style.transform = 'scale(1.1)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 5px 25px rgba(0,0,0,0.08)';
+                const img = this.querySelector('img');
+                if (img) img.style.transform = 'scale(1)';
+            });
+        });
+        
+        // توابع اشتراک‌گذاری
+        function shareOnTelegram() {
+            const url = window.location.href;
+            const text = document.querySelector('.product-title').innerText;
+            window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
+        }
+        
+        function shareOnWhatsapp() {
+            const url = window.location.href;
+            const text = document.querySelector('.product-title').innerText;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + ' - ' + url)}`, '_blank');
+        }
+        
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                // نمایش پیام موفقیت با SweetAlert یا Toastify
+                if (typeof Toastify !== 'undefined') {
+                    Toastify({
+                        text: "لینک محصول کپی شد!",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "center",
+                        style: {
+                            background: "linear-gradient(135deg, #009345 0%, #00b359 100%)",
+                        }
+                    }).showToast();
+                } else {
+                    alert('لینک محصول کپی شد!');
+                }
+            });
+        }
+        
+        // Initialize AOS (Animate On Scroll)
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
+            });
+        }
+    </script>
 {% endblock %}

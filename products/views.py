@@ -27,9 +27,15 @@ def single_product(request, slug):
         breadcrumb.insert(0, current_category)
         current_category = current_category.parent
     
+    # Get related products from the same category
+    related_products = Product.objects.filter(
+        category=product.category
+    ).exclude(id=product.id)[:4]
+    
     context = {
         'product': product,
-        'breadcrumb': breadcrumb
+        'breadcrumb': breadcrumb,
+        'related_products': related_products
     }
     return render(request, 'products/single-product.html', context)
 # def shop(request):
