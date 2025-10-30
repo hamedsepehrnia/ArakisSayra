@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-i(!kp*wcc8a)8p7(@ng(x4ulj-!9y=00q3p&=%t34brfqx@#q("
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['arakissayra.ir', 'www.arakissayra.ir', 'arakissayra.com', 'www.arakissayra.com', "localhost", "127.0.0.1"]
 
