@@ -26,7 +26,13 @@ class Post(models.Model):
     category = models.ManyToManyField(Category, related_name="posts", blank=True, verbose_name="دسته بندی")
     title = models.CharField("عنوان", max_length=100)
     slug = models.SlugField("نامک", unique=True, blank=True)
-    image = models.ImageField("تصویر شاخص", upload_to="blog/", null=True, blank=True)
+    image = models.ImageField(
+        "تصویر شاخص", 
+        upload_to="blog/", 
+        null=True, 
+        blank=True,
+        help_text='📐 سایز بهینه: 900×585 پیکسل | نسبت: 3:2 (Landscape) | حداکثر حجم: 300KB'
+    )
     content = models.TextField("محتوا")
     created_date = jmodels.jDateField("تاریخ ایجاد", auto_now_add=True, null=True, blank=True)
     created_time = models.TimeField("ساعت ایجاد", auto_now_add=True, null=True, blank=True)
@@ -87,7 +93,13 @@ class News(models.Model):
     created_date = jmodels.jDateField("تاریخ ایجاد", auto_now_add=True, null=True, blank=True)
     created_time = models.TimeField("ساعت ایجاد", auto_now_add=True, null=True, blank=True)
     slug = models.SlugField(max_length=100, unique=True, verbose_name='نامک', null= True, blank=True)
-    image = models.ImageField(upload_to="blog/news", null=True, blank=True)
+    image = models.ImageField(
+        upload_to="blog/news", 
+        null=True, 
+        blank=True,
+        verbose_name='تصویر خبر',
+        help_text='📐 سایز بهینه: 900×585 پیکسل | نسبت: 3:2 (Landscape) | حداکثر حجم: 300KB'
+    )
     class Meta:
         verbose_name_plural = 'اخبار'
         verbose_name = 'خبر'

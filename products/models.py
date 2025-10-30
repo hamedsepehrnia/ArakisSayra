@@ -59,7 +59,13 @@ class Product(models.Model):
     size = models.PositiveSmallIntegerField("اندازه", blank=True, null=True)
     container_type = models.CharField("نوع بسته‌بندی", max_length=100, blank=True, null=True)
     attributes = models.CharField("ویژگی‌ها", max_length=255, blank=True, null=True)
-    image = models.ImageField('تصویر', upload_to='products', blank=True, null=True)
+    image = models.ImageField(
+        'تصویر محصول', 
+        upload_to='products', 
+        blank=True, 
+        null=True,
+        help_text='📐 سایز بهینه: 1000×1000 پیکسل | نسبت: 1:1 (مربع) | حداکثر حجم: 200KB | پس‌زمینه سفید یا شفاف'
+    )
     category = models.ForeignKey(
         "Category",
         verbose_name="دسته‌بندی",
