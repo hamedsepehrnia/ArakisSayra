@@ -9,8 +9,22 @@ from .models import Banner, SiteInfo
 def index(request):
     # دریافت آخرین 4 پست بلاگ
     latest_posts = Post.objects.all().order_by('-created_date')[:4]
+    # دریافت بنرها
     banners = Banner.objects.all().order_by('-created_date')
-    return render(request, 'core/index.html', {'latest_posts': latest_posts, 'banners': banners})
+    # دریافت آخرین محصولات (براساس ID)
+    latest_products = Product.objects.all().order_by('-id')[:4]
+    # دریافت اطلاعات سایت
+    site_info = SiteInfo.objects.first()
+    about_text = site_info.about_text if site_info else ''
+    picture = site_info.about_image if site_info else None
+    
+    return render(request, 'core/index.html', {
+        'latest_posts': latest_posts,
+        'banners': banners,
+        'latest_products': latest_products,
+        'about_text': about_text,
+        'picture': picture,
+    })
 
 
 def about(request):

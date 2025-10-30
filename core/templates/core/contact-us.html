@@ -2,137 +2,427 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-    <div class="main" role="main">
-        <!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
-
-        <div id="map" style="height: 450px; width: 1500px"></div>
-
-
+    <style>
+        /* Breadcrumb مدرن */
+        .breadcrumb-modern {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb-modern .breadcrumb {
+            margin: 0;
+            background: transparent;
+            padding: 0;
+        }
+        
+        .breadcrumb-modern .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            font-size: 18px;
+            color: #cbd5e0;
+        }
+        
+        .breadcrumb-modern a {
+            color: #009345;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-modern a:hover {
+            color: #00b359;
+        }
+        
+        .breadcrumb-modern .active {
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        /* Map Container */
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            height: 400px;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Contact Form */
+        .contact-form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+        
+        .contact-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .contact-subtitle {
+            font-size: 15px;
+            color: #718096;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .form-control {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #009345;
+            box-shadow: 0 0 0 3px rgba(0, 147, 69, 0.1);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #009345 0%, #00b359 100%);
+            color: white;
+            padding: 12px 35px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 147, 69, 0.3);
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 147, 69, 0.4);
+        }
+        
+        /* Contact Info */
+        .contact-info-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+        
+        .info-section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .contact-info-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f3f5;
+        }
+        
+        .contact-info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #009345 0%, #00b359 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .contact-info-details {
+            flex: 1;
+        }
+        
+        .contact-info-label {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .contact-info-value {
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        .contact-info-value a {
+            color: #009345;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-info-value a:hover {
+            color: #00b359;
+        }
+        
+        /* Working Hours */
+        .working-hours {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+        
+        .working-hours-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            color: #4a5568;
+            font-size: 14px;
+        }
+        
+        .working-hours-item i {
+            color: #009345;
+            font-size: 16px;
+        }
+        
+        /* Alert Styling */
+        .alert {
+            border-radius: 10px;
+            border: none;
+            padding: 15px 20px;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        @media (max-width: 991px) {
+            .contact-form-container,
+            .contact-info-container {
+                padding: 25px;
+                margin-bottom: 25px;
+            }
+            
+            .contact-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+    
+    <div class="main py-4" role="main">
         <div class="container">
-            <div class="row py-4">
-                <div class="col-lg-6">
-                    <div class="overflow-hidden mb-1">
-                        <h2 class="font-weight-normal text-7 mt-2 mb-0 appear-animation" data-appear-animation="maskUp"
-    data-appear-animation-delay="200">
-    <strong class="font-weight-extra-bold">{% trans 'تماس با ما' %}</strong>
-</h2>
-                    </div>
-                    <div class="overflow-hidden mb-4 pb-3">
-                        <p class="mb-0 appear-animation" data-appear-animation="maskUp"
-                           data-appear-animation-delay="400">{% trans "اگر سوال، پیشنهاد یا نیاز به پشتیبانی دارید، لطفاً از طریق فرم زیر با ما در تماس باشید. تیم ما در کوتاه‌ترین زمان ممکن پاسخگوی شما خواهد بود." %}</p>
-                    </div>
-                    <form action="" method="POST" class="contact-form mb-5 mb-lg-0">
-                        {% csrf_token %}
-
+            <!-- Breadcrumb -->
+            <div class="breadcrumb-modern">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                                <i class="fas fa-home ms-1"></i>
+                                {% trans 'خانه' %}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {% trans 'تماس با ما' %}
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            
+            <!-- نقشه -->
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+            
+            <div class="row">
+                <!-- فرم تماس -->
+                <div class="col-lg-7 mb-4 mb-lg-0">
+                    <div class="contact-form-container">
+                        <h2 class="contact-title">
+                            <i class="fas fa-envelope ms-2"></i>
+                            {% trans 'ارسال پیام' %}
+                        </h2>
+                        <p class="contact-subtitle">
+                            {% trans "اگر سوال، پیشنهاد یا نیاز به پشتیبانی دارید، لطفاً از طریق فرم زیر با ما در تماس باشید. تیم ما در کوتاه‌ترین زمان ممکن پاسخگوی شما خواهد بود." %}
+                        </p>
+                        
                         {% if form.errors %}
-                            <div class="contact-form-error alert alert-danger mt-4">
-                                <strong>{% trans "خطا!" %}</strong> {% trans "خطایی در ارسال پیام شما پیش آمد." %}
-                                <ul>
+                            <div class="alert alert-danger">
+                                <strong>
+                                    <i class="fas fa-exclamation-circle ms-1"></i>
+                                    {% trans "خطا!" %}
+                                </strong> 
+                                {% trans "لطفاً خطاهای زیر را بررسی کنید." %}
+                                <ul class="mb-0 mt-2">
                                     {% for field in form %}
                                         {% for error in field.errors %}
                                             <li>{{ error }}</li>
                                         {% endfor %}
                                     {% endfor %}
-                                    {% for error in form.non_field_errors %}
-                                        <li>{{ error }}</li>
-                                    {% endfor %}
                                 </ul>
                             </div>
                         {% elif request.GET.success %}
-                            <div class="contact-form-success alert alert-success mt-4">
-                                <strong>{% trans "موفقیت!" %}</strong> {% trans "پیام شما به ما ارسال شد." %}
+                            <div class="alert alert-success">
+                                <strong>
+                                    <i class="fas fa-check-circle ms-1"></i>
+                                    {% trans "موفقیت!" %}
+                                </strong> 
+                                {% trans "پیام شما با موفقیت ارسال شد. به زودی با شما تماس می‌گیریم." %}
                             </div>
                         {% endif %}
-
-                        <div class="form-row">
-                            <div class="form-group col-lg-6">
-                                <label class="required font-weight-bold text-dark text-2">{% trans "نام کامل" %}</label>
-                                {{ form.fullname }}
+                        
+                        <form action="" method="POST" class="contact-form">
+                            {% csrf_token %}
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>
+                                            {% trans "نام کامل" %}
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        {{ form.fullname }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>
+                                            {% trans "آدرس ایمیل" %}
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        {{ form.email }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group col-lg-6">
-                                <label class="required font-weight-bold text-dark text-2">{% trans "آدرس ایمیل" %}</label>
-                                {{ form.email }}
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col">
-                                <label class="font-weight-bold text-dark text-2">{% trans "موضوع" %}</label>
+                            
+                            <div class="form-group mb-3">
+                                <label>{% trans "موضوع" %}</label>
                                 {{ form.subject }}
                             </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col">
-                                <label class="required font-weight-bold text-dark text-2">{% trans "پیام" %}</label>
+                            
+                            <div class="form-group mb-4">
+                                <label>
+                                    {% trans "پیام" %}
+                                    <span class="text-danger">*</span>
+                                </label>
                                 {{ form.message }}
                             </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col">
-                                <input class="btn btn-primary btn-modern" type="submit"
-                                       value="{% trans 'ارسال پیام' %}"/>
+                            
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-paper-plane ms-1"></i>
+                                {% trans 'ارسال پیام' %}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- اطلاعات تماس -->
+                <div class="col-lg-5">
+                    <div class="contact-info-container">
+                        <h3 class="info-section-title">
+                            <i class="fas fa-info-circle ms-2"></i>
+                            {% trans 'اطلاعات تماس' %}
+                        </h3>
+                        
+                        <!-- آدرس -->
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-info-details">
+                                <div class="contact-info-label">{% trans 'آدرس' %}</div>
+                                <div class="contact-info-value">{{ address }}</div>
                             </div>
                         </div>
-                    </form>
-
-                </div>
-                <div class="col-lg-6">
-                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="800">
-                        <h4 class="mt-2 mb-1">{% trans "دفتر ما" %}</h4>
-                        <ul class="list list-icons list-icons-style-2 mt-2">
-                            <li class="line-height-9"><i class="fas fa-map-marker-alt top-6"></i> <strong
-                                    class="text-dark">{% trans 'آدرس:' %}</strong>
-                                <span
-                                        class="rtl-text">{{ address }}
-                                    </span>
-                            </li>
-                            <!--<li class="line-height-9"><i class="fas fa-phone top-6"></i> <strong-->
-                            <!--        class="text-dark">{% trans 'تلفن:' %}</strong> <span-->
-                            <!--        class="rtr-text">{{ phone_number3 }}</span>-->
-                            <!--    <span-->
-                            <!--            class="rtr-text">{{ phone_number2 }}</span>-->
-                            <!--    <span-->
-                            <!--            class="rtr-text">{{ phone_number1 }}</span>-->
-
-
-                            <!--</li>-->
-                            <li class="line-height-9"><i class="fas fa-phone top-6"></i> <strong
-                                    class="text-dark">{% trans 'تلفن ۱:' %}</strong> <span
-                                    class="rtr-text">{{ phone_number1 }}</span>
-                            </li>
-                            <li class="line-height-9"><i class="fas fa-phone top-6"></i> <strong
-                                    class="text-dark">{% trans 'تلفن ۲:' %}</strong> <span
-                                    class="rtr-text">{{ phone_number2 }}</span>
-                            </li>
-                            <li class="line-height-9"><i class="fas fa-phone top-6"></i> <strong
-                                    class="text-dark">{% trans 'تلفن ۳:' %}</strong> <span
-                                    class="rtr-text">{{ phone_number3 }}</span>
-                            </li>
-                            <li class="line-height-9"><i class="fas fa-envelope top-6"></i> <strong
-                                    class="text-dark">{% trans 'ایمیل:' %}</strong>
-                                <a href="{{ email }}">{{ email }}</a></li>
-                                <li class="line-height-9"><i class="fas fa-envelope top-6"></i> <strong
-                                    class="text-dark">{% trans "پیج اینستاگرام:" %}</strong>
-                                <a href="https://www.instagram.com/{{ instagram_page }}" target='_blank' rel="nooper">{{ instagram_page }}</a></li>
-                        </ul>
+                        
+                        <!-- تلفن‌ها -->
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-info-details">
+                                <div class="contact-info-label">{% trans 'تلفن‌های تماس' %}</div>
+                                <div class="contact-info-value">
+                                    <a href="tel:{{ phone_number1 }}" class="d-block ltr-text">{{ phone_number1 }}</a>
+                                    <a href="tel:{{ phone_number2 }}" class="d-block ltr-text">{{ phone_number2 }}</a>
+                                    <a href="tel:{{ phone_number3 }}" class="d-block ltr-text">{{ phone_number3 }}</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ایمیل -->
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-info-details">
+                                <div class="contact-info-label">{% trans 'ایمیل' %}</div>
+                                <div class="contact-info-value">
+                                    <a href="mailto:{{ email }}">{{ email }}</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- اینستاگرام -->
+                        {% if instagram_page %}
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div class="contact-info-details">
+                                <div class="contact-info-label">{% trans 'اینستاگرام' %}</div>
+                                <div class="contact-info-value">
+                                    <a href="https://www.instagram.com/{{ instagram_page }}" target="_blank" rel="noopener">
+                                        {{ instagram_page }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- ساعات کاری -->
+                        <div class="working-hours">
+                            <h5 class="mb-3" style="font-size: 16px; font-weight: 600; color: #2d3748;">
+                                <i class="far fa-clock ms-1"></i>
+                                {% trans 'ساعات کاری' %}
+                            </h5>
+                            <div class="working-hours-item">
+                                <i class="far fa-calendar"></i>
+                                {{ work_hour1 }}
+                            </div>
+                            <div class="working-hours-item">
+                                <i class="far fa-calendar"></i>
+                                {{ work_hour2 }}
+                            </div>
+                            <div class="working-hours-item">
+                                <i class="far fa-calendar"></i>
+                                {{ work_hour3 }}
+                            </div>
+                        </div>
                     </div>
-                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="950">
-                        <h4 class="pt-5"> {% trans 'ساعات کاری' %}</h4>
-                        <ul class="list list-icons list-dark mt-2">
-                            <li><i class="far fa-clock top-6"></i> {{ work_hour1 }}</li>
-                            <li><i class="far fa-clock top-6"></i> {{ work_hour2 }}</li>
-                            <li><i class="far fa-clock top-6"></i>{{ work_hour3 }}</li>
-                        </ul>
-                    </div>
-{#                    <h4 class="pt-5"> {% trans "ارتباط با ما" %}</h4>#}
-{#                    <h4> {% trans "ارتباط با ما" %}</h4>#}
-{#                    <p class="lead mb-0 text-1rem">{{ about_text }}</p>#}
                 </div>
             </div>
         </div>
-
     </div>
-
 {% endblock %}

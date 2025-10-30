@@ -476,6 +476,197 @@ msgstr "Other info"
 msgid "جستجو ..."
 msgstr "Search ..."
 
+# صفحه درباره ما
+msgid "معرفی شرکت"
+msgstr "About Our Company"
+
+msgid "چرا آراکیس سایرا؟"
+msgstr "Why Arakis Sayra?"
+
+msgid "کیفیت تضمین شده"
+msgstr "Guaranteed Quality"
+
+msgid "تولید با استانداردهای بین‌المللی و کنترل کیفیت دقیق"
+msgstr "Production with international standards and precise quality control"
+
+msgid "سازگار با محیط زیست"
+msgstr "Environmentally Friendly"
+
+msgid "محصولات دوستدار طبیعت و قابل تجزیه زیستی"
+msgstr "Nature-friendly and biodegradable products"
+
+msgid "نوآوری مستمر"
+msgstr "Continuous Innovation"
+
+msgid "تحقیق و توسعه برای ارائه بهترین راه‌حل‌ها"
+msgstr "Research and development to provide the best solutions"
+
+msgid "تیم متخصص"
+msgstr "Expert Team"
+
+msgid "کارشناسان مجرب و متعهد در خدمت شما"
+msgstr "Experienced and committed specialists at your service"
+
+msgid "سال تجربه"
+msgstr "Years of Experience"
+
+msgid "محصول متنوع"
+msgstr "Diverse Products"
+
+msgid "مشتری راضی"
+msgstr "Satisfied Customers"
+
+msgid "گواهینامه‌های معتبر"
+msgstr "Valid Certificates"
+
+msgid "ارزش‌های ما"
+msgstr "Our Values"
+
+msgid "کیفیت"
+msgstr "Quality"
+
+msgid "تعهد به ارائه بالاترین کیفیت در تمام محصولات"
+msgstr "Commitment to delivering the highest quality in all products"
+
+msgid "اعتماد"
+msgstr "Trust"
+
+msgid "ایجاد روابط بلندمدت مبتنی بر اعتماد متقابل"
+msgstr "Building long-term relationships based on mutual trust"
+
+msgid "پایداری"
+msgstr "Sustainability"
+
+msgid "مسئولیت‌پذیری در قبال محیط زیست و آینده"
+msgstr "Responsibility towards the environment and the future"
+
+msgid "آماده همکاری با شما هستیم"
+msgstr "We Are Ready to Cooperate with You"
+
+msgid "برای دریافت مشاوره رایگان و سفارش محصولات، همین حالا با ما تماس بگیرید"
+msgstr "For free consultation and ordering products, contact us now"
+
+# صفحه تماس با ما
+msgid "ارسال پیام"
+msgstr "Send Message"
+
+msgid "اطلاعات تماس"
+msgstr "Contact Information"
+
+msgid "تلفن‌های تماس"
+msgstr "Phone Numbers"
+
+msgid "اینستاگرام"
+msgstr "Instagram"
+
+msgid "ساعات کاری"
+msgstr "Working Hours"
+
+msgid "لطفاً خطاهای زیر را بررسی کنید."
+msgstr "Please check the errors below."
+
+msgid "پیام شما با موفقیت ارسال شد. به زودی با شما تماس می‌گیریم."
+msgstr "Your message has been sent successfully. We will contact you soon."
+
+# عمومی
+msgid "مشاهده جزئیات"
+msgstr "View Details"
+
+msgid "ادامه مطلب"
+msgstr "Read More"
+
+msgid "محصولی یافت نشد"
+msgstr "No products found"
+
+msgid "نتیجه‌ای یافت نشد"
+msgstr "No results found"
+
+msgid "لطفاً با کلمات کلیدی دیگری جستجو کنید"
+msgstr "Please search with other keywords"
+
+msgid "نتایج جستجو"
+msgstr "Search Results"
+
+msgid "نتایج جستجو برای"
+msgstr "Search results for"
+
+msgid "محصول یافت شد"
+msgstr "products found"
+
+msgid "زیردسته‌ای ندارد"
+msgstr "No subcategories"
+
+msgid "خبری موجود نیست"
+msgstr "No news available"
+
+msgid "پستی موجود نیست"
+msgstr "No posts available"
+
+msgid "خبر"
+msgstr "News"
+
+msgid "اشتراک‌گذاری این مطلب"
+msgstr "Share this article"
+
+msgid "لینک کپی شد!"
+msgstr "Link copied!"
+
+msgid "جستجوی محصولات ..."
+msgstr "Search products ..."
+
+msgid "منو"
+msgstr "Menu"
+
+msgid "مجتمع شیمیایی ماهان سپهر اصفهان، پیشگام در تولید مواد شیمیایی صنعتی از سال ۱۳۸۲"
+msgstr "Mahan Sepehr Chemical Complex of Isfahan, pioneer in industrial chemical production since 2003"
+
+# Footer
+msgid "دسترسی سریع"
+msgstr "Quick Access"
+
+msgid "ما را دنبال کنید"
+msgstr "Follow Us"
+
+msgid "شرکت ماهان سپهر اصفهان"
+msgstr "Mahan Sepehr Isfahan Company"
+
+msgid "حامد سپهرنیا"
+msgstr "Hamed Sepehrnia"
+
+# Home Page
+msgid "محصولات برتر"
+msgstr "Featured Products"
+
+msgid "جدیدترین و محبوب‌ترین محصولات ما"
+msgstr "Our latest and most popular products"
+
+msgid "مشاهده"
+msgstr "View"
+
+msgid "مشاهده همه محصولات"
+msgstr "View All Products"
+
+msgid "آخرین مطالب"
+msgstr "Latest Posts"
+
+msgid "جدیدترین اخبار و مقالات ما را بخوانید"
+msgstr "Read our latest news and articles"
+
+msgid "ادامه مطلب"
+msgstr "Read More"
+
+msgid "مشاهده همه مطالب"
+msgstr "View All Posts"
+
+msgid "ما چه"
+msgstr "Who"
+
+msgid "کسی"
+msgstr "We"
+
+msgid "هستیم"
+msgstr "Are"
+
 #, fuzzy
 #~| msgid "دسته ها"
 #~ msgid "دسته‌بندی‌ها"

@@ -250,68 +250,132 @@
     </script>
     {% block content %}
     {% endblock %}
-    <footer id="footer">
-        <div class="container">
-            {% get_current_language as LANGUAGE_CODE %}
-            {% if LANGUAGE_CODE == 'fa' %}
-            <div class="footer-ribbon">
-                <span>{% trans 'در ارتباط باشید' %}</span>
-            </div>
-            {% endif %}
-            <div class="row py-5 my-4">
-                <div class="col-md-6 mb-4 mb-md-0">
-                    <a class="logo pr-0 pr-lg-3" href="{% url 'index' %}">
-                        <img alt="Porto Website Template" class="opacity-7 bottom-4" height="33"
-                             src='{% static "img/logo-footer.png" %}'/>
-                    </a>
-                    <p class="mt-2 mb-2">
-                        {{ about_text|slice:":200" }}...
-                    </p>
-                    <p class="mb-0"><a class="btn-flat btn-xs text-color-light" href="{% url 'about' %}"><strong
-                            class="text-2">{% trans 'مشاهده بیشتر' %}</strong><i
-                            class="fas fa-angle-left align-middle pl-2"></i></a></p>
-                </div>
-                <div class="col-md-6 mt-2 mt-md-0 pt-1 pt-md-0">
-                    <h5 class="text-3 mb-2 pb-1">{% trans 'تماس با ما' %}</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <ul class="list list-icons list-icons-lg">
-                                <li class="mb-1"><i class="far fa-dot-circle text-color-primary"></i>
-                                    <p class="m-0">{{ address }}</p></li>
-                                <li class="mb-1"><i class="fab fa-whatsapp text-color-primary"></i>
-                                    <p class="m-0"><a class="ltr-text"
-                                                      href="tel:{{ phone_number3 }}">{{ phone_number3 }}</a></p></li>
-                                <li class="mb-1"><i class="far fa-envelope text-color-primary"></i>
-                                    <p class="m-0"><a href="mailto:mail@example.com">{{ email }}</a></p></li>
+    <!-- Footer مدرن و تمیز -->
+    <footer class="modern-footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <!-- درباره شرکت -->
+                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                        <div class="footer-widget">
+                            <div class="footer-logo mb-3">
+                                <a href="{% url 'index' %}">
+                                    <img src='{% static "img/logo-footer.png" %}' alt="{% trans 'آراکیس سایرا' %}" style="max-height: 50px;">
+                                </a>
+                            </div>
+                            <p class="footer-desc">
+                                {{ about_text|truncatewords:25 }}
+                            </p>
+                            <a href="{% url 'about' %}" class="footer-link-more">
+                                {% trans 'درباره ما' %}
+                                <i class="fas fa-arrow-left ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- لینک‌های سریع -->
+                    <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                        <div class="footer-widget">
+                            <h5 class="footer-title">{% trans 'دسترسی سریع' %}</h5>
+                            <ul class="footer-links">
+                                <li><a href="{% url 'index' %}">{% trans 'خانه' %}</a></li>
+                                <li><a href="{% url 'all_products' %}">{% trans 'محصولات' %}</a></li>
+                                <li><a href="{% url 'news' %}">{% trans 'اخبار' %}</a></li>
+                                <li><a href="{% url 'post_list' %}">{% trans 'بلاگ' %}</a></li>
+                                <li><a href="{% url 'about' %}">{% trans 'درباره ما' %}</a></li>
+                                <li><a href="{% url 'contact' %}">{% trans 'تماس با ما' %}</a></li>
                             </ul>
                         </div>
-                        <div class="col-md-6">
-                            <ul class="list list-icons list-icons-sm mb-n1">
-                                {#                                <li><i class="fas fa-angle-left"></i><a class="link-hover-style-1 ml-1"#}
-                                {#                                                                        href="page-faq.html"> سوالات متداول</a></li>#}
-                                <li><i class="fas fa-angle-left"></i><a class="link-hover-style-1 ml-1"
-                                                                        href="{% url 'sitemap' %}">{% trans 'نقشه سایت' %}</a>
+                    </div>
+                    
+                    <!-- اطلاعات تماس -->
+                    <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                        <div class="footer-widget">
+                            <h5 class="footer-title">{% trans 'تماس با ما' %}</h5>
+                            <ul class="footer-contact">
+                                <li>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ address }}</span>
                                 </li>
-                                <li><i class="fas fa-angle-left"></i><a class="link-hover-style-1 ml-1"
-                                                                        href="{% url 'contact' %}">{% trans "تماس با ما" %}</a>
+                                <li>
+                                    <i class="fas fa-phone-alt"></i>
+                                    <a href="tel:{{ phone_number3 }}" class="ltr-text">{{ phone_number3 }}</a>
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <a href="mailto:{{ email }}">{{ email }}</a>
+                                </li>
+                                {% if instagram_page %}
+                                <li>
+                                    <i class="fab fa-instagram"></i>
+                                    <a href="https://www.instagram.com/{{ instagram_page }}" target="_blank">{{ instagram_page }}</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- ساعات کاری -->
+                    <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                        <div class="footer-widget">
+                            <h5 class="footer-title">{% trans 'ساعات کاری' %}</h5>
+                            <ul class="footer-hours">
+                                <li>
+                                    <i class="far fa-clock"></i>
+                                    {{ work_hour1 }}
+                                </li>
+                                <li>
+                                    <i class="far fa-clock"></i>
+                                    {{ work_hour2 }}
+                                </li>
+                                <li>
+                                    <i class="far fa-clock"></i>
+                                    {{ work_hour3 }}
                                 </li>
                             </ul>
+                            
+                            <!-- شبکه‌های اجتماعی -->
+                            <div class="footer-social mt-4">
+                                <h6 class="footer-social-title">{% trans 'ما را دنبال کنید' %}</h6>
+                                <div class="social-links">
+                                    {% if instagram_page %}
+                                    <a href="https://www.instagram.com/{{ instagram_page }}" target="_blank" class="social-link instagram">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    {% endif %}
+                                    <a href="#" class="social-link telegram">
+                                        <i class="fab fa-telegram-plane"></i>
+                                    </a>
+                                    <a href="#" class="social-link whatsapp">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                    <a href="{% url 'sitemap' %}" class="social-link sitemap" title="{% trans 'نقشه سایت' %}">
+                                        <i class="fas fa-sitemap"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer-copyright footer-copyright-style-2">
-            <div class="container py-2">
-                <div class="row py-4">
-                    <div class="col d-flex align-items-center justify-content-center">
-                        <p>
+        
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <p class="footer-copyright">
                             © 2025 {% trans 'شرکت ماهان سپهر اصفهان' %} | {% trans 'تمامی حقوق محفوظ است.' %}
-                            <span style="font-size: 12px; opacity: 0.6;">
-    {% trans 'طراحی و توسعه' %}: <a href="https://hamedsepehrnia.ir" target="_blank">{% trans 'حامد سپهرنیا' %}</a>
-  </span>
                         </p>
-
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <p class="footer-developer">
+                            {% trans 'طراحی و توسعه' %}: 
+                            <a href="https://hamedsepehrnia.ir" target="_blank" rel="noopener">
+                                {% trans 'حامد سپهرنیا' %}
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>

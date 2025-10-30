@@ -2,376 +2,496 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-    <div class="main" role="main">
-        <section class="page-header page-header-classic page-header-sm">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 order-2 order-md-1 align-self-center p-static mt-n1">
-                        <h1 data-title-border="">{% trans 'درباره ما' %}</h1>
-                    </div>
-                    <div class="col-md-4 order-1 order-md-2 align-self-center mb-1 mb-md-0">
-                        <ul class="breadcrumb d-block text-md-right">
-                            <li><a href="#">{% trans 'خانه' %}</a></li>
-                            <li class="active">{% trans 'صفحات' %}</li>
-                        </ul>
-                    </div>
-                </div>
+    <style>
+        /* Breadcrumb مدرن */
+        .breadcrumb-modern {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb-modern .breadcrumb {
+            margin: 0;
+            background: transparent;
+            padding: 0;
+        }
+        
+        .breadcrumb-modern .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            font-size: 18px;
+            color: #cbd5e0;
+        }
+        
+        .breadcrumb-modern a {
+            color: #009345;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-modern a:hover {
+            color: #00b359;
+        }
+        
+        .breadcrumb-modern .active {
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        /* Hero Section */
+        .about-hero {
+            background: linear-gradient(135deg, #009345 0%, #00b359 100%);
+            padding: 60px 0;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            color: white;
+            text-align: center;
+        }
+        
+        .about-hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .about-hero p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+        
+        /* بخش اصلی */
+        .about-content {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+        
+        .about-image-wrapper {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+        }
+        
+        .about-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image-wrapper:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-text {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #4a5568;
+            text-align: justify;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to left, #009345, #00b359);
+            border-radius: 2px;
+        }
+        
+        html[dir="ltr"] .section-title::after {
+            right: auto;
+            left: 0;
+            background: linear-gradient(to right, #009345, #00b359);
+        }
+        
+        /* ویژگی‌ها */
+        .features-section {
+            padding: 60px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 35px 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0, 147, 69, 0.2);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #009345 0%, #00b359 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 5px 20px rgba(0, 147, 69, 0.3);
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 12px;
+        }
+        
+        .feature-desc {
+            font-size: 14px;
+            color: #718096;
+            line-height: 1.7;
+        }
+        
+        /* آمار */
+        .stats-section {
+            background: linear-gradient(135deg, #009345 0%, #00b359 100%);
+            padding: 60px 0;
+            border-radius: 15px;
+            margin: 50px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .cta-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .cta-text {
+            font-size: 16px;
+            color: #718096;
+            margin-bottom: 25px;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #009345 0%, #00b359 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 147, 69, 0.3);
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 147, 69, 0.4);
+            color: white;
+        }
+        
+        @media (max-width: 991px) {
+            .about-hero h1 {
+                font-size: 32px;
+            }
+            
+            .about-hero p {
+                font-size: 16px;
+            }
+            
+            .about-content {
+                padding: 30px 20px;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+            
+            .stat-number {
+                font-size: 36px;
+            }
+        }
+    </style>
+    
+    <div class="main py-4" role="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb-modern">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                                <i class="fas fa-home ms-1"></i>
+                                {% trans 'خانه' %}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {% trans 'درباره ما' %}
+                        </li>
+                    </ol>
+                </nav>
             </div>
-        </section>
-        {% get_current_language as LANGUAGE_CODE %}
-    {% if LANGUAGE_CODE == 'fa' %}
-        <div class="container pb-1">
-            <div class="row pt-4">
-                <div class="col">
-                    <div class="overflow-hidden mb-3">
-                        <h2 class="word-rotator slide font-weight-bold text-7 text-sm-8 mb-0 appear-animation"
-                            data-appear-animation="maskUp">
-                            <span>{% trans "راهی جدید برای" %}</span>
-                            <span class="word-rotator-words bg-primary">
-  <b class="is-visible">{% trans "موفقیت" %}</b>
-  <b>{% trans "نوآوری" %}</b>
-  <b>{% trans "پیشرفت" %}</b>
-</span>
-
-                        </h2>
-                    </div>
-                </div>
+            
+            <!-- Hero Section -->
+            <div class="about-hero">
+                <h1>
+                    <i class="fas fa-building ms-2"></i>
+                    {% trans 'درباره ما' %}
+                </h1>
+                <p>
+                    {% trans 'مجتمع شیمیایی ماهان سپهر اصفهان، پیشگام در تولید مواد شیمیایی صنعتی از سال ۱۳۸۲' %}
+                </p>
             </div>
-            <div class="row mb-2">
-                <div class="col-lg-10">
-                    <div class="overflow-hidden">
-                        <p class="lead mb-0 appear-animation" data-appear-animation="maskUp"
-                           data-appear-animation-delay="250">
-                            {% trans 'در دنیای پرشتاب امروز، کیفیت، نوآوری و مسئولیت‌پذیری، کلید موفقیت پایدار هستند. ما با تکیه بر دانش روز و احترام به محیط زیست، گامی فراتر از استانداردهای رایج برداشته‌ایم تا راه‌حل‌هایی مطمئن، سازگار و هوشمندانه برای نیازهای امروز و فردای جامعه ارائه دهیم.' %}
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    {% endif %}
-        <section class="section section-default border-0 my-5 appear-animation" data-appear-animation="fadeIn"
-                 data-appear-animation-delay="750">
-            <div class="container py-4">
+            
+            <!-- محتوای اصلی -->
+            <div class="about-content">
                 <div class="row align-items-center">
-                    <div class="col-md-6 appear-animation" data-appear-animation="fadeInLeftShorter"
-                         data-appear-animation-delay="1000">
-                        {#                        <div class="owl-carousel owl-theme nav-inside mb-0"#}
-                        {#                            data-plugin-options="{'items': 1, 'margin': 10, 'animateOut': 'fadeOut', 'autoplay': true, 'autoplayTimeout': 6000, 'loop': true}">#}
-                        <style>
-                            .about-img-fancy {
-                                border-radius: 18px;
-                                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-                                overflow: hidden;
-                                position: relative;
-                                animation: fadeInUp 1.2s cubic-bezier(0.23, 1, 0.32, 1);
-                                background: #fff;
-                                margin-bottom: 24px;
-                                transition: box-shadow 0.3s;
-                            }
-
-                            .about-img-fancy img {
-                                width: 100%;
-                                height: auto;
-                                display: block;
-                                transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-                            }
-
-                            .about-img-fancy:hover img {
-                                transform: scale(1.04) rotate(-1deg);
-                            }
-
-                            @keyframes fadeInUp {
-                                0% {
-                                    opacity: 0;
-                                    transform: translateY(40px);
-                                }
-                                100% {
-                                    opacity: 1;
-                                    transform: translateY(0);
-                                }
-                            }
-                        </style>
-
-                        <div class="about-img-fancy">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <div class="about-image-wrapper">
                             {% if picture and picture.url %}
-                                <img src="{{ picture.url }}" alt="about us">
+                                <img src="{{ picture.url }}" alt="{% trans 'درباره ما' %}">
                             {% else %}
-                                <img src="{% static 'img/generic/generic-corporate-3-1.jpg' %}" alt="about us">
+                                <img src="https://placehold.co/800x600/009345/ffffff?text=آراکیس+سایرا" alt="{% trans 'درباره ما' %}">
                             {% endif %}
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="overflow-hidden mb-2">
-                        <h2 class="text-color-dark font-weight-normal text-5 mb-0 pt-0 mt-0 appear-animation"
-                            data-appear-animation="maskUp" data-appear-animation-delay="1200"><strong
-                                class="font-weight-extra-bold">{% trans "معرفی ما" %}</strong></h2>
+                    <div class="col-lg-6">
+                        <h2 class="section-title">
+                            <i class="fas fa-star ms-2"></i>
+                            {% trans 'معرفی شرکت' %}
+                        </h2>
+                        <div class="about-text">
+                            {{ about_text|safe|linebreaks }}
+                        </div>
                     </div>
-                    <p class="appear-animation" data-appear-animation="fadeInUpShorter"
-                       data-appear-animation-delay="1400">
-                        {{ about_text }}
-                    </p>
-
                 </div>
             </div>
-    </div>
-    </section>
-    {#        <div class="container">#}
-    {#            <div class="row mt-5 py-3">#}
-    {#                <div class="col-md-6">#}
-    {#                    <div class="toggle toggle-primary toggle-simple m-0" data-plugin-toggle="">#}
-    {#                        <section class="toggle active mt-0">#}
-    {#                            <a class="toggle-title">چشم انداز ما</a>#}
-    {#                            <div class="toggle-content">#}
-    {#                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان#}
-    {#                                    گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون <a href="#">لورم ایپسوم</a>#}
-    {#                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان#}
-    {#                                    گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که</p>#}
-    {#                            </div>#}
-    {#                        </section>#}
-    {#                        <section class="toggle">#}
-    {#                            <a class="toggle-title">ماموریت ما</a>#}
-    {#                            <div class="toggle-content">#}
-    {#                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان#}
-    {#                                    گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و#}
-    {#                                    برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی#}
-    {#                                    می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و#}
-    {#                                    متخصصان</p>#}
-    {#                            </div>#}
-    {#                        </section>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#                <div class="col-md-6">#}
-    {#                    <div class="progress-bars mt-5 mt-md-0">#}
-    {#                        <div class="progress-label mb-1">#}
-    {#                            <span class="text-1">HTML/CSS</span>#}
-    {#                        </div>#}
-    {#                        <div class="progress mb-2">#}
-    {#                            <div class="progress-bar progress-bar-primary" data-appear-progress-animation="100%">#}
-    {#                                <span class="progress-bar-tooltip">100%</span>#}
-    {#                            </div>#}
-    {#                        </div>#}
-    {#                        <div class="progress-label mb-1">#}
-    {#                            <span class="text-1">طراحی</span>#}
-    {#                        </div>#}
-    {#                        <div class="progress mb-2">#}
-    {#                            <div class="progress-bar progress-bar-primary" data-appear-animation-delay="300"#}
-    {#                                 data-appear-progress-animation="85%">#}
-    {#                                <span class="progress-bar-tooltip">85%</span>#}
-    {#                            </div>#}
-    {#                        </div>#}
-    {#                        <div class="progress-label mb-1">#}
-    {#                            <span class="text-1">وردپرس</span>#}
-    {#                        </div>#}
-    {#                        <div class="progress mb-2">#}
-    {#                            <div class="progress-bar progress-bar-primary" data-appear-animation-delay="600"#}
-    {#                                 data-appear-progress-animation="75%">#}
-    {#                                <span class="progress-bar-tooltip">75%</span>#}
-    {#                            </div>#}
-    {#                        </div>#}
-    {#                        <div class="progress-label mb-1">#}
-    {#                            <span class="text-1">فتوشاپ</span>#}
-    {#                        </div>#}
-    {#                        <div class="progress mb-2">#}
-    {#                            <div class="progress-bar progress-bar-primary" data-appear-animation-delay="900"#}
-    {#                                 data-appear-progress-animation="85%">#}
-    {#                                <span class="progress-bar-tooltip">85%</span>#}
-    {#                            </div>#}
-    {#                        </div>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#            <div class="row">#}
-    {#                <div class="col py-4">#}
-    {#                    <hr class="solid"/>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#            <div class="row">#}
-    {#                <div class="col-md-8 mx-md-auto text-center">#}
-    {#                    <h2 class="text-color-dark font-weight-normal text-5 mb-2 pt-2"><strong#}
-    {#                            class="font-weight-extra-bold">تاریخچه</strong> ما</h2>#}
-    {#                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>#}
-    {#                    <div class="py-4 py-md-3"></div>#}
-    {#                    <section class="timeline mb-n5" id="timeline">#}
-    {#                        <div class="timeline-body">#}
-    {#                            <div class="timeline-date">#}
-    {#                                <h3 class="text-primary font-weight-bold">2020</h3>#}
-    {#                            </div>#}
-    {#                            <article class="timeline-box left text-left appear-animation" data-appear-animation="fadeIn"#}
-    {#                                     data-appear-animation-delay="200">#}
-    {#                                <div class="timeline-box-arrow"></div>#}
-    {#                                <div class="p-2">#}
-    {#                                    <img alt="" class="img-fluid" src='{% static "img/history/history-3.jpg" %}'/>#}
-    {#                                    <h3 class="font-weight-bold text-3 mt-3 mb-1">دفتر جدید</h3>#}
-    {#                                    <p class="mb-0 text-2">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و#}
-    {#                                        با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه</p>#}
-    {#                                </div>#}
-    {#                            </article>#}
-    {#                            <div class="timeline-date">#}
-    {#                                <h3 class="text-primary font-weight-bold">2012</h3>#}
-    {#                            </div>#}
-    {#                            <article class="timeline-box right text-left appear-animation"#}
-    {#                                     data-appear-animation="fadeIn" data-appear-animation-delay="400">#}
-    {#                                <div class="timeline-box-arrow"></div>#}
-    {#                                <div class="p-2">#}
-    {#                                    <img alt="" class="img-fluid" src='{% static "img/history/history-2.jpg" %}'/>#}
-    {#                                    <h3 class="font-weight-bold text-3 mt-3 mb-1">شرکای جدید</h3>#}
-    {#                                    <p class="mb-0 text-2">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و#}
-    {#                                        با استفاده از طراحان گرافیک است. چاپگرها و متون</p>#}
-    {#                                </div>#}
-    {#                            </article>#}
-    {#                            <div class="timeline-date">#}
-    {#                                <h3 class="text-primary font-weight-bold">2006</h3>#}
-    {#                            </div>#}
-    {#                            <article class="timeline-box left text-left appear-animation" data-appear-animation="fadeIn"#}
-    {#                                     data-appear-animation-delay="600">#}
-    {#                                <div class="timeline-box-arrow"></div>#}
-    {#                                <div class="p-2">#}
-    {#                                    <img alt="" class="img-fluid" src='{% static "img/history/history-1.jpg" %}'/>#}
-    {#                                    <h3 class="font-weight-bold text-3 mt-3 mb-1">تاسیس</h3>#}
-    {#                                    <p class="mb-0 text-2">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و#}
-    {#                                        با استفاده از طراحان گرافیک است. چاپگرها</p>#}
-    {#                                </div>#}
-    {#                            </article>#}
-    {#                        </div>#}
-    {#                    </section>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#        <section class="section section-default border-0 my-5">#}
-    {#            <div class="container py-4">#}
-    {#                <div class="row">#}
-    {#                    <div class="col pb-4 text-center">#}
-    {#                        <h2 class="text-color-dark font-weight-normal text-5 mb-2 pt-2">با <strong#}
-    {#                                class="font-weight-extra-bold">تیم ما</strong> آشنا شوید</h2>#}
-    {#                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#                <div class="row pb-3">#}
-    {#                    <div class="col-sm-6 col-lg-3 mb-5 mb-lg-0 appear-animation"#}
-    {#                         data-appear-animation="fadeInRightShorter">#}
-    {#<span class="thumb-info thumb-info-hide-wrapper-bg bg-transparent border-radius-0">#}
-    {#<span class="thumb-info-wrapper border-radius-0">#}
-    {#<a href="about-me.html">#}
-    {#<img alt="" class="img-fluid border-radius-0" src='{% static "img/team/team-1.jpg" %}'/>#}
-    {#<span class="thumb-info-title">#}
-    {#<span class="thumb-info-inner">تونی استارک</span>#}
-    {#<span class="thumb-info-type">مدیر عامل</span>#}
-    {#</span>#}
-    {#</a>#}
-    {#</span>#}
-    {#<span class="thumb-info-caption">#}
-    {#<span class="thumb-info-caption-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</span>#}
-    {#<span class="thumb-info-social-icons">#}
-    {#<a href="http://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i><span>فیسبوک</span></a>#}
-    {#<a href="http://www.twitter.com"><i class="fab fa-twitter"></i><span>توییتر</span></a>#}
-    {#<a href="http://www.linkedin.com"><i class="fab fa-linkedin-in"></i><span>لینکدین</span></a>#}
-    {#</span>#}
-    {#</span>#}
-    {#</span>#}
-    {#                    </div>#}
-    {#                    <div class="col-sm-6 col-lg-3 mb-5 mb-lg-0 appear-animation"#}
-    {#                         data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">#}
-    {#<span class="thumb-info thumb-info-hide-wrapper-bg bg-transparent border-radius-0">#}
-    {#<span class="thumb-info-wrapper border-radius-0">#}
-    {#<a href="about-me.html">#}
-    {#<img alt="" class="img-fluid border-radius-0" src='{% static "img/team/team-2.jpg" %}'/>#}
-    {#<span class="thumb-info-title">#}
-    {#<span class="thumb-info-inner">جسیکا آلبا</span>#}
-    {#<span class="thumb-info-type">بازاریابی</span>#}
-    {#</span>#}
-    {#</a>#}
-    {#</span>#}
-    {#<span class="thumb-info-caption">#}
-    {#<span class="thumb-info-caption-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</span>#}
-    {#<span class="thumb-info-social-icons">#}
-    {#<a href="http://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i><span>فیسبوک</span></a>#}
-    {#<a href="http://www.twitter.com"><i class="fab fa-twitter"></i><span>توییتر</span></a>#}
-    {#<a href="http://www.linkedin.com"><i class="fab fa-linkedin-in"></i><span>لینکدین</span></a>#}
-    {#</span>#}
-    {#</span>#}
-    {#</span>#}
-    {#                    </div>#}
-    {#                    <div class="col-sm-6 col-lg-3 mb-5 mb-sm-0 appear-animation"#}
-    {#                         data-appear-animation="fadeInRightShorter" data-appear-animation-delay="400">#}
-    {#<span class="thumb-info thumb-info-hide-wrapper-bg bg-transparent border-radius-0">#}
-    {#<span class="thumb-info-wrapper border-radius-0">#}
-    {#<a href="about-me.html">#}
-    {#<img alt="" class="img-fluid border-radius-0" src='{% static "img/team/team-3.jpg" %}'/>#}
-    {#<span class="thumb-info-title">#}
-    {#<span class="thumb-info-inner">جان اسنو</span>#}
-    {#<span class="thumb-info-type">توسعه دهنده</span>#}
-    {#</span>#}
-    {#</a>#}
-    {#</span>#}
-    {#<span class="thumb-info-caption">#}
-    {#<span class="thumb-info-caption-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</span>#}
-    {#<span class="thumb-info-social-icons">#}
-    {#<a href="http://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i><span>فیسبوک</span></a>#}
-    {#<a href="http://www.twitter.com"><i class="fab fa-twitter"></i><span>توییتر</span></a>#}
-    {#<a href="http://www.linkedin.com"><i class="fab fa-linkedin-in"></i><span>لینکدین</span></a>#}
-    {#</span>#}
-    {#</span>#}
-    {#</span>#}
-    {#                    </div>#}
-    {#                    <div class="col-sm-6 col-lg-3 appear-animation" data-appear-animation="fadeInRightShorter"#}
-    {#                         data-appear-animation-delay="600">#}
-    {#<span class="thumb-info thumb-info-hide-wrapper-bg bg-transparent border-radius-0">#}
-    {#<span class="thumb-info-wrapper border-radius-0">#}
-    {#<a href="about-me.html">#}
-    {#<img alt="" class="img-fluid border-radius-0" src='{% static "img/team/team-4.jpg" %}'/>#}
-    {#<span class="thumb-info-title">#}
-    {#<span class="thumb-info-inner">استیو راجرز</span>#}
-    {#<span class="thumb-info-type">طراحی</span>#}
-    {#</span>#}
-    {#</a>#}
-    {#</span>#}
-    {#<span class="thumb-info-caption">#}
-    {#<span class="thumb-info-caption-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</span>#}
-    {#<span class="thumb-info-social-icons">#}
-    {#<a href="http://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i><span>فیسبوک</span></a>#}
-    {#<a href="http://www.twitter.com"><i class="fab fa-twitter"></i><span>توییتر</span></a>#}
-    {#<a href="http://www.linkedin.com"><i class="fab fa-linkedin-in"></i><span>لینکدین</span></a>#}
-    {#</span>#}
-    {#</span>#}
-    {#</span>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </section>#}
-    <div class="container">
-        <div class="row py-5 my-5">
-            <div class="col">
-                <div class="owl-carousel owl-theme mb-0"
-                     data-plugin-options="{'responsive': {'0': {'items': 1}, '479': {'items': 3}, '768': {'items': 5}, '992': {'items': 7}, '1200': {'items': 7}}, 'autoplay': true, 'autoplayTimeout': 3000, 'dots': false}">
-                    <div>
-                        <img alt="" class="img-fluid opacity-2" src='{% static "img/logos/logo-1.png" %}'/>
+            
+            <!-- ویژگی‌های کلیدی -->
+            <div class="features-section">
+                <div class="text-center mb-5">
+                    <h2 class="section-title d-inline-block">
+                        <i class="fas fa-gem ms-2"></i>
+                        {% trans 'چرا آراکیس سایرا؟' %}
+                    </h2>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="feature-title">{% trans 'کیفیت تضمین شده' %}</h3>
+                            <p class="feature-desc">
+                                {% trans 'تولید با استانداردهای بین‌المللی و کنترل کیفیت دقیق' %}
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <img alt="" class="img-fluid opacity-2" src='{% static "img/logos/logo-2.png" %}'/>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h3 class="feature-title">{% trans 'سازگار با محیط زیست' %}</h3>
+                            <p class="feature-desc">
+                                {% trans 'محصولات دوستدار طبیعت و قابل تجزیه زیستی' %}
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <img alt="" class="img-fluid opacity-2" src='{% static "img/logos/logo-3.png" %}'/>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3 class="feature-title">{% trans 'نوآوری مستمر' %}</h3>
+                            <p class="feature-desc">
+                                {% trans 'تحقیق و توسعه برای ارائه بهترین راه‌حل‌ها' %}
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <img alt="" class="img-fluid opacity-2" src='{% static "img/logos/logo-4.png" %}'/>
-                    </div>
-                    <div>
-                        <img alt="" class="img-fluid opacity-2" src='{% static "img/logos/logo-5.png" %}'/>
-                    </div>
-                    <div>
-                        <img alt="" class="img-fluid opacity-2" src='{% static "img/logos/logo-6.png" %}'/>
-                    </div>
-                    <div>
-                        <img alt="" class="img-fluid opacity-2" src='{% static "img/logos/logo-4.png" %}'/>
-                    </div>
-                    <div>
-                        <img alt="" class="img-fluid opacity-2" src='{% static "img/logos/logo-2.png" %}'/>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="feature-title">{% trans 'تیم متخصص' %}</h3>
+                            <p class="feature-desc">
+                                {% trans 'کارشناسان مجرب و متعهد در خدمت شما' %}
+                            </p>
+                        </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- آمار و ارقام -->
+            <div class="stats-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-6">
+                            <div class="stat-item">
+                                <span class="stat-number">
+                                    <i class="fas fa-calendar-check"></i>
+                                    +20
+                                </span>
+                                <span class="stat-label">{% trans 'سال تجربه' %}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-6">
+                            <div class="stat-item">
+                                <span class="stat-number">
+                                    <i class="fas fa-box"></i>
+                                    +50
+                                </span>
+                                <span class="stat-label">{% trans 'محصول متنوع' %}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-6">
+                            <div class="stat-item">
+                                <span class="stat-number">
+                                    <i class="fas fa-handshake"></i>
+                                    +1000
+                                </span>
+                                <span class="stat-label">{% trans 'مشتری راضی' %}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-6">
+                            <div class="stat-item">
+                                <span class="stat-number">
+                                    <i class="fas fa-certificate"></i>
+                                    ISO
+                                </span>
+                                <span class="stat-label">{% trans 'گواهینامه‌های معتبر' %}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ارزش‌های ما -->
+            <div class="about-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="section-title text-center mb-5">
+                            <i class="fas fa-heart ms-2"></i>
+                            {% trans 'ارزش‌های ما' %}
+                        </h2>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <h4 class="feature-title">{% trans 'کیفیت' %}</h4>
+                            <p class="feature-desc">
+                                {% trans 'تعهد به ارائه بالاترین کیفیت در تمام محصولات' %}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h4 class="feature-title">{% trans 'اعتماد' %}</h4>
+                            <p class="feature-desc">
+                                {% trans 'ایجاد روابط بلندمدت مبتنی بر اعتماد متقابل' %}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <h4 class="feature-title">{% trans 'پایداری' %}</h4>
+                            <p class="feature-desc">
+                                {% trans 'مسئولیت‌پذیری در قبال محیط زیست و آینده' %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA - تماس با ما -->
+            <div class="cta-section">
+                <h2 class="cta-title">
+                    <i class="fas fa-phone-alt ms-2"></i>
+                    {% trans 'آماده همکاری با شما هستیم' %}
+                </h2>
+                <p class="cta-text">
+                    {% trans 'برای دریافت مشاوره رایگان و سفارش محصولات، همین حالا با ما تماس بگیرید' %}
+                </p>
+                <a href="{% url 'contact' %}" class="cta-btn">
+                    <i class="fas fa-paper-plane ms-1"></i>
+                    {% trans 'تماس با ما' %}
+                </a>
             </div>
         </div>
-    </div>
     </div>
 {% endblock %}

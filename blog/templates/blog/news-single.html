@@ -1,52 +1,228 @@
 {% extends 'core/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
-    <div class="main" role="main">
-        <section class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 align-self-center p-static order-2 text-center">
-                        <h1 class="text-dark font-weight-bold text-8">{{ news.title }}</h1>
-                        <span class="sub-title text-dark">آخرین اخبار ما را مطالعه کنید</span>
-                    </div>
-                    <div class="col-md-12 align-self-center order-1">
-                        <ul class="breadcrumb d-block text-center">
-                            <li><a href="{% url "index" %}">خانه</a></li>
-                            <li class="active">اخبار</li>
-                        </ul>
+    <style>
+        /* Breadcrumb مدرن */
+        .breadcrumb-modern {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb-modern .breadcrumb {
+            margin: 0;
+            background: transparent;
+            padding: 0;
+        }
+        
+        .breadcrumb-modern .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            font-size: 18px;
+            color: #cbd5e0;
+        }
+        
+        .breadcrumb-modern a {
+            color: #009345;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-modern a:hover {
+            color: #00b359;
+        }
+        
+        .breadcrumb-modern .active {
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        /* محتوای خبر */
+        .news-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        
+        .news-header {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 30px;
+        }
+        
+        .news-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .news-meta {
+            font-size: 14px;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .news-meta i {
+            color: #009345;
+        }
+        
+        .news-image-main {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            overflow: hidden;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .news-image-main img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .news-content-text {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #4a5568;
+            text-align: justify;
+        }
+        
+        .news-content-text p {
+            margin-bottom: 20px;
+        }
+        
+        .news-date-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #009345;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 147, 69, 0.3);
+        }
+        
+        html[dir="ltr"] .news-date-badge {
+            right: auto;
+            left: 20px;
+        }
+        
+        .news-date-badge .day {
+            display: block;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .news-date-badge .month {
+            display: block;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        /* دکمه‌های اشتراک‌گذاری */
+        .share-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+        
+        .share-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+        }
+        
+        .share-telegram { background: #0088cc; }
+        .share-whatsapp { background: #25d366; }
+        .share-twitter { background: #1da1f2; }
+        .share-copy { background: #718096; }
+    </style>
+    
+    <div class="main py-4" role="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb-modern">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                                <i class="fas fa-home ms-1"></i>
+                                {% trans 'خانه' %}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'news' %}">{% trans 'اخبار' %}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{ news.title|truncatewords:5 }}
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            
+            <!-- محتوای خبر -->
+            <article class="news-container">
+                <div class="news-header">
+                    <h1 class="news-title">{{ news.title }}</h1>
+                    <div class="news-meta">
+                        <i class="far fa-calendar-alt"></i>
+                        {{ news.created_date.year }}/{{ news.created_date.month }}/{{ news.created_date.day }}
                     </div>
                 </div>
-            </div>
-        </section>
-        <div class="container py-4">
-            <div class="row">
-                <div class="col">
-                    <div class="blog-posts single-post">
-                        <article class="post post-large blog-single-post border-0 m-0 p-0">
-                            <div class="post-image ml-0">
-                                <a href="blog-post.html">
-                                    {% if news.image  %}
-                                    <img alt="" class=" img-thumbnail img-thumbnail-no-borders rounded-0"
-                                         src='{{ news.image.url }}'/>
-                                    {% endif %}
-                                </a>
-                            </div>
-                            <div class="post-date ml-0">
-                                <span class="day">{{ news.created_date|date:"d" }}
-</span>
-                                <span class="month">{{ news.month_name }}</span>
-                            </div>
-                            <div class="post-content ml-0">
-                                <h2 class="font-weight-bold mt-n3 mb-2 pb-1 pt-1 line-height-7 text-7"><a
-                                        href="blog-post.html">{{ news.title }}</a></h2>
-                                <div class="post-meta">
-                                </div>
-                                <p>{{ news.content }}</p>
-                        </article>
+                
+                {% if news.image %}
+                <div class="news-image-main">
+                    <img src="{{ news.image.url }}" alt="{{ news.title }}"/>
+                    <div class="news-date-badge">
+                        <span class="day">{{ news.created_date.day }}</span>
+                        <span class="month">{{ news.month_name }}</span>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    </div>
-{% endblock %}
+                {% endif %}
+                
+                <div class="news-content-text">
+                    {{ news.content|safe|linebreaks }}
+                </div>
