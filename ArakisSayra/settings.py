@@ -200,18 +200,18 @@ USE_TZ = True
 # MEDIA_ROOT = "/home/arakissa/public_html/media"
 # STATIC_ROOT = "/home/arakissa/public_html/static"
 
-local:
-STATIC_URL = "/static/"                     # همیشه با / شروع بشه
-STATICFILES_DIRS = [BASE_DIR / "static"]    # فایل‌های استاتیک پروژه و اپ‌ها
-STATIC_ROOT = BASE_DIR / "staticfiles"      # مسیر جمع‌آوری‌شده توسط collectstatic
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"             # فایل‌های آپلود شده کاربر
+# local:
+# STATIC_URL = "/static/"                     # همیشه با / شروع بشه
+# STATICFILES_DIRS = [BASE_DIR / "static"]    # فایل‌های استاتیک پروژه و اپ‌ها
+# STATIC_ROOT = BASE_DIR / "staticfiles"      # مسیر جمع‌آوری‌شده توسط collectstatic
+# MEDIA_URL = "/media/"
+# MEDIA_ROOT = BASE_DIR / "media"             # فایل‌های آپلود شده کاربر
 
 # production:
-# STATIC_URL = "/static/"
-# STATICFILES_DIRS = []                        # فقط collectstatic مسیر STATIC_ROOT رو استفاده می‌کنه
-# STATIC_ROOT = "/home/arakissa/public_html/static"   # مسیر نهایی استاتیک روی هاست
-# MEDIA_URL = "/media/"
-# MEDIA_ROOT = "/home/arakissa/public_html/media"     # مسیر آپلود کاربران روی هاست
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]                        # فقط collectstatic مسیر STATIC_ROOT رو استفاده می‌کنه
+STATIC_ROOT = "/home/arakissa/public_html/static"   # مسیر نهایی استاتیک روی هاست
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "/home/arakissa/public_html/media"     # مسیر آپلود کاربران روی هاست
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
