@@ -107,12 +107,12 @@ WSGI_APPLICATION = "ArakisSayra.wsgi.application"
 # ========================================
 # تنظیمات دیتابیس برای Development (SQLite)
 # ========================================
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # ========================================
 # تنظیمات دیتابیس برای Production (PostgreSQL)
@@ -125,35 +125,37 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'arakissa_db',              # نام دیتابیس
-#         'USER': 'arakissa_user',            # کاربر دیتابیس
-#         'PASSWORD': 'your_password_here',   # رمز عبور
-#         'HOST': 'localhost',                # آدرس سرور (معمولاً localhost)
-#         'PORT': '5432',                     # پورت PostgreSQL (پیش‌فرض 5432)
+#         'NAME': 'arakissa_db',
+#         'USER': 'arakissa_user3',
+#         'PASSWORD': 'Mahan123@',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
 #         'OPTIONS': {
-#             'charset': 'utf8',
+#             'sslmode': 'disable',
 #         },
 #     }
 # }
 
+
+
 # ========================================
 # تنظیمات قدیمی MySQL (برای مرجع)
 # ========================================
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'arakissa_parsa',       
-#         'USER': 'arakissa_parsa',
-#         'PASSWORD': 'Hamed1385@',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#         'OPTIONS': {
-#             # 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-#             'charset': 'utf8mb4',
-#             'init_command': "SET NAMES 'utf8mb4'"
-#          }
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'arakissa_db',
+        'USER': 'arakissa_user',
+        'PASSWORD': 'Mahan123@',
+        'HOST': 'localhost',   # یا آدرس سرور دیتابیس
+        'PORT': '3306',
+        # 'OPTIONS': {
+        #     'charset': 'utf8mb4',
+        #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        # },
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
