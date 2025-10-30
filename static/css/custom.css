@@ -69,6 +69,24 @@ html[dir="ltr"] [class*="text-"] {
     color: #009345;
 }
 
+.topbar-address {
+    max-width: 350px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.topbar-address i {
+    color: #009345;
+    margin-left: 6px;
+    flex-shrink: 0;
+}
+
+html[dir="ltr"] .topbar-address i {
+    margin-right: 6px;
+    margin-left: 0;
+}
+
 /* Language Switcher */
 .language-switcher {
     display: flex;
@@ -819,14 +837,53 @@ html[dir="ltr"] .submenu-arrow {
     }
 }
 
-@media (max-width: 575px) {
-    .header-topbar {
-        padding: 6px 0;
+@media (max-width: 767px) {
+    .topbar-item {
         font-size: 11px;
     }
     
+    .topbar-item i {
+        font-size: 10px;
+        margin-left: 4px;
+    }
+    
+    html[dir="ltr"] .topbar-item i {
+        margin-right: 4px;
+        margin-left: 0;
+    }
+    
+    .language-switcher .lang-btn {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+    
+    .language-switcher .lang-separator {
+        margin: 0 4px;
+    }
+}
+
+@media (max-width: 575px) {
+    .header-topbar {
+        padding: 6px 0;
+        font-size: 10px;
+    }
+    
     .topbar-info {
-        gap: 10px;
+        gap: 0;
+    }
+    
+    .topbar-item {
+        font-size: 10px;
+    }
+    
+    .topbar-item i {
+        font-size: 9px;
+        margin-left: 3px;
+    }
+    
+    html[dir="ltr"] .topbar-item i {
+        margin-right: 3px;
+        margin-left: 0;
     }
 }
 
