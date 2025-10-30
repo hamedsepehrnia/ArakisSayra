@@ -473,6 +473,9 @@ msgstr "Type of container"
 msgid "سایر خصوصیات"
 msgstr "Other info"
 
+msgid "جستجو ..."
+msgstr "Search ..."
+
 #, fuzzy
 #~| msgid "دسته ها"
 #~ msgid "دسته‌بندی‌ها"

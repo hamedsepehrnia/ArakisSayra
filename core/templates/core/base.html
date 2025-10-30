@@ -47,175 +47,207 @@
 </head>
 <body data-plugin-page-transition="">
 <div class="body">
-    <header class="header-effect-shrink"
-            data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyChangeLogo': true, 'stickyStartAt': 120, 'stickyHeaderContainerHeight': 70}"
-            id="header">
-        <div class="header-body border-top-0">
-            <div class="header-top header-top-borders">
-                <div class="container h-100">
-                    <div class="header-row h-100">
-                        <div class="header-column justify-content-start">
-                            <div class="header-row">
-                                <nav class="header-nav-top">
-                                    <ul class="nav nav-pills">
-                                        <li class="nav-item nav-item-borders py-2 d-none d-sm-inline-flex">
-                                            <span class="pl-0"><i
-                                                    class="far fa-dot-circle text-4 text-color-primary"></i>{{ address }}</span>
-                                        </li>
-                                        <li class="nav-item nav-item-borders py-2">
-                                            <a href="tel:{{ phone_number3 }}"><i
-                                                    class="fab fa-whatsapp text-4 text-color-primary"></i> <span
-                                                    class="ltr-text">{{ phone_number3 }}</span></a>
-                                        </li>
-                                        <li class="nav-item nav-item-borders py-2 d-none d-md-inline-flex">
-                                            <a href="{{ email }}"><i
-                                                    class="far fa-envelope text-4 text-color-primary"></i>
-                                                {{ email }}</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="header-column justify-content-end">
-                            <div class="header-row">
-                                <nav class="header-nav-top">
-                                    <ul class="nav nav-pills">
-                                        <li class="nav-item nav-item-borders py-2 pr-0">
-                                            <form action="{% url 'set_language' %}" method="post"
-                                                  style="display:inline;">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="language" value="fa">
-                                                <button type="submit" class="btn btn-link p-0">
-                                                    <img src="{% static 'img/blank.gif' %}" class="flag flag-ir"
-                                                         alt="فارسی">
-                                                </button>
-                                            </form>
-                                        </li>
-                                        <li class="nav-item nav-item-borders py-2 pr-0 ml-2">
-                                            <form action="{% url 'set_language' %}" method="post"
-                                                  style="display:inline;">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="language" value="en">
-                                                <button type="submit" class="btn btn-link p-0">
-                                                    <img src="{% static 'img/blank.gif' %}" class="flag flag-us"
-                                                         alt="English">
-                                                </button>
-                                            </form>
-                                        </li>
-                                    </ul>
-
-                                </nav>
-                            </div>
+    <!-- Header جدید - تمیز و استاندارد -->
+    <header id="header" class="modern-header">
+        <!-- Top Bar -->
+        <div class="header-topbar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- اطلاعات تماس -->
+                    <div class="col-lg-8 col-md-6 d-none d-md-block">
+                        <div class="topbar-info">
+                            <span class="topbar-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <a href="tel:{{ phone_number3 }}" class="ltr-text">{{ phone_number3 }}</a>
+                            </span>
+                            <span class="topbar-item d-none d-lg-inline">
+                                <i class="far fa-envelope"></i>
+                                <a href="mailto:{{ email }}">{{ email }}</a>
+                            </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="header-container container">
-                <div class="header-row">
-                    <div class="header-column">
-                        <div class="header-row">
-                            <div class="header-logo">
-                                <a href="{% url 'index' %}">
-                                    <img alt="Porto"
-                                         src='{% static "img/logo-corporate-5.png" %}' width="190"/>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="header-column justify-content-end">
-                        <div class="header-row">
-                            <div class="header-nav header-nav-stripe order-2 order-lg-1">
-                                <div class="header-nav-main header-nav-main-square header-nav-main-effect-1 header-nav-main-sub-effect-1">
-                                    <nav class="collapse">
-                                        <ul class="nav nav-pills" id="mainNav">
-                                            <li class="dropdown">
-                                                <a class="dropdown-item dropdown-toggle {% if request.resolver_match.url_name == 'index' %}active{% endif %}"
-                                                   href="{% url 'index' %}">
-                                                    {% trans 'خانه' %}
-                                                </a>
-                                            </li>
-
-
-                                            <li class="dropdown">
-                                                <a class="dropdown-item dropdown-toggle"
-                                                   href="{% url 'all_products'%}">{% trans 'محصولات' %}</a>
-                                                <ul class="dropdown-menu">
-                                                    {% for cat in categories %}
-                                                        {% if cat.get_full_slug %}
-                                                            <li class="{% if cat.children.all %}dropdown-submenu{% endif %}">
-                                                                <a class="dropdown-item {% if cat.children.all %}dropdown-toggle{% endif %}"
-                                                                   href="{% url 'products_category' full_path=cat.get_full_slug %}">
-                                                                    {{ cat.name }}
-                                                                </a>
-                                                                {% if cat.children.all %}
-                                                                    <ul class="dropdown-menu">
-                                                                        {% include "category_submenu.html" with subcategories=cat.children.all %}
-                                                                    </ul>
-                                                                {% endif %}
-                                                            </li>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown dropdown-mega">
-                                            </li>
-                                            <li class="dropdown">
-                                                <a class="dropdown-item dropdown-toggle {% if request.resolver_match.url_name == 'news' %}active{% endif %}" href="{% url 'news' %}">
-                                                    {% trans 'اخبار' %}
-                                                </a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a class="dropdown-item dropdown-toggle {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}" href="{% url 'post_list' %}" {% if request.resolver_match.url_name == 'index' %}active{% endif %}>
-                                                    {% trans 'بلاگ' %}
-                                                </a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a class="dropdown-item dropdown-toggle {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">
-                                                    {% trans 'درباره ما' %}
-                                                </a>
-
-                                            </li>
-                                            <li class="dropdown">
-                                                <a class="dropdown-item dropdown-toggle {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">
-                                                    {% trans 'تماس با ما' %}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                                <button class="btn header-btn-collapse-nav" data-target=".header-nav-main nav"
-                                        data-toggle="collapse">
-                                    <i class="fas fa-bars"></i>
+                    
+                    <!-- Language Switcher -->
+                    <div class="col-lg-4 col-md-6 col-12 text-end">
+                        <div class="language-switcher">
+                            <form action="{% url 'set_language' %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="language" value="fa">
+                                <button type="submit" class="lang-btn {% if LANGUAGE_CODE == 'fa' %}active{% endif %}">
+                                    فارسی
                                 </button>
-                            </div>
-                            <div class="header-nav-features header-nav-features-no-border header-nav-features-lg-show-border order-1 order-lg-2">
-                                <div class="header-nav-feature header-nav-features-search d-inline-flex">
-                                    <a class="header-nav-features-toggle" data-focus="headerSearch" href="#"><i
-                                            class="fas fa-search header-nav-top-icon"></i></a>
-                                    <div class="header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed"
-                                         id="headerTopSearchDropdown">
-                                        <form action="{% url 'product_search' %}" method="get" role="search">
-                                            <div class="simple-search input-group">
-                                                <input class="form-control text-1" id="headerSearch" name="query"
-                                                       placeholder="جستجو ..." type="search" value=""/>
-                                                <span class="input-group-append">
-<button class="btn" type="submit">
-<i class="fa fa-search header-nav-top-icon"></i>
-</button>
-
-                                                </span>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
-                            </div>
+                            </form>
+                            <span class="lang-separator">|</span>
+                            <form action="{% url 'set_language' %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="language" value="en">
+                                <button type="submit" class="lang-btn {% if LANGUAGE_CODE == 'en' %}active{% endif %}">
+                                    English
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- Main Header -->
+        <div class="header-main">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Logo -->
+                    <div class="col-lg-3 col-6">
+                        <div class="logo">
+                            <a href="{% url 'index' %}">
+                                <img src='{% static "img/logo-corporate-5.png" %}' alt="{% trans 'آراکیس سایرا' %}" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation -->
+                    <div class="col-lg-9 col-6">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <!-- Main Menu -->
+                            <nav class="main-nav d-none d-lg-block">
+                                <ul class="nav-menu">
+                                    <li><a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">{% trans 'خانه' %}</a></li>
+                                    
+                                    <li class="has-dropdown">
+                                        <a href="{% url 'all_products' %}">{% trans 'محصولات' %} <i class="fas fa-chevron-down"></i></a>
+                                        <ul class="dropdown-nav">
+                                            {% for cat in categories %}
+                                                {% if cat.get_full_slug %}
+                                                    <li class="{% if cat.children.all %}has-submenu{% endif %}">
+                                                        <a href="{% url 'products_category' full_path=cat.get_full_slug %}">
+                                                            {{ cat.name }}
+                                                            {% if cat.children.all %}<i class="fas fa-chevron-left submenu-arrow"></i>{% endif %}
+                                                        </a>
+                                                        {% if cat.children.all %}
+                                                            <ul class="submenu-nav">
+                                                                {% for child in cat.children.all %}
+                                                                    <li><a href="{% url 'products_category' full_path=child.get_full_slug %}">{{ child.name }}</a></li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    
+                                    <li><a href="{% url 'news' %}" class="{% if request.resolver_match.url_name == 'news' %}active{% endif %}">{% trans 'اخبار' %}</a></li>
+                                    <li><a href="{% url 'post_list' %}" class="{% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">{% trans 'بلاگ' %}</a></li>
+                                    <li><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">{% trans 'درباره ما' %}</a></li>
+                                    <li><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">{% trans 'تماس با ما' %}</a></li>
+                                </ul>
+                            </nav>
+                            
+                            <!-- Search Icon -->
+                            <div class="search-icon d-none d-lg-block">
+                                <button class="search-btn" onclick="toggleSearch()">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Mobile Menu Toggle -->
+                            <button class="mobile-menu-toggle d-lg-none" onclick="toggleMobileMenu()">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Bar (مخفی) -->
+        <div class="search-bar" id="searchBar" style="display: none;">
+            <div class="container">
+                <form action="{% url 'product_search' %}" method="get" class="search-form">
+                    <input type="text" name="query" placeholder="{% trans 'جستجوی محصولات ...' %}" class="search-input">
+                    <button type="submit" class="search-submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button type="button" class="search-close" onclick="toggleSearch()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <h5>{% trans 'منو' %}</h5>
+                <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="mobile-nav">
+                <li><a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">{% trans 'خانه' %}</a></li>
+                <li class="has-submenu">
+                    <a href="{% url 'all_products' %}" class="submenu-toggle">
+                        {% trans 'محصولات' %} 
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="mobile-submenu">
+                        {% for cat in categories %}
+                            {% if cat.get_full_slug %}
+                                <li><a href="{% url 'products_category' full_path=cat.get_full_slug %}">{{ cat.name }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li><a href="{% url 'news' %}" class="{% if request.resolver_match.url_name == 'news' %}active{% endif %}">{% trans 'اخبار' %}</a></li>
+                <li><a href="{% url 'post_list' %}" class="{% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">{% trans 'بلاگ' %}</a></li>
+                <li><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">{% trans 'درباره ما' %}</a></li>
+                <li><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">{% trans 'تماس با ما' %}</a></li>
+            </ul>
+        </div>
+        
+        <!-- Overlay for mobile menu -->
+        <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
     </header>
+    
+    <script>
+        // Toggle Search Bar
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            if (searchBar.style.display === 'none') {
+                searchBar.style.display = 'block';
+                setTimeout(() => searchBar.classList.add('show'), 10);
+                document.querySelector('.search-input').focus();
+            } else {
+                searchBar.classList.remove('show');
+                setTimeout(() => searchBar.style.display = 'none', 300);
+            }
+        }
+        
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileOverlay');
+            const body = document.body;
+            
+            if (mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                body.style.overflow = '';
+            } else {
+                mobileMenu.classList.add('active');
+                overlay.classList.add('active');
+                body.style.overflow = 'hidden';
+            }
+        }
+        
+        // Toggle Mobile Submenu
+        document.querySelectorAll('.mobile-nav .submenu-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const parent = this.parentElement;
+                parent.classList.toggle('open');
+            });
+        });
+    </script>
     {% block content %}
     {% endblock %}
     <footer id="footer">
