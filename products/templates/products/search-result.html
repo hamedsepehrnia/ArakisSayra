@@ -1,115 +1,351 @@
 {% extends 'core/base.html' %}
 {% load mptt_tags %}
-{#{% load mptt_tags %}#}
 {% load i18n %}
 {% load static %}
 {% block content %}
+    <style>
+        .breadcrumb-modern {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb-modern .breadcrumb {
+            margin: 0;
+            background: transparent;
+            padding: 0;
+        }
+        
+        .breadcrumb-modern .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            font-size: 18px;
+            color: #cbd5e0;
+        }
+        
+        .breadcrumb-modern a {
+            color: #009345;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-modern a:hover {
+            color: #00b359;
+        }
+        
+        .breadcrumb-modern .active {
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        .search-header {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .search-header h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #2d3748;
+        }
+        
+        .search-query {
+            color: #009345;
+            font-weight: 600;
+        }
+        
+        .results-count {
+            font-size: 14px;
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        /* Sidebar مدرن */
+        .sidebar {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .sidebar .nav-link {
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #4a5568;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            margin-bottom: 5px;
+        }
+        
+        .sidebar .nav-link:hover {
+            background: rgba(0, 147, 69, 0.08);
+            color: #009345;
+            border-color: rgba(0, 147, 69, 0.2);
+            padding-right: 20px;
+        }
+        
+        html[dir="ltr"] .sidebar .nav-link:hover {
+            padding-left: 20px;
+            padding-right: 15px;
+        }
+        
+        /* Search در Sidebar */
+        .sidebar .input-group .form-control {
+            border-radius: 8px 0 0 8px;
+            border: 2px solid #e2e8f0;
+            padding: 10px 15px;
+        }
+        
+        html[dir="ltr"] .sidebar .input-group .form-control {
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .sidebar .input-group button {
+            border-radius: 0 8px 8px 0;
+            background: #009345;
+            border: none;
+            padding: 10px 15px;
+        }
+        
+        html[dir="ltr"] .sidebar .input-group button {
+            border-radius: 8px 0 0 8px;
+        }
+        
+        .sidebar .input-group button:hover {
+            background: #00b359;
+        }
+        
+        /* کارت‌های محصول */
+        .product-card-modern {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 25px;
+        }
+        
+        .product-card-modern:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0, 147, 69, 0.2);
+        }
+        
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+        
+        .product-image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .product-card-modern:hover .product-image-container img {
+            transform: scale(1.1);
+        }
+        
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-card-modern:hover .product-overlay {
+            opacity: 1;
+        }
+        
+        .product-btn {
+            background: white;
+            color: #009345;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+        }
+        
+        .product-card-modern:hover .product-btn {
+            transform: translateY(0);
+        }
+        
+        .product-btn:hover {
+            background: #009345;
+            color: white;
+        }
+        
+        .product-info {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .product-title:hover {
+            color: #009345;
+        }
+        
+        .product-category {
+            font-size: 12px;
+            color: #009345;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+    </style>
+    
     <div class="main shop py-4" role="main">
         <div class="container">
-
-        <h2>نتایج جستجو برای "{{ query }}"</h2>
+            <!-- Breadcrumb مدرن -->
+            <div class="breadcrumb-modern">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                                <i class="fas fa-home ms-1"></i>
+                                {% trans 'خانه' %}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'all_products' %}">{% trans 'محصولات' %}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {% trans 'نتایج جستجو' %}
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            
+            <!-- نتیجه جستجو -->
+            <div class="search-header">
+                <h2>
+                    <i class="fas fa-search ms-2 text-primary"></i>
+                    {% trans 'نتایج جستجو برای' %} "<span class="search-query">{{ query }}</span>"
+                </h2>
+                {% if results %}
+                    <p class="results-count">
+                        {{ results|length }} {% trans 'محصول یافت شد' %}
+                    </p>
+                {% endif %}
+            </div>
+            
             <div class="row">
+                <!-- Sidebar -->
                 <div class="col-lg-3">
-                    <aside class="sidebar mb-5 mb-lg-0 pb-3 pb-lg-0">
-                        <form action="{% url 'product_search' %}" method="get">
-                            <div class="input-group mb-3 pb-1">
-                                <input class="form-control text-1" id="s" name="query" placeholder="جستجو ..." type="text"/>
+                    <aside class="sidebar mb-4 mb-lg-0">
+                        <!-- جستجو -->
+                        <form action="{% url 'product_search' %}" method="get" class="mb-4">
+                            <div class="input-group">
+                                <input class="form-control" name="query" placeholder="{% trans 'جستجو ...' %}" type="text" value="{{ query }}"/>
                                 <span class="input-group-append">
-<button class="btn btn-dark text-1 p-2" type="submit"><i class="fas fa-search m-2"></i></button>
-</span>
+                                    <button class="btn" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </span>
                             </div>
                         </form>
-                        <h5 class="font-weight-bold pt-4">دسته‌بندی‌ها</h5>
+                        
+                        <!-- دسته‌بندی‌ها -->
+                        <h6 class="sidebar-title">
+                            <i class="fas fa-th-large ms-1"></i>
+                            {% trans 'دسته‌بندی‌ها' %}
+                        </h6>
                         <ul class="nav flex-column">
                             {% recursetree categories %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'products_category' full_path=node.get_full_slug %}"
-                                       style="margin-right: {{ node.level|add:"1" }}em">
+                                    <a class="nav-link" href="{% url 'products_category' full_path=node.get_full_slug %}">
                                         {{ node.name }}
                                     </a>
                                     {% if not node.is_leaf_node %}
-                                        <ul class="nav flex-column ms-3">
+                                        <ul class="nav flex-column" style="padding-right: 15px;">
                                             {{ children }}
                                         </ul>
                                     {% endif %}
                                 </li>
                             {% endrecursetree %}
                         </ul>
-
-
-                        <div class="row mb-3">
-                            <div class="col">
-
-                            </div>
-                        </div>
                     </aside>
                 </div>
+                
+                <!-- نتایج -->
                 <div class="col-lg-9">
-                    <div class="masonry-loader masonry-loader-showing">
-                        <div class="row products product-thumb-info-list" data-plugin-masonry=""
-                             data-plugin-options="{'layoutMode': 'fitRows'}">
+                    <div class="row">
                         {% if results %}
-                                                        {% for product in results %}
-                                                            <div class="col-sm-6 col-lg-4 product">
-                            <span class="product-thumb-info border-0">
-                            <a class="add-to-cart-product bg-color-primary" href="{% url 'product_detail' product.slug %}">
-                            <span class="text-1">جزییات</span>
-                            </a>
-                            <a href="{% url 'product_detail' product.slug %}">
-                            <span class="product-thumb-info-image">
-                            <img alt="" class="img-fluid" src='{% static "img/products/product-1.jpg" %}'/>
-                            </span>
-                            </a>
-                            <span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
-                            <a href="{% url 'product_detail' product.slug %}">
-                            <h4 class="text-4 text-primary">{{ product.title }}</h4>
-                            <span class="price">
-                            </span>
-                            </a>
-                            </span>
-                            </span>
-                                                            </div>
-                                                        {% endfor %}
-                            {% else %}
-                            <p>نتیجه‌ای یافت نشد.</p>
-                        {% endif %}
-
-                        </div>
-                        <div class="row mt-4 mb-n3">
-                            <div class="col">
-                                <ul class="pagination float-right">
-                                    {% if products.has_previous %}
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{ products.previous_page_number }}">
-                                                <i class="fas fa-angle-right"></i>
+                            {% for product in results %}
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="product-card-modern">
+                                    <div class="product-image-container">
+                                        <a href="{% url 'product_detail' product.slug %}">
+                                            <img src="{% if product.image %}{{ product.image.url }}{% else %}https://placehold.co/600x600/009345/ffffff?text=بدون+تصویر{% endif %}" 
+                                                 alt="{{ product.title }}">
+                                        </a>
+                                        <div class="product-overlay">
+                                            <a href="{% url 'product_detail' product.slug %}" class="product-btn">
+                                                <i class="fas fa-eye ms-1"></i>
+                                                {% trans 'مشاهده جزئیات' %}
                                             </a>
-                                        </li>
-                                    {% endif %}
-
-                                    {% for num in products.paginator.page_range %}
-                                        {% if num == 1 or num == products.paginator.num_pages or num >= products.number|add:'-2' and num <= products.number|add:'2' %}
-                                            {% if products.number == num %}
-                                                <li class="page-item active"><a class="page-link" href="#">{{ num }}</a>
-                                                </li>
-                                            {% else %}
-                                                <li class="page-item"><a class="page-link"
-                                                                         href="?page={{ num }}">{{ num }}</a></li>
-                                            {% endif %}
-                                        {% elif num == products.number|add:'-3' or num == products.number|add:'3' %}
-                                            <li class="page-item disabled"><span class="page-link">...</span></li>
-                                        {% endif %}
-                                    {% endfor %}
-
-                                    {% if products.has_next %}
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{ products.next_page_number }}">
-                                                <i class="fas fa-angle-left"></i>
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-category">
+                                            <i class="fas fa-tag ms-1"></i>
+                                            {{ product.category.name }}
+                                        </div>
+                                        <a href="{% url 'product_detail' product.slug %}" style="text-decoration: none;">
+                                            <h4 class="product-title">{{ product.title }}</h4>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-12 text-center py-5">
+                                <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                                <h4 class="text-muted">{% trans 'نتیجه‌ای یافت نشد' %}</h4>
+                                <p class="text-muted">{% trans 'لطفاً با کلمات کلیدی دیگری جستجو کنید' %}</p>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
