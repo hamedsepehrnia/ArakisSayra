@@ -101,8 +101,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-left: 15px;
             font-size: 20px;
+        }
+        
+        /* فاصله آیکون در RTL (فارسی) */
+        html[dir="rtl"] .product-info-icon {
+            margin-left: 15px;
+        }
+        
+        /* فاصله آیکون در LTR (انگلیسی) */
+        html[dir="ltr"] .product-info-icon {
+            margin-right: 15px;
         }
         
         .product-info-label {
@@ -307,15 +316,69 @@
             border-radius: 10px;
             text-align: center;
             line-height: 40px;
-            margin-left: 10px;
             color: white;
             transition: all 0.3s ease;
+        }
+        
+        /* فاصله دکمه‌های share در RTL */
+        html[dir="rtl"] .share-button {
+            margin-left: 10px;
+        }
+        
+        /* فاصله دکمه‌های share در LTR */
+        html[dir="ltr"] .share-button {
+            margin-right: 10px;
         }
         
         .share-button:hover {
             background: rgba(255,255,255,0.3);
             transform: translateY(-3px);
             color: white;
+        }
+        
+        /* تصحیح فاصله آیکون‌ها برای هر دو زبان */
+        html[dir="ltr"] .info-table i {
+            margin-right: 8px;
+            margin-left: 0;
+        }
+        
+        html[dir="rtl"] .info-table i {
+            margin-left: 8px;
+            margin-right: 0;
+        }
+        
+        html[dir="ltr"] h3 i {
+            margin-right: 8px;
+            margin-left: 0;
+        }
+        
+        html[dir="rtl"] h3 i {
+            margin-left: 8px;
+            margin-right: 0;
+        }
+        
+        /* تصحیح فاصله آیکون در badge ها */
+        html[dir="ltr"] .product-category-badge i,
+        html[dir="ltr"] .product-badge i {
+            margin-right: 5px;
+            margin-left: 0;
+        }
+        
+        html[dir="rtl"] .product-category-badge i,
+        html[dir="rtl"] .product-badge i {
+            margin-left: 5px;
+            margin-right: 0;
+        }
+        
+        /* تصحیح فاصله آیکون در feature badge */
+        html[dir="ltr"] .feature-badge i {
+            margin-right: 5px;
+            margin-left: 0;
+        }
+        
+        html[dir="rtl"] .feature-badge i {
+            margin-left: 5px;
+            margin-right: 0;
         }
     </style>
     
