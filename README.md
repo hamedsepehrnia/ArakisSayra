@@ -18,7 +18,6 @@ Arakis Sayra is a full-featured bilingual (Persian/English) e-commerce platform 
 - Full Persian (Farsi) and English language support
 - Django modeltranslation integration for seamless content translation
 - Automatic URL routing based on language selection
-- RTL/LTR layout switching
 
 #### Product Management
 - Hierarchical category system using Django MPTT
@@ -224,7 +223,7 @@ Detailed documentation is available in the `docs/` directory:
 - **Image Optimization Guide**: Information about automatic image optimization
 - **Translation Guide**: How to manage and compile translations
 
-### API Endpoints
+### Endpoints
 
 The project doesn't have a REST API by default, but all content is accessible through Django views.
 
@@ -238,7 +237,17 @@ The project doesn't have a REST API by default, but all content is accessible th
 
 ### License
 
-This project is proprietary software developed for Arakis Sayra.
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+
+You are free to:
+- Share: copy and redistribute the material in any medium or format
+- Adapt: remix, transform, and build upon the material
+
+Under the following terms:
+- Attribution: You must give appropriate credit, provide a link to the license, and indicate if changes were made
+- NonCommercial: You may not use the material for commercial purposes
+
+For more details, see the LICENSE file or visit: https://creativecommons.org/licenses/by-nc/4.0/
 
 ### Support
 
@@ -258,7 +267,6 @@ For issues and questions, please contact the development team.
 - پشتیبانی کامل از زبان‌های فارسی و انگلیسی
 - یکپارچه‌سازی django-modeltranslation برای ترجمه یکپارچه محتوا
 - مسیریابی خودکار URL بر اساس انتخاب زبان
-- تغییر خودکار چیدمان راست به چپ/چپ به راست
 
 #### مدیریت محصولات
 - سیستم دسته‌بندی سلسله مراتبی با استفاده از Django MPTT
@@ -464,7 +472,7 @@ python manage.py generate_sitemap
 - **راهنمای بهینه‌سازی تصویر**: اطلاعات درباره بهینه‌سازی خودکار تصویر
 - **راهنمای ترجمه**: نحوه مدیریت و کامپایل ترجمه‌ها
 
-### نقاط پایانی API
+### اندپوینت‌ها
 
 این پروژه به طور پیش‌فرض API REST ندارد، اما تمام محتوا از طریق viewهای Django قابل دسترسی است.
 
@@ -478,7 +486,17 @@ python manage.py generate_sitemap
 
 ### مجوز
 
-این پروژه نرم‌افزار اختصاصی توسعه‌یافته برای آراکیس سایرا است.
+این پروژه تحت مجوز Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) منتشر شده است.
+
+شما آزاد هستید که:
+- اشتراک‌گذاری: کپی و توزیع مجدد محتوا در هر رسانه یا قالبی
+- تطبیق: ترکیب، تغییر و ساخت بر پایه این محتوا
+
+تحت شرایط زیر:
+- انتساب: باید اعتبار مناسب ارائه دهید، لینک مجوز را قرار دهید و نشان دهید که آیا تغییراتی ایجاد شده است
+- غیرتجاری: نمی‌توانید از این محتوا برای اهداف تجاری استفاده کنید
+
+برای جزئیات بیشتر، فایل LICENSE را مشاهده کنید یا به آدرس زیر مراجعه کنید: https://creativecommons.org/licenses/by-nc/4.0/deed.fa
 
 ### پشتیبانی
 
