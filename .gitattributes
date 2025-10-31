@@ -165,14 +165,29 @@ manage.py text eol=lf
 
 # Linguist overrides for GitHub language detection
 *.html linguist-detectable=true
-*.css linguist-detectable=true
-*.js linguist-detectable=true
 *.py linguist-detectable=true
+
+# Mark all vendor and third-party libraries as vendored
 static/vendor/** linguist-vendored
-static/js/vendor/** linguist-vendored
-static/css/vendor/** linguist-vendored
+static/css/demos/** linguist-vendored
+static/css/farsi-fonts-styles/** linguist-vendored
+static/css/fonts/** linguist-vendored
+static/css/skins/** linguist-vendored
+static/js/demos/** linguist-vendored
+static/js/examples/** linguist-vendored
+static/master/** linguist-vendored
+
+# Mark minified files as generated
 *.min.js linguist-generated=true
 *.min.css linguist-generated=true
+
+# Mark theme files from template as vendored
+static/css/theme*.css linguist-vendored
+static/js/theme*.js linguist-vendored
+
+# Only detect custom files
+static/css/custom.css linguist-detectable=true
+static/js/custom.js linguist-detectable=true
 
 # Export ignore (files not included in git archive)
 .gitattributes export-ignore
