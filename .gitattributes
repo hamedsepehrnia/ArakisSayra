@@ -1,0 +1,185 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Source code files
+*.py text eol=lf diff=python
+*.pyx text eol=lf diff=python
+*.pyi text eol=lf diff=python
+*.pyw text eol=lf diff=python
+*.pxd text eol=lf diff=python
+
+# Web files
+*.html text eol=lf diff=html
+*.css text eol=lf diff=css
+*.scss text eol=lf diff=css
+*.sass text eol=lf diff=css
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+
+# Django specific
+*.mo binary
+*.po text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Configuration files
+*.ini text eol=lf
+*.cfg text eol=lf
+*.conf text eol=lf
+*.config text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+.editorconfig text eol=lf
+.gitattributes text eol=lf
+.gitconfig text eol=lf
+.gitignore text eol=lf
+
+# Documentation
+*.md text eol=lf
+*.txt text eol=lf
+*.rst text eol=lf
+LICENSE text eol=lf
+AUTHORS text eol=lf
+CHANGELOG text eol=lf
+CONTRIBUTING text eol=lf
+INSTALL text eol=lf
+README text eol=lf
+
+# Docker
+Dockerfile text eol=lf
+docker-compose*.yml text eol=lf
+.dockerignore text eol=lf
+
+# Python requirements
+requirements*.txt text eol=lf
+Pipfile text eol=lf
+Pipfile.lock text eol=lf
+
+# Django management
+manage.py text eol=lf
+
+# Templates
+*.jinja text eol=lf
+*.j2 text eol=lf
+
+# XML and related
+*.xml text eol=lf
+*.svg text eol=lf
+
+# SQL files
+*.sql text eol=lf
+
+# Graphics
+*.ai binary
+*.bmp binary
+*.eps binary
+*.gif binary
+*.gifv binary
+*.ico binary
+*.jng binary
+*.jp2 binary
+*.jpg binary
+*.jpeg binary
+*.jpx binary
+*.jxr binary
+*.pdf binary
+*.png binary
+*.psb binary
+*.psd binary
+*.svg text
+*.svgz binary
+*.tif binary
+*.tiff binary
+*.wbmp binary
+*.webp binary
+
+# Audio
+*.kar binary
+*.m4a binary
+*.mid binary
+*.midi binary
+*.mp3 binary
+*.ogg binary
+*.ra binary
+
+# Video
+*.3gpp binary
+*.3gp binary
+*.as binary
+*.asf binary
+*.asx binary
+*.fla binary
+*.flv binary
+*.m4v binary
+*.mng binary
+*.mov binary
+*.mp4 binary
+*.mpeg binary
+*.mpg binary
+*.ogv binary
+*.swc binary
+*.swf binary
+*.webm binary
+
+# Archives
+*.7z binary
+*.gz binary
+*.jar binary
+*.rar binary
+*.tar binary
+*.zip binary
+
+# Fonts
+*.ttf binary
+*.eot binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+
+# Executables
+*.exe binary
+*.pyc binary
+*.pyd binary
+*.pyo binary
+
+# Database files
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+
+# Other binary files
+*.pkl binary
+*.pickle binary
+*.xlsx binary
+*.xls binary
+*.doc binary
+*.docx binary
+*.ppt binary
+*.pptx binary
+
+# Linguist overrides for GitHub language detection
+*.html linguist-detectable=true
+*.css linguist-detectable=true
+*.js linguist-detectable=true
+*.py linguist-detectable=true
+static/vendor/** linguist-vendored
+static/js/vendor/** linguist-vendored
+static/css/vendor/** linguist-vendored
+*.min.js linguist-generated=true
+*.min.css linguist-generated=true
+
+# Export ignore (files not included in git archive)
+.gitattributes export-ignore
+.gitignore export-ignore
+.gitmodules export-ignore
+.github export-ignore
+tests/ export-ignore
+test/ export-ignore
+*.test.py export-ignore
+
