@@ -255,6 +255,9 @@ msgstr "Email"
 msgid "اینستاگرام"
 msgstr "Instagram"
 
+msgid "دسته‌بندی‌ها"
+msgstr "Categories"
+
 #: core/templates/core/index-corporate-3.html:44
 #: core/templates/core/index.html:44
 msgid "پاکیزگی، امضای ماست"
@@ -635,8 +638,3 @@ msgstr "We"
 
 msgid "هستیم"
 msgstr "Are"
-
-#, fuzzy
-#~| msgid "دسته ها"
-#~ msgid "دسته‌بندی‌ها"
-#~ msgstr "Categories"

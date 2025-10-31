@@ -19,6 +19,24 @@ html[dir="ltr"] [class*="text-"] {
     direction: ltr;
 }
 
+/* تبدیل اعداد به انگلیسی برای نسخه انگلیسی */
+html[dir="ltr"] body,
+html[dir="ltr"] * {
+    font-variant-numeric: lining-nums;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* نگه داشتن فونت آیکون‌ها */
+html[dir="ltr"] .fa,
+html[dir="ltr"] .fas,
+html[dir="ltr"] .far,
+html[dir="ltr"] .fal,
+html[dir="ltr"] .fab,
+html[dir="ltr"] [class^="icon-"],
+html[dir="ltr"] [class*=" icon-"] {
+    font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands" !important;
+}
+
 /* ============================================
    HEADER MODERN - ساختار جدید
    ============================================ */

@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-i(!kp*wcc8a)8p7(@ng(x4ulj-!9y=00q3p&=%t34brfqx@#q("
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =  True
+DEBUG =  False
 
-ALLOWED_HOSTS = ['arakissayra.ir', 'www.arakissayra.ir', 'arakissayra.com', 'www.arakissayra.com', "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ['arakissayra.ir', 'www.arakissayra.ir', 'arakissayra.com', 'www.arakissayra.com']
 
 # Application definition
 
@@ -107,32 +107,32 @@ WSGI_APPLICATION = "ArakisSayra.wsgi.application"
 #========================================
 #sqlite database settings
 #========================================
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # ========================================
 
 # ========================================
 # mysql database settings
 # ========================================
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'arakissa_db',
-#         'USER': 'arakissa_user',
-#         'PASSWORD': 'Mahan123@',
-#         'HOST': 'localhost',   # یا آدرس سرور دیتابیس
-#         'PORT': '3306',
-#         # 'OPTIONS': {
-#         #     'charset': 'utf8mb4',
-#         #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-#         # },
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'arakissa_db',
+        'USER': 'arakissa_user',
+        'PASSWORD': 'Mahan123@',
+        'HOST': 'localhost',   # یا آدرس سرور دیتابیس
+        'PORT': '3306',
+        # 'OPTIONS': {
+        #     'charset': 'utf8mb4',
+        #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        # },
+    }
+}
 
 
 # Password validation
