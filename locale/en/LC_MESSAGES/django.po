@@ -258,6 +258,18 @@ msgstr "Instagram"
 msgid "دسته‌بندی‌ها"
 msgstr "Categories"
 
+msgid "اندازه"
+msgstr "Size"
+
+msgid "درخواست خرید"
+msgstr "Request to Buy"
+
+msgid "توضیحات کامل"
+msgstr "Full Description"
+
+msgid "اشتراک‌گذاری:"
+msgstr "Share:"
+
 #: core/templates/core/index-corporate-3.html:44
 #: core/templates/core/index.html:44
 msgid "پاکیزگی، امضای ماست"
