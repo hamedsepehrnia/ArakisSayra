@@ -287,10 +287,8 @@ msgid "حامد سپهرنیا"
 msgstr "Hamed Sepehrnia"
 
 #: core/templates/core/base.html:457
-#, fuzzy
-#| msgid "دفتر ما"
 msgid "دفتر اصفهان"
-msgstr "Our office"
+msgstr "Isfahan Office"
 
 #: core/templates/core/contact-us.html:264
 #: core/templates/core/contact-us.html:334
