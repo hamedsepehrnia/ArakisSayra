@@ -240,6 +240,21 @@ msgstr "instagram: "
 msgid "ساعات کاری"
 msgstr "business hours"
 
+msgid "اطلاعات تماس"
+msgstr "Contact Information"
+
+msgid "آدرس"
+msgstr "Address"
+
+msgid "تلفن‌های تماس"
+msgstr "Phone Numbers"
+
+msgid "ایمیل"
+msgstr "Email"
+
+msgid "اینستاگرام"
+msgstr "Instagram"
+
 #: core/templates/core/index-corporate-3.html:44
 #: core/templates/core/index.html:44
 msgid "پاکیزگی، امضای ماست"
@@ -546,34 +561,9 @@ msgstr "We Are Ready to Cooperate with You"
 msgid "برای دریافت مشاوره رایگان و سفارش محصولات، همین حالا با ما تماس بگیرید"
 msgstr "For free consultation and ordering products, contact us now"
 
-# صفحه تماس با ما
-msgid "ارسال پیام"
-msgstr "Send Message"
-
-msgid "اطلاعات تماس"
-msgstr "Contact Information"
-
-msgid "تلفن‌های تماس"
-msgstr "Phone Numbers"
-
-msgid "اینستاگرام"
-msgstr "Instagram"
-
-msgid "ساعات کاری"
-msgstr "Working Hours"
-
-msgid "لطفاً خطاهای زیر را بررسی کنید."
-msgstr "Please check the errors below."
-
-msgid "پیام شما با موفقیت ارسال شد. به زودی با شما تماس می‌گیریم."
-msgstr "Your message has been sent successfully. We will contact you soon."
-
 # عمومی
 msgid "مشاهده جزئیات"
 msgstr "View Details"
-
-msgid "ادامه مطلب"
-msgstr "Read More"
 
 msgid "محصولی یافت نشد"
 msgstr "No products found"
@@ -602,20 +592,11 @@ msgstr "No news available"
 msgid "پستی موجود نیست"
 msgstr "No posts available"
 
-msgid "خبر"
-msgstr "News"
-
 msgid "اشتراک‌گذاری این مطلب"
 msgstr "Share this article"
 
 msgid "لینک کپی شد!"
 msgstr "Link copied!"
-
-msgid "جستجوی محصولات ..."
-msgstr "Search products ..."
-
-msgid "منو"
-msgstr "Menu"
 
 msgid "مجتمع شیمیایی ماهان سپهر اصفهان، پیشگام در تولید مواد شیمیایی صنعتی از سال ۱۳۸۲"
 msgstr "Mahan Sepehr Chemical Complex of Isfahan, pioneer in industrial chemical production since 2003"
@@ -626,12 +607,6 @@ msgstr "Quick Access"
 
 msgid "ما را دنبال کنید"
 msgstr "Follow Us"
-
-msgid "شرکت ماهان سپهر اصفهان"
-msgstr "Mahan Sepehr Isfahan Company"
-
-msgid "حامد سپهرنیا"
-msgstr "Hamed Sepehrnia"
 
 # Home Page
 msgid "محصولات برتر"
@@ -646,14 +621,8 @@ msgstr "View"
 msgid "مشاهده همه محصولات"
 msgstr "View All Products"
 
-msgid "آخرین مطالب"
-msgstr "Latest Posts"
-
 msgid "جدیدترین اخبار و مقالات ما را بخوانید"
 msgstr "Read our latest news and articles"
-
-msgid "ادامه مطلب"
-msgstr "Read More"
 
 msgid "مشاهده همه مطالب"
 msgstr "View All Posts"

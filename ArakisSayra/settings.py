@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-i(!kp*wcc8a)8p7(@ng(x4ulj-!9y=00q3p&=%t34brfqx@#q("
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG =  True
 
 ALLOWED_HOSTS = ['arakissayra.ir', 'www.arakissayra.ir', 'arakissayra.com', 'www.arakissayra.com', "localhost", "127.0.0.1"]
 
@@ -104,57 +104,35 @@ WSGI_APPLICATION = "ArakisSayra.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# ========================================
-# تنظیمات دیتابیس برای Development (SQLite)
-# ========================================
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
+#========================================
+#sqlite database settings
+#========================================
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 # ========================================
-# تنظیمات دیتابیس برای Production (PostgreSQL)
-# برای فعال کردن در production:
-# 1. کد SQLite بالا را comment کنید
-# 2. کد PostgreSQL پایین را uncomment کنید
-# 3. اطلاعات دیتابیس (NAME, USER, PASSWORD, HOST) را تنظیم کنید
-# 4. پکیج psycopg2-binary را نصب کنید: pip install psycopg2-binary
+
+# ========================================
+# mysql database settings
 # ========================================
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
+#         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'arakissa_db',
-#         'USER': 'arakissa_user3',
+#         'USER': 'arakissa_user',
 #         'PASSWORD': 'Mahan123@',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#         'OPTIONS': {
-#             'sslmode': 'disable',
-#         },
+#         'HOST': 'localhost',   # یا آدرس سرور دیتابیس
+#         'PORT': '3306',
+#         # 'OPTIONS': {
+#         #     'charset': 'utf8mb4',
+#         #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         # },
 #     }
 # }
-
-
-
-# ========================================
-# تنظیمات قدیمی MySQL (برای مرجع)
-# ========================================
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'arakissa_db',
-        'USER': 'arakissa_user',
-        'PASSWORD': 'Mahan123@',
-        'HOST': 'localhost',   # یا آدرس سرور دیتابیس
-        'PORT': '3306',
-        # 'OPTIONS': {
-        #     'charset': 'utf8mb4',
-        #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        # },
-    }
-}
 
 
 # Password validation
@@ -200,7 +178,7 @@ USE_TZ = True
 # MEDIA_ROOT = "/home/arakissa/public_html/media"
 # STATIC_ROOT = "/home/arakissa/public_html/static"
 
-# local:
+# # local:
 # STATIC_URL = "/static/"                     # همیشه با / شروع بشه
 # STATICFILES_DIRS = [BASE_DIR / "static"]    # فایل‌های استاتیک پروژه و اپ‌ها
 # STATIC_ROOT = BASE_DIR / "staticfiles"      # مسیر جمع‌آوری‌شده توسط collectstatic
