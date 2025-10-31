@@ -169,6 +169,7 @@ manage.py text eol=lf
 
 # Mark all vendor and third-party libraries as vendored
 static/vendor/** linguist-vendored
+static/ajax/** linguist-vendored
 static/css/demos/** linguist-vendored
 static/css/farsi-fonts-styles/** linguist-vendored
 static/css/fonts/** linguist-vendored
