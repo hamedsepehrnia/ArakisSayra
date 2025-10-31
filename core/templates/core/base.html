@@ -454,7 +454,7 @@
     }).addTo(map);
 
     L.marker([32.6768441, 51.8329999]).addTo(map)
-        .bindPopup('<div dir="rtl">دفتر اصفهان<br>اصفهان، شهرک صنعتی جی، خیابان یکم، فرعی ۱۴، پلاک ۱۹۵، مجتمع شیمیایی ماهان سپهر اصفهان</div>')
+        .bindPopup('<div dir="{% if LANGUAGE_CODE == "fa" %}rtl{% else %}ltr{% endif %}">{% trans "دفتر اصفهان" %}<br>{{ address }}</div>')
         .openPopup();
 </script>
 
