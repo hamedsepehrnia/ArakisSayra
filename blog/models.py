@@ -81,7 +81,7 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         
-        # بهینه‌سازی تصویر پست قبل از ذخیره
+        # Optimize post image before saving
         if self.image:
             self.image = optimize_blog_image(self.image)
         
@@ -145,7 +145,7 @@ class News(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         
-        # بهینه‌سازی تصویر خبر قبل از ذخیره
+        # Optimize news image before saving
         if self.image:
             self.image = optimize_blog_image(self.image)
         

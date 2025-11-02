@@ -102,7 +102,7 @@ class Product(models.Model):
 
             self.slug = slug
         
-        # بهینه‌سازی تصویر محصول قبل از ذخیره
+        # Optimize product image before saving
         if self.image:
             self.image = optimize_product_image(self.image)
 

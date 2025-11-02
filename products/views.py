@@ -11,7 +11,7 @@ from products.models import Product, Category
 #         all_products = Product.objects.filter(category=category_choice)
 #     else:
 #         all_products = Product.objects.all()
-#     paginator = Paginator(all_products, 10)  # تعداد آیتم در هر صفحه
+#     paginator = Paginator(all_products, 10)  # Number of items per page
 #     page_number = request.GET.get('page')
 #     page_obj = paginator.get_page(page_number)
 #
@@ -63,7 +63,7 @@ def category_products_by_path(request, full_path):
 
 def all_products(request):
     all_products = Product.objects.all()
-    paginator = Paginator(all_products, 10)  # تعداد آیتم در هر صفحه
+    paginator = Paginator(all_products, 10)  # Number of items per page
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
 

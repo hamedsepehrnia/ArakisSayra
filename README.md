@@ -65,9 +65,12 @@ A bilingual (Persian/English) e-commerce platform built with Django 5.2. Include
 - Configurable quality (85-88%)
 - Standard dimensions for different content types
 
-#### Site Configuration
+#### Security & Configuration
+- Environment variables for sensitive data (python-decouple)
+- Secure credential management
+- Separate development and production configs
 - Dynamic site information management
-- Contact form
+- Contact form with validation
 - Banner management
 - Social media links
 
@@ -83,6 +86,7 @@ A bilingual (Persian/English) e-commerce platform built with Django 5.2. Include
 | Translation | django-modeltranslation |
 | Calendar | django-jalali |
 | Category Trees | django-mptt |
+| Configuration | python-decouple |
 | Admin Interface | Django Admin |
 
 ### Installation
@@ -111,7 +115,25 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Install gettext:
+4. Setup environment variables:
+```bash
+# Copy the example file
+cp .env.example .env
+
+# Edit .env with your actual credentials
+nano .env  # or use your preferred editor
+```
+
+**Important:** Configure these variables in `.env`:
+- `SECRET_KEY` - Django secret key
+- `DEBUG` - Debug mode (False for production)
+- `ALLOWED_HOSTS` - Your domain names
+- `DB_NAME`, `DB_USER`, `DB_PASSWORD` - Database credentials
+- `STATIC_ROOT`, `MEDIA_ROOT` - File storage paths
+
+See [ENV_SETUP.md](ENV_SETUP.md) for detailed instructions.
+
+5. Install gettext:
 ```bash
 # Ubuntu/Debian
 sudo apt-get install gettext
@@ -123,24 +145,24 @@ brew install gettext
 sudo yum install gettext
 ```
 
-5. Setup database and static files:
+6. Setup database and static files:
 ```bash
 python manage.py migrate
 python manage.py compilemessages
 python manage.py collectstatic --noinput
 ```
 
-6. Create admin user:
+7. Create admin user:
 ```bash
 python manage.py createsuperuser
 ```
 
-7. (Optional) Load sample data:
+8. (Optional) Load sample data:
 ```bash
 python manage.py create_sample_data
 ```
 
-8. Run development server:
+9. Run development server:
 ```bash
 python manage.py runserver
 ```
@@ -167,49 +189,87 @@ ArakisSayra/
 │   ├── DEPLOYMENT_GUIDE.md
 │   ├── IMAGE_OPTIMIZATION_GUIDE.md
 │   └── TRANSLATION_GUIDE.md
+├── .env                  # Environment variables (not in git)
+├── .env.example          # Environment variables template
+├── ENV_SETUP.md          # Environment setup guide
 └── requirements.txt
 ```
 
 ### Configuration
 
+#### Environment Variables
+
+This project uses **python-decouple** for secure configuration management. All sensitive data is stored in environment variables.
+
+**Setup `.env` file:**
+```bash
+cp .env.example .env
+# Edit .env with your actual values
+```
+
+**Required variables:**
+```env
+# Django Settings
+SECRET_KEY=your-secret-key-here
+DEBUG=False
+ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
+
+# Database Configuration
+DB_ENGINE=django.db.backends.mysql
+DB_NAME=your_database_name
+DB_USER=your_database_user
+DB_PASSWORD=your_database_password
+DB_HOST=localhost
+DB_PORT=3306
+
+# Static and Media Files
+STATIC_ROOT=/path/to/static
+MEDIA_ROOT=/path/to/media
+```
+
+**Security Notes:**
+- ⚠️ Never commit `.env` file to version control
+- Generate a strong `SECRET_KEY` for production
+- Keep `DEBUG=False` in production
+- Use strong database passwords
+
+For detailed setup instructions, see [ENV_SETUP.md](ENV_SETUP.md)
+
 #### Database Configuration
 
+The database is configured via environment variables in `.env`:
+
 **Development (SQLite):**
-```python
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+```env
+DB_ENGINE=django.db.backends.sqlite3
+DB_NAME=db.sqlite3
 ```
 
 **Production (MySQL):**
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'your_database_name',
-        'USER': 'your_database_user',
-        'PASSWORD': 'your_password',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+```env
+DB_ENGINE=django.db.backends.mysql
+DB_NAME=your_database_name
+DB_USER=your_database_user
+DB_PASSWORD=your_secure_password
+DB_HOST=localhost
+DB_PORT=3306
 ```
 
 #### Static Files Configuration
 
+Configure via environment variables:
+
 **Development:**
-```python
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+```env
+STATIC_ROOT=./staticfiles
+MEDIA_ROOT=./media
 ```
 
 **Production:**
-Update `STATIC_ROOT` and `MEDIA_ROOT` to your server paths.
+```env
+STATIC_ROOT=/home/user/public_html/static
+MEDIA_ROOT=/home/user/public_html/media
+```
 
 ### Management Commands
 
@@ -241,11 +301,12 @@ Access the admin panel at `/admin/` with your superuser credentials.
 
 ### Documentation
 
-Detailed documentation is available in the `docs/` directory:
+Detailed documentation is available in the project:
 
-- **Deployment Guide**: Step-by-step instructions for deploying to production
-- **Image Optimization Guide**: Information about automatic image optimization
-- **Translation Guide**: How to manage and compile translations
+- **[ENV_SETUP.md](ENV_SETUP.md)**: Complete guide for environment variables setup
+- **[DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md)**: Step-by-step deployment instructions
+- **[IMAGE_OPTIMIZATION_GUIDE.md](docs/IMAGE_OPTIMIZATION_GUIDE.md)**: Automatic image optimization details
+- **[TRANSLATION_GUIDE.md](docs/TRANSLATION_GUIDE.md)**: Translation management guide
 
 ### Endpoints
 
@@ -311,9 +372,12 @@ Full license: [LICENSE](LICENSE) | https://creativecommons.org/licenses/by-nc/4.
 - کیفیت قابل تنظیم (85-88%)
 - ابعاد استاندارد برای انواع محتوا
 
-#### تنظیمات سایت
+#### امنیت و پیکربندی
+- متغیرهای محیطی برای داده‌های حساس (python-decouple)
+- مدیریت امن اعتبارنامه‌ها
+- پیکربندی جداگانه برای توسعه و تولید
 - مدیریت پویای اطلاعات سایت
-- فرم تماس
+- فرم تماس با اعتبارسنجی
 - مدیریت بنر
 - لینک‌های شبکه‌های اجتماعی
 
@@ -329,6 +393,7 @@ Full license: [LICENSE](LICENSE) | https://creativecommons.org/licenses/by-nc/4.
 | ترجمه | django-modeltranslation |
 | تقویم | django-jalali |
 | درخت دسته‌بندی | django-mptt |
+| پیکربندی | python-decouple |
 | رابط مدیریت | Django Admin |
 
 ### نصب و راه‌اندازی
@@ -357,7 +422,25 @@ source venv/bin/activate  # ویندوز: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. نصب gettext:
+4. تنظیم متغیرهای محیطی:
+```bash
+# کپی کردن فایل نمونه
+cp .env.example .env
+
+# ویرایش .env با اطلاعات واقعی
+nano .env  # یا از ویرایشگر دلخواه خود استفاده کنید
+```
+
+**مهم:** این متغیرها را در `.env` پیکربندی کنید:
+- `SECRET_KEY` - کلید مخفی Django
+- `DEBUG` - حالت دیباگ (False برای تولید)
+- `ALLOWED_HOSTS` - نام دامنه‌های شما
+- `DB_NAME`, `DB_USER`, `DB_PASSWORD` - اعتبارنامه‌های دیتابیس
+- `STATIC_ROOT`, `MEDIA_ROOT` - مسیرهای ذخیره‌سازی فایل
+
+برای دستورالعمل کامل [ENV_SETUP.md](ENV_SETUP.md) را ببینید.
+
+5. نصب gettext:
 ```bash
 # Ubuntu/Debian
 sudo apt-get install gettext
@@ -369,24 +452,24 @@ brew install gettext
 sudo yum install gettext
 ```
 
-5. راه‌اندازی پایگاه داده و فایل‌های استاتیک:
+6. راه‌اندازی پایگاه داده و فایل‌های استاتیک:
 ```bash
 python manage.py migrate
 python manage.py compilemessages
 python manage.py collectstatic --noinput
 ```
 
-6. ایجاد کاربر مدیر:
+7. ایجاد کاربر مدیر:
 ```bash
 python manage.py createsuperuser
 ```
 
-7. (اختیاری) بارگذاری داده‌های نمونه:
+8. (اختیاری) بارگذاری داده‌های نمونه:
 ```bash
 python manage.py create_sample_data
 ```
 
-8. اجرای سرور توسعه:
+9. اجرای سرور توسعه:
 ```bash
 python manage.py runserver
 ```
@@ -413,49 +496,87 @@ ArakisSayra/
 │   ├── DEPLOYMENT_GUIDE.md
 │   ├── IMAGE_OPTIMIZATION_GUIDE.md
 │   └── TRANSLATION_GUIDE.md
+├── .env                  # متغیرهای محیطی (در گیت نیست)
+├── .env.example          # الگوی متغیرهای محیطی
+├── ENV_SETUP.md          # راهنمای تنظیم متغیرهای محیطی
 └── requirements.txt
 ```
 
 ### پیکربندی
 
+#### متغیرهای محیطی
+
+این پروژه از **python-decouple** برای مدیریت امن پیکربندی استفاده می‌کند. تمام داده‌های حساس در متغیرهای محیطی ذخیره می‌شوند.
+
+**راه‌اندازی فایل `.env`:**
+```bash
+cp .env.example .env
+# ویرایش .env با مقادیر واقعی شما
+```
+
+**متغیرهای مورد نیاز:**
+```env
+# تنظیمات Django
+SECRET_KEY=کلید-مخفی-شما
+DEBUG=False
+ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
+
+# پیکربندی پایگاه داده
+DB_ENGINE=django.db.backends.mysql
+DB_NAME=نام_پایگاه_داده
+DB_USER=کاربر_پایگاه_داده
+DB_PASSWORD=رمز_عبور_پایگاه_داده
+DB_HOST=localhost
+DB_PORT=3306
+
+# فایل‌های استاتیک و مدیا
+STATIC_ROOT=/path/to/static
+MEDIA_ROOT=/path/to/media
+```
+
+**نکات امنیتی:**
+- ⚠️ هرگز فایل `.env` را به کنترل نسخه commit نکنید
+- یک `SECRET_KEY` قوی برای محیط تولید تولید کنید
+- `DEBUG=False` را در محیط تولید نگه دارید
+- از رمزهای عبور قوی برای دیتابیس استفاده کنید
+
+برای دستورالعمل کامل راه‌اندازی، [ENV_SETUP.md](ENV_SETUP.md) را ببینید
+
 #### پیکربندی پایگاه داده
 
+پایگاه داده از طریق متغیرهای محیطی در `.env` پیکربندی می‌شود:
+
 **توسعه (SQLite):**
-```python
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+```env
+DB_ENGINE=django.db.backends.sqlite3
+DB_NAME=db.sqlite3
 ```
 
 **تولید (MySQL):**
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'نام_پایگاه_داده',
-        'USER': 'کاربر_پایگاه_داده',
-        'PASSWORD': 'رمز_عبور',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+```env
+DB_ENGINE=django.db.backends.mysql
+DB_NAME=نام_پایگاه_داده
+DB_USER=کاربر_پایگاه_داده
+DB_PASSWORD=رمز_عبور_امن
+DB_HOST=localhost
+DB_PORT=3306
 ```
 
 #### پیکربندی فایل‌های استاتیک
 
+پیکربندی از طریق متغیرهای محیطی:
+
 **توسعه:**
-```python
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+```env
+STATIC_ROOT=./staticfiles
+MEDIA_ROOT=./media
 ```
 
 **تولید:**
-`STATIC_ROOT` و `MEDIA_ROOT` را به مسیرهای سرور خود به‌روزرسانی کنید.
+```env
+STATIC_ROOT=/home/user/public_html/static
+MEDIA_ROOT=/home/user/public_html/media
+```
 
 ### دستورات مدیریتی
 
@@ -487,11 +608,12 @@ python manage.py generate_sitemap
 
 ### مستندات
 
-مستندات تفصیلی در پوشه `docs/` موجود است:
+مستندات تفصیلی در پروژه موجود است:
 
-- **راهنمای استقرار**: دستورالعمل‌های گام به گام برای استقرار در محیط تولید
-- **راهنمای بهینه‌سازی تصویر**: اطلاعات درباره بهینه‌سازی خودکار تصویر
-- **راهنمای ترجمه**: نحوه مدیریت و کامپایل ترجمه‌ها
+- **[ENV_SETUP.md](ENV_SETUP.md)**: راهنمای کامل راه‌اندازی متغیرهای محیطی
+- **[DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md)**: دستورالعمل‌های گام به گام استقرار
+- **[IMAGE_OPTIMIZATION_GUIDE.md](docs/IMAGE_OPTIMIZATION_GUIDE.md)**: جزئیات بهینه‌سازی خودکار تصویر
+- **[TRANSLATION_GUIDE.md](docs/TRANSLATION_GUIDE.md)**: راهنمای مدیریت ترجمه
 
 ### اندپوینت‌ها
 

@@ -6,7 +6,7 @@ from django.utils import translation
 def site_info(request):
     try:
         info = SiteInfo.objects.first()
-        # تشخیص جهت زبان
+        # Detect language direction
         lang_code = translation.get_language()
         html_dir = 'ltr' if lang_code == 'en' else 'rtl'
         
@@ -21,7 +21,7 @@ def site_info(request):
             'work_hour2': info.work_hour2 if info else '',
             'work_hour3': info.work_hour3 if info else '',
             'instagram_page': info.instagram_page if info else '',
-            'html_dir': html_dir,  # اضافه کردن جهت صفحه
+            'html_dir': html_dir,  # Add page direction
         }
     except:
         return {
@@ -31,7 +31,7 @@ def site_info(request):
             'address': '',
             'email': '',
             'about_text': '',
-            'html_dir': 'rtl',  # پیش‌فرض RTL
+            'html_dir': 'rtl',  # Default RTL
         }
 
 def categories_context(request):

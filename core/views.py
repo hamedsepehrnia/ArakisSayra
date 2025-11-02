@@ -7,13 +7,13 @@ from .models import Banner, SiteInfo
 
 
 def index(request):
-    # دریافت آخرین 4 پست بلاگ
+    # Get latest 4 blog posts
     latest_posts = Post.objects.all().order_by('-created_date')[:4]
-    # دریافت بنرها
+    # Get banners
     banners = Banner.objects.all().order_by('-created_date')
-    # دریافت آخرین محصولات (براساس ID)
+    # Get latest products (based on ID)
     latest_products = Product.objects.all().order_by('-id')[:4]
-    # دریافت اطلاعات سایت
+    # Get site information
     site_info = SiteInfo.objects.first()
     about_text = site_info.about_text if site_info else ''
     picture = site_info.about_image if site_info else None

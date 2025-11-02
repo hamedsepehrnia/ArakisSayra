@@ -27,7 +27,7 @@ class SiteInfo(models.Model):
         verbose_name_plural = 'اطلاعات وبسایت'
     
     def save(self, *args, **kwargs):
-        # بهینه‌سازی تصویر درباره ما قبل از ذخیره
+        # Optimize about us image before saving
         if self.about_image:
             self.about_image = optimize_about_image(self.about_image)
         super().save(*args, **kwargs)
@@ -58,7 +58,7 @@ class Banner(models.Model):
         verbose_name_plural = 'بنر ها'
     
     def save(self, *args, **kwargs):
-        # بهینه‌سازی تصویر بنر قبل از ذخیره
+        # Optimize banner image before saving
         if self.image:
             self.image = optimize_banner_image(self.image)
         super().save(*args, **kwargs)

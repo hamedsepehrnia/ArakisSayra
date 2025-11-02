@@ -42,12 +42,12 @@ class NewsListView(ListView):
     ordering = ['-created_date', '-created_time']
 
     def get_queryset(self):
-        # کوئری اصلی برای لیست اخبار صفحه‌بندی شده
+        # Main query for paginated news list
         return News.objects.order_by('-created_date', '-created_time')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # سه تا خبر آخر برای اسلایدر
+        # Latest three news for slider
         context['latest_three_news'] = News.objects.order_by('-created_date', '-created_time')[:3]
         return context
 

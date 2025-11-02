@@ -9,10 +9,10 @@ import random
 
 
 class Command(BaseCommand):
-    help = 'ایجاد داده‌های نمونه برای سایت'
+    help = 'Create sample data for the website'
 
     def handle(self, *args, **options):
-        # ایجاد اطلاعات سایت
+        # Create site information
         if not SiteInfo.objects.exists():
             SiteInfo.objects.create(
                 phone_number1='031-32567890',
@@ -31,9 +31,9 @@ class Command(BaseCommand):
                 work_hour3_en='Friday: Closed',
                 instagram_page='@arakissayra'
             )
-            self.stdout.write(self.style.SUCCESS('اطلاعات سایت ایجاد شد'))
+            self.stdout.write(self.style.SUCCESS('✓ Site information created'))
 
-        # ایجاد دسته‌بندی‌های محصولات
+        # Create product categories
         categories_data = [
             {'name_fa': 'شوینده‌های صنعتی', 'name_en': 'Industrial Detergents', 'slug': 'industrial-detergents'},
             {'name_fa': 'مواد شیمیایی صنعتی', 'name_en': 'Industrial Chemicals', 'slug': 'industrial-chemicals'},
@@ -51,9 +51,9 @@ class Command(BaseCommand):
             )
             if created:
                 created_categories.append(cat)
-                self.stdout.write(f'✓ دسته‌بندی ایجاد شد: {cat.name_fa}')
+                self.stdout.write(f'✓ Category created: {cat.name_fa}')
 
-        # ایجاد زیردسته‌ها
+        # Create subcategories
         if len(created_categories) >= 4:
             subcategories_data = [
                 {'parent': created_categories[0], 'name_fa': 'صابون مایع صنعتی', 'name_en': 'Industrial Liquid Soap', 'slug': 'industrial-liquid-soap'},
@@ -76,9 +76,9 @@ class Command(BaseCommand):
                     }
                 )
                 if created:
-                    self.stdout.write(f'✓ زیردسته ایجاد شد: {cat.name_fa}')
+                    self.stdout.write(f'✓ Subcategory created: {cat.name_fa}')
 
-        # ایجاد محصولات
+        # Create products
         products_data = [
             {
                 'title_fa': 'شوینده صنعتی چندمنظوره آراکیس',
@@ -277,9 +277,9 @@ class Command(BaseCommand):
                     defaults=product_dict
                 )
                 if created:
-                    self.stdout.write(f'✓ محصول ایجاد شد: {product.title_fa}')
+                    self.stdout.write(f'✓ Product created: {product.title_fa}')
 
-        # ایجاد دسته‌بندی‌های بلاگ
+        # Create blog categories
         blog_categories_data = [
             'اخبار',
             'مقالات',
@@ -293,9 +293,9 @@ class Command(BaseCommand):
         for cat_name in blog_categories_data:
             cat, created = BlogCategory.objects.get_or_create(name=cat_name)
             if created:
-                self.stdout.write(f'✓ دسته‌بندی بلاگ ایجاد شد: {cat.name}')
+                self.stdout.write(f'✓ Blog category created: {cat.name}')
 
-        # ایجاد پست‌های بلاگ
+        # Create blog posts
         if not User.objects.exists():
             admin_user = User.objects.create_user(
                 username='admin',
@@ -400,7 +400,7 @@ class Command(BaseCommand):
 
         for post_data in posts_data:
             categories = [BlogCategory.objects.get(name=c) for c in post_data['categories']]
-            # ایجاد تاریخ‌های رندوم برای پست‌ها
+            # Create random dates for posts
             days_ago = random.randint(1, 60)
             post_date = jdatetime.date.today() - jdatetime.timedelta(days=days_ago)
             
@@ -416,9 +416,9 @@ class Command(BaseCommand):
             )
             if created:
                 post.category.set(categories)
-                self.stdout.write(f'✓ پست ایجاد شد: {post.title}')
+                self.stdout.write(f'✓ Post created: {post.title}')
 
-        # ایجاد اخبار
+        # Create news
         news_data = [
             {
                 'title': 'رونمایی از محصول جدید آراکیس سایرا',
@@ -519,7 +519,7 @@ class Command(BaseCommand):
         ]
 
         for news_data_item in news_data:
-            # ایجاد تاریخ‌های رندوم برای اخبار
+            # Create random dates for news
             days_ago = random.randint(1, 90)
             news_date = jdatetime.date.today() - jdatetime.timedelta(days=days_ago)
             
@@ -532,9 +532,9 @@ class Command(BaseCommand):
                 }
             )
             if created:
-                self.stdout.write(f'✓ خبر ایجاد شد: {news.title}')
+                self.stdout.write(f'✓ News created: {news.title}')
 
-        self.stdout.write(self.style.SUCCESS('\n✓✓✓ تمام داده‌های نمونه با موفقیت ایجاد شدند ✓✓✓'))
+        self.stdout.write(self.style.SUCCESS('\n✓✓✓ All sample data created successfully ✓✓✓'))
 
 
 
