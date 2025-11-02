@@ -1,128 +1,176 @@
-# Arakis Sayra
+<div align="center">
+
+# 🌟 Arakis Sayra
 
 **A Modern Bilingual E-commerce Platform Built with Django**
 
-[فارسی](#فارسی) | [English](#english)
+[![Persian](https://img.shields.io/badge/lang-فارسی-blue?style=for-the-badge)](#-فارسی)
+[![English](https://img.shields.io/badge/lang-English-green?style=for-the-badge)](#-english)
 
 ---
 
-## English
+### ☕ Support This Project | حمایت از این پروژه
 
-### Overview
+<div align="center">
 
-Arakis Sayra is a full-featured bilingual (Persian/English) e-commerce platform built with Django 5.2. The platform provides comprehensive product catalog management, blogging capabilities, and a modern responsive design suitable for corporate websites.
+#### 💳 حمایت با پول ایرانی | Support with Iranian Rial
+  
+<a href="https://www.coffeebede.com/hamesep">
+  <img src="https://coffeebede.ir/DashboardTemplateV2/app-assets/images/banner/default-yellow.svg" alt="Buy Me A Coffee" height="60">
+</a>
 
-### Key Features
+#### 🪙 حمایت با ارزهای دیجیتال | Crypto Donations
 
-#### Multilingual Support
+<a href="https://nowpayments.io/donation?api_key=19623fa3-605a-436a-97cd-b5859356b41d" target="_blank">
+  <img src="https://img.shields.io/badge/Donate-Crypto-blue?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Donate with Crypto" height="50">
+</a>
+
+**Supported:** Bitcoin, Ethereum, USDT, BNB, and 100+ cryptocurrencies
+
+</div>
+
+---
+
+</div>
+
+## 🇬🇧 English
+
+### 📖 Overview
+
+Arakis Sayra is a **powerful, production-ready** bilingual (Persian/English) e-commerce platform built with **Django 5.2**. 
+
+This isn't just another Django project - it's a complete business solution that combines:
+- 🛍️ A sophisticated product catalog system
+- 📝 Built-in blogging and news management
+- 🌐 True bilingual support (not just UI translation)
+- 📱 Beautiful, responsive design
+- 🚀 Production-ready features out of the box
+
+Perfect for businesses looking to reach both Persian and English-speaking markets!
+
+### ✨ Key Features
+
+#### 🌐 Multilingual Support
+What makes this special? It's not just translated UI elements - **every piece of content** can be managed in both languages:
 - Full Persian (Farsi) and English language support
-- Django modeltranslation integration for seamless content translation
-- Automatic URL routing based on language selection
+- Django modeltranslation for seamless content translation
+- Smart URL routing based on language selection
+- RTL/LTR layout switching
 
-#### Product Management
-- Hierarchical category system using Django MPTT
-- Product catalog with detailed specifications
-- Automatic slug generation for SEO-friendly URLs
-- Image optimization for fast loading
-- Category-based product filtering
+#### 🛍️ Product Management
+Built for real businesses with complex catalogs:
+- **Hierarchical category system** using Django MPTT (unlimited nesting!)
+- Rich product specifications and details
+- SEO-friendly automatic slug generation
+- Smart image optimization (your images load fast!)
+- Advanced category-based filtering
 
-#### Content Management
-- Blog posts with rich text content
-- News section for company updates
-- Category-based content organization
-- Jalali calendar support for Persian dates
-- Author management system
+#### 📝 Content Management
+More than just an e-commerce site:
+- Full-featured blog with rich text editor
+- News section for company announcements
+- Category-based organization
+- **Jalali calendar** support for Persian dates
+- Multi-author system
 
-#### Image Optimization
-- Automatic image resizing and compression
+#### 🖼️ Intelligent Image Optimization
+Your images will look great **and** load fast:
+- Automatic resizing and compression on upload
 - Progressive JPEG encoding
-- Configurable quality settings (85-88%)
-- Optimized dimensions for different content types:
+- Smart quality settings (85-88%)
+- Pre-configured dimensions:
   - Banners: 1920×960 pixels
   - Products: 1000×1000 pixels
   - Blog/News: 900×585 pixels
   - About section: 800×600 pixels
 
-#### Site Management
-- Dynamic site information management
-- Contact form with message storage
+#### ⚙️ Site Management
+Everything you need to run a professional website:
+- Dynamic site information (no code changes needed!)
+- Contact form with admin inbox
 - Banner management system
 - Customizable working hours and contact details
-- Social media integration (Instagram)
+- Social media integration (Instagram, and more)
 
-### Technology Stack
+### 🛠️ Technology Stack
 
-- **Framework**: Django 5.2
-- **Database**: SQLite (development) / MySQL (production support)
-- **Languages**: Python 3.12
-- **Frontend**: Bootstrap, jQuery
-- **Image Processing**: Pillow
-- **Translation**: django-modeltranslation
-- **Calendar**: django-jalali (Jalali calendar support)
-- **Category Trees**: django-mptt
-- **Admin Interface**: Django Admin with Persian font support
+Built with modern, battle-tested technologies:
 
-### Installation
+| Category | Technology | Why? |
+|----------|-----------|------|
+| **Framework** | Django 5.2 | Latest stable version, secure & scalable |
+| **Language** | Python 3.12 | Modern Python with latest features |
+| **Database** | SQLite / MySQL | Flexible: easy development, powerful production |
+| **Frontend** | Bootstrap + jQuery | Responsive, mobile-first design |
+| **Image Processing** | Pillow | Automatic optimization on upload |
+| **Translation** | django-modeltranslation | True bilingual content management |
+| **Calendar** | django-jalali | Native Jalali (Persian) calendar support |
+| **Category Trees** | django-mptt | Efficient hierarchical data |
+| **Admin** | Django Admin | Customized with Persian font support |
+
+### 🚀 Quick Start
 
 #### Prerequisites
-- Python 3.12 or higher
-- Virtual environment (recommended)
-- Git
+Make sure you have these installed:
+- ✅ Python 3.12 or higher
+- ✅ Git
+- ✅ gettext (for translations)
 
-#### Setup Instructions
+#### Installation (5 Minutes Setup!)
 
-1. Clone the repository:
+**1️⃣ Clone and enter the project:**
 ```bash
-git clone <repository-url>
+git clone https://github.com/yourusername/ArakisSayra.git
 cd ArakisSayra
 ```
 
-2. Create and activate virtual environment:
+**2️⃣ Create virtual environment:**
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
 ```
 
-3. Install dependencies:
+**3️⃣ Install dependencies:**
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Install gettext for translations:
+**4️⃣ Install gettext (for translations):**
 ```bash
 # Ubuntu/Debian
 sudo apt-get install gettext
+
+# macOS
+brew install gettext
 
 # CentOS/RHEL
 sudo yum install gettext
 ```
 
-5. Run migrations:
+**5️⃣ Setup database:**
 ```bash
 python manage.py migrate
-```
-
-6. Compile translations:
-```bash
 python manage.py compilemessages
+python manage.py collectstatic --noinput
 ```
 
-7. Collect static files:
-```bash
-python manage.py collectstatic
-```
-
-8. Create superuser:
+**6️⃣ Create admin user:**
 ```bash
 python manage.py createsuperuser
 ```
 
-9. Run development server:
+**7️⃣ (Optional) Load sample data:**
+```bash
+python manage.py create_sample_data
+```
+
+**8️⃣ Run the server:**
 ```bash
 python manage.py runserver
 ```
 
-The site will be available at `http://127.0.0.1:8000/`
+**🎉 Done!** Visit `http://127.0.0.1:8000/` to see your site!  
+Admin panel: `http://127.0.0.1:8000/admin/`
 
 ### Project Structure
 
@@ -227,151 +275,192 @@ Detailed documentation is available in the `docs/` directory:
 
 The project doesn't have a REST API by default, but all content is accessible through Django views.
 
-### Contributing
+### 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+We welcome contributions! Here's how:
 
-### License
+1. **Fork** the repository
+2. **Create** a feature branch: `git checkout -b feature/amazing-feature`
+3. **Commit** your changes: `git commit -m 'Add amazing feature'`
+4. **Push** to the branch: `git push origin feature/amazing-feature`
+5. **Open** a Pull Request
 
-This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+Please make sure your code follows the existing style and includes tests where appropriate.
 
-You are free to:
-- Share: copy and redistribute the material in any medium or format
-- Adapt: remix, transform, and build upon the material
+### 📄 License
 
-Under the following terms:
-- Attribution: You must give appropriate credit, provide a link to the license, and indicate if changes were made
-- NonCommercial: You may not use the material for commercial purposes
+This project is licensed under **CC BY-NC 4.0** (Creative Commons Attribution-NonCommercial 4.0).
 
-For more details, see the LICENSE file or visit: https://creativecommons.org/licenses/by-nc/4.0/
+**You can:**
+- ✅ Share and redistribute
+- ✅ Adapt and build upon it
+- ✅ Use for personal projects
 
-### Support
+**You must:**
+- 📝 Give appropriate credit
+- 🔗 Link to the license
+- ⚠️ Indicate changes made
 
-For issues and questions, please contact the development team.
+**You cannot:**
+- ❌ Use for commercial purposes without permission
+
+📚 Full license: [LICENSE](LICENSE) | https://creativecommons.org/licenses/by-nc/4.0/
+
+### 💬 Support & Questions
+
+- 🐛 **Found a bug?** [Open an issue](https://github.com/yourusername/ArakisSayra/issues)
+- 💡 **Have a feature request?** [Start a discussion](https://github.com/yourusername/ArakisSayra/discussions)
+- 📧 **Need help?** Contact the development team
 
 ---
 
-## فارسی
+### ⭐ If You Like This Project
 
-### معرفی
+Please consider:
+- ⭐ **Starring** this repository
+- ☕ **Supporting** via [CoffeeBede](https://www.coffeebede.com/hamesep)
+- 🔄 **Sharing** with others who might benefit
 
-آراکیس سایرا یک پلتفرم تجارت الکترونیک دوزبانه (فارسی/انگلیسی) کامل است که با Django 5.2 ساخته شده است. این پلتفرم مدیریت جامع کاتالوگ محصولات، امکانات وبلاگ و طراحی مدرن و ریسپانسیو مناسب برای وب‌سایت‌های شرکتی را فراهم می‌کند.
+---
 
-### ویژگی‌های کلیدی
+## 🇮🇷 فارسی
 
-#### پشتیبانی چندزبانه
+### 📖 معرفی
+
+آراکیس سایرا یک پلتفرم **قدرتمند و آماده تولید** برای تجارت الکترونیک دوزبانه (فارسی/انگلیسی) است که با **Django 5.2** ساخته شده.
+
+این فقط یک پروژه Django معمولی نیست - این یک راه‌حل کامل کسب‌وکار است که ترکیبی از این موارد را ارائه می‌دهد:
+- 🛍️ سیستم پیشرفته کاتالوگ محصولات
+- 📝 مدیریت وبلاگ و اخبار داخلی
+- 🌐 پشتیبانی واقعی دوزبانه (نه فقط ترجمه رابط کاربری!)
+- 📱 طراحی زیبا و ریسپانسیو
+- 🚀 قابلیت‌های آماده برای محیط تولید
+
+انتخاب ایده‌آل برای کسب‌وکارهایی که می‌خواهند به بازارهای فارسی‌زبان و انگلیسی‌زبان دسترسی داشته باشند!
+
+### ✨ ویژگی‌های کلیدی
+
+#### 🌐 پشتیبانی چندزبانه
+چه چیزی این پروژه را متمایز می‌کند؟ این فقط ترجمه المان‌های رابط کاربری نیست - **تمام محتوا** در هر دو زبان قابل مدیریت است:
 - پشتیبانی کامل از زبان‌های فارسی و انگلیسی
-- یکپارچه‌سازی django-modeltranslation برای ترجمه یکپارچه محتوا
-- مسیریابی خودکار URL بر اساس انتخاب زبان
+- django-modeltranslation برای ترجمه یکپارچه محتوا
+- مسیریابی هوشمند URL بر اساس انتخاب زبان
+- تغییر خودکار بین چیدمان راست‌به‌چپ و چپ‌به‌راست
 
-#### مدیریت محصولات
-- سیستم دسته‌بندی سلسله مراتبی با استفاده از Django MPTT
-- کاتالوگ محصول با مشخصات تفصیلی
-- تولید خودکار اسلاگ برای URLهای سئو شده
-- بهینه‌سازی تصویر برای بارگذاری سریع
-- فیلتر محصولات بر اساس دسته‌بندی
+#### 🛍️ مدیریت محصولات
+ساخته شده برای کسب‌وکارهای واقعی با کاتالوگ‌های پیچیده:
+- **سیستم دسته‌بندی سلسله‌مراتبی** با استفاده از Django MPTT (تو در تو نامحدود!)
+- مشخصات و جزئیات غنی محصولات
+- تولید خودکار اسلاگ سئو شده
+- بهینه‌سازی هوشمند تصاویر (تصاویر شما سریع لود می‌شوند!)
+- فیلترینگ پیشرفته بر اساس دسته‌بندی
 
-#### مدیریت محتوا
-- پست‌های وبلاگ با محتوای متنی غنی
-- بخش اخبار برای به‌روزرسانی‌های شرکت
-- سازماندهی محتوا بر اساس دسته‌بندی
-- پشتیبانی از تقویم جلالی برای تاریخ‌های شمسی
-- سیستم مدیریت نویسندگان
+#### 📝 مدیریت محتوا
+بیشتر از یک سایت فروشگاهی ساده:
+- وبلاگ کامل با ویرایشگر متن غنی
+- بخش اخبار برای اطلاعیه‌های شرکت
+- سازماندهی بر اساس دسته‌بندی
+- پشتیبانی از **تقویم جلالی** برای تاریخ‌های شمسی
+- سیستم چند نویسنده
 
-#### بهینه‌سازی تصاویر
-- تغییر اندازه و فشرده‌سازی خودکار تصاویر
+#### 🖼️ بهینه‌سازی هوشمند تصاویر
+تصاویر شما هم زیبا هستند **و هم** سریع لود می‌شوند:
+- تغییر اندازه و فشرده‌سازی خودکار در زمان آپلود
 - کدگذاری Progressive JPEG
-- تنظیمات کیفیت قابل تنظیم (85-88%)
-- ابعاد بهینه شده برای انواع مختلف محتوا:
+- تنظیمات هوشمند کیفیت (85-88%)
+- ابعاد از پیش تنظیم شده:
   - بنرها: 1920×960 پیکسل
   - محصولات: 1000×1000 پیکسل
   - بلاگ/اخبار: 900×585 پیکسل
   - بخش درباره ما: 800×600 پیکسل
 
-#### مدیریت سایت
-- مدیریت پویای اطلاعات سایت
-- فرم تماس با ذخیره‌سازی پیام
+#### ⚙️ مدیریت سایت
+همه چیزی که برای اداره یک وب‌سایت حرفه‌ای نیاز دارید:
+- مدیریت پویای اطلاعات سایت (نیازی به تغییر کد نیست!)
+- فرم تماس با صندوق ورودی در پنل ادمین
 - سیستم مدیریت بنر
-- ساعات کاری و جزئیات تماس قابل تنظیم
-- یکپارچه‌سازی شبکه‌های اجتماعی (اینستاگرام)
+- ساعات کاری و اطلاعات تماس قابل تنظیم
+- یکپارچه‌سازی شبکه‌های اجتماعی (اینستاگرام و بیشتر)
 
-### پشته فناوری
+### 🛠️ پشته فناوری
 
-- **فریمورک**: Django 5.2
-- **پایگاه داده**: SQLite (توسعه) / MySQL (پشتیبانی تولید)
-- **زبان‌ها**: Python 3.12
-- **فرانت‌اند**: Bootstrap، jQuery
-- **پردازش تصویر**: Pillow
-- **ترجمه**: django-modeltranslation
-- **تقویم**: django-jalali (پشتیبانی تقویم جلالی)
-- **درخت دسته‌بندی**: django-mptt
-- **رابط مدیریت**: Django Admin با پشتیبانی فونت فارسی
+ساخته شده با تکنولوژی‌های مدرن و آزمایش شده:
 
-### نصب
+| دسته‌بندی | تکنولوژی | چرا؟ |
+|----------|-----------|------|
+| **فریمورک** | Django 5.2 | آخرین نسخه پایدار، امن و مقیاس‌پذیر |
+| **زبان** | Python 3.12 | پایتون مدرن با آخرین قابلیت‌ها |
+| **پایگاه داده** | SQLite / MySQL | انعطاف‌پذیر: توسعه آسان، تولید قدرتمند |
+| **فرانت‌اند** | Bootstrap + jQuery | طراحی ریسپانسیو و موبایل‌محور |
+| **پردازش تصویر** | Pillow | بهینه‌سازی خودکار در زمان آپلود |
+| **ترجمه** | django-modeltranslation | مدیریت واقعی محتوای دوزبانه |
+| **تقویم** | django-jalali | پشتیبانی بومی از تقویم جلالی |
+| **درخت دسته‌بندی** | django-mptt | داده‌های سلسله‌مراتبی کارآمد |
+| **پنل ادمین** | Django Admin | سفارشی‌سازی شده با پشتیبانی فونت فارسی |
+
+### 🚀 شروع سریع
 
 #### پیش‌نیازها
-- Python 3.12 یا بالاتر
-- محیط مجازی (توصیه می‌شود)
-- Git
+مطمئن شوید این‌ها نصب شده‌اند:
+- ✅ Python 3.12 یا بالاتر
+- ✅ Git
+- ✅ gettext (برای ترجمه‌ها)
 
-#### دستورالعمل نصب
+#### نصب (راه‌اندازی در 5 دقیقه!)
 
-1. کلون کردن مخزن:
+**1️⃣ کلون و ورود به پروژه:**
 ```bash
-git clone <repository-url>
+git clone https://github.com/yourusername/ArakisSayra.git
 cd ArakisSayra
 ```
 
-2. ایجاد و فعال‌سازی محیط مجازی:
+**2️⃣ ایجاد محیط مجازی:**
 ```bash
 python -m venv venv
-source venv/bin/activate  # در ویندوز: venv\Scripts\activate
+source venv/bin/activate  # ویندوز: venv\Scripts\activate
 ```
 
-3. نصب وابستگی‌ها:
+**3️⃣ نصب وابستگی‌ها:**
 ```bash
 pip install -r requirements.txt
 ```
 
-4. نصب gettext برای ترجمه‌ها:
+**4️⃣ نصب gettext (برای ترجمه‌ها):**
 ```bash
 # Ubuntu/Debian
 sudo apt-get install gettext
+
+# macOS
+brew install gettext
 
 # CentOS/RHEL
 sudo yum install gettext
 ```
 
-5. اجرای مایگریشن‌ها:
+**5️⃣ راه‌اندازی پایگاه داده:**
 ```bash
 python manage.py migrate
-```
-
-6. کامپایل ترجمه‌ها:
-```bash
 python manage.py compilemessages
+python manage.py collectstatic --noinput
 ```
 
-7. جمع‌آوری فایل‌های استاتیک:
-```bash
-python manage.py collectstatic
-```
-
-8. ایجاد کاربر مدیر:
+**6️⃣ ایجاد کاربر مدیر:**
 ```bash
 python manage.py createsuperuser
 ```
 
-9. اجرای سرور توسعه:
+**7️⃣ (اختیاری) بارگذاری داده‌های نمونه:**
+```bash
+python manage.py create_sample_data
+```
+
+**8️⃣ اجرای سرور:**
 ```bash
 python manage.py runserver
 ```
 
-سایت در آدرس `http://127.0.0.1:8000/` در دسترس خواهد بود
+**🎉 تمام!** برای دیدن سایت به `http://127.0.0.1:8000/` بروید!  
+پنل ادمین: `http://127.0.0.1:8000/admin/`
 
 ### ساختار پروژه
 
@@ -476,36 +565,83 @@ python manage.py generate_sitemap
 
 این پروژه به طور پیش‌فرض API REST ندارد، اما تمام محتوا از طریق viewهای Django قابل دسترسی است.
 
-### مشارکت
+### 🤝 مشارکت
 
-1. مخزن را فورک کنید
-2. یک شاخه ویژگی ایجاد کنید
-3. تغییرات خود را کامیت کنید
-4. به شاخه پوش کنید
-5. یک Pull Request ایجاد کنید
+ما از مشارکت شما استقبال می‌کنیم! اینطور می‌توانید مشارکت کنید:
 
-### مجوز
+1. مخزن را **فورک** کنید
+2. یک شاخه ویژگی **ایجاد** کنید: `git checkout -b feature/ویژگی-شگفت‌انگیز`
+3. تغییرات را **کامیت** کنید: `git commit -m 'افزودن ویژگی شگفت‌انگیز'`
+4. به شاخه **پوش** کنید: `git push origin feature/ویژگی-شگفت‌انگیز`
+5. یک Pull Request **باز** کنید
 
-این پروژه تحت مجوز Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) منتشر شده است.
+لطفاً مطمئن شوید کدتان از استایل موجود پیروی می‌کند و در صورت نیاز تست‌های لازم را شامل می‌شود.
 
-شما آزاد هستید که:
-- اشتراک‌گذاری: کپی و توزیع مجدد محتوا در هر رسانه یا قالبی
-- تطبیق: ترکیب، تغییر و ساخت بر پایه این محتوا
+### 📄 مجوز
 
-تحت شرایط زیر:
-- انتساب: باید اعتبار مناسب ارائه دهید، لینک مجوز را قرار دهید و نشان دهید که آیا تغییراتی ایجاد شده است
-- غیرتجاری: نمی‌توانید از این محتوا برای اهداف تجاری استفاده کنید
+این پروژه تحت مجوز **CC BY-NC 4.0** (Creative Commons Attribution-NonCommercial 4.0) منتشر شده است.
 
-برای جزئیات بیشتر، فایل LICENSE را مشاهده کنید یا به آدرس زیر مراجعه کنید: https://creativecommons.org/licenses/by-nc/4.0/deed.fa
+**می‌توانید:**
+- ✅ به اشتراک بگذارید و توزیع کنید
+- ✅ تغییر دهید و بر اساس آن بسازید
+- ✅ برای پروژه‌های شخصی استفاده کنید
 
-### پشتیبانی
+**باید:**
+- 📝 اعتبار مناسب ارائه دهید
+- 🔗 لینک مجوز را قرار دهید
+- ⚠️ تغییرات انجام شده را نشان دهید
 
-برای مشکلات و سوالات، لطفاً با تیم توسعه تماس بگیرید.
+**نمی‌توانید:**
+- ❌ بدون مجوز برای اهداف تجاری استفاده کنید
+
+📚 مجوز کامل: [LICENSE](LICENSE) | https://creativecommons.org/licenses/by-nc/4.0/deed.fa
+
+### 💬 پشتیبانی و سوالات
+
+- 🐛 **باگ پیدا کردید؟** [یک issue باز کنید](https://github.com/yourusername/ArakisSayra/issues)
+- 💡 **درخواست ویژگی دارید؟** [بحثی شروع کنید](https://github.com/yourusername/ArakisSayra/discussions)
+- 📧 **نیاز به کمک دارید؟** با تیم توسعه تماس بگیرید
 
 ---
 
-**Version**: 1.0.0  
-**Last Updated**: October 2025  
-**Django Version**: 5.2  
-**Python Version**: 3.12
+### ⭐ اگر این پروژه را دوست دارید
+
+لطفاً در نظر بگیرید:
+- ⭐ **ستاره دادن** به این ریپازیتوری
+- ☕ **حمایت** از طریق [کافی بده](https://www.coffeebede.com/hamesep)
+- 🔄 **اشتراک‌گذاری** با دیگرانی که ممکن است استفاده کنند
+
+---
+
+<div align="center">
+
+### 📊 نسخه و اطلاعات | Version Info
+
+| | |
+|:---:|:---:|
+| **Version** / **نسخه** | 1.0.0 |
+| **Last Updated** / **آخرین به‌روزرسانی** | November 2025 |
+| **Django Version** / **نسخه جنگو** | 5.2 |
+| **Python Version** / **نسخه پایتون** | 3.12 |
+| **License** / **مجوز** | CC BY-NC 4.0 |
+
+---
+
+### 💖 ساخته شده با عشق | Made with Love
+
+<p>
+  <img src="https://img.shields.io/badge/Django-5.2-green?style=flat-square&logo=django" alt="Django">
+  <img src="https://img.shields.io/badge/Python-3.12-blue?style=flat-square&logo=python" alt="Python">
+  <img src="https://img.shields.io/badge/Bootstrap-5-purple?style=flat-square&logo=bootstrap" alt="Bootstrap">
+  <img src="https://img.shields.io/badge/License-CC_BY--NC_4.0-orange?style=flat-square" alt="License">
+</p>
+
+**اگر این پروژه برایتان مفید بود، یک ⭐ فراموش نشود!**  
+**If you found this project helpful, don't forget to ⭐ it!**
+
+---
+
+**© 2025 Arakis Sayra | آراکیس سایرا**
+
+</div>
 
