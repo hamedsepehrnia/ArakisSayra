@@ -4,7 +4,7 @@
 
 **A Modern Bilingual E-commerce Platform Built with Django**
 
-[![Persian](https://img.shields.io/badge/lang-فارسی-blue?style=for-the-badge)](#-فارسی)
+[![Persian](https://img.shields.io/badge/lang-فارسی-blue?style=for-the-badge)](#-persian)
 [![English](https://img.shields.io/badge/lang-English-green?style=for-the-badge)](#-english)
 
 ---
