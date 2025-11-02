@@ -425,4 +425,41 @@
             </div>
         </div>
     </div>
+    
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+         crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+         crossorigin=""></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the map
+            // Coordinates for Isfahan, J Industrial Town (example coordinates)
+            // Replace with your exact coordinates
+            var map = L.map('map').setView([32.6546, 51.6680], 13);
+            
+            // Add OpenStreetMap tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19,
+            }).addTo(map);
+            
+            // Add a marker at the location
+            var marker = L.marker([32.6546, 51.6680]).addTo(map);
+            
+            // Add popup to marker
+            marker.bindPopup('{{ address }}').openPopup();
+            
+            // Optional: Add a circle around the location
+            var circle = L.circle([32.6546, 51.6680], {
+                color: '#009345',
+                fillColor: '#00b359',
+                fillOpacity: 0.2,
+                radius: 500
+            }).addTo(map);
+        });
+    </script>
 {% endblock %}
