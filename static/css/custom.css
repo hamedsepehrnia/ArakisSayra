@@ -37,6 +37,95 @@ html[dir="ltr"] [class*=" icon-"] {
     font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands" !important;
 }
 
+/* بهینه‌سازی عملکرد */
+img {
+    content-visibility: auto;
+}
+
+/* بهینه‌سازی رندر */
+.container,
+.row {
+    contain: layout style;
+}
+
+/* SVG Icon Styling */
+.icon-svg {
+    display: inline-block;
+    vertical-align: middle;
+    fill: currentColor;
+    transition: all 0.3s ease;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+}
+
+/* سایز آیکون‌های مختلف */
+.topbar-item .icon-svg {
+    width: 14px;
+    height: 14px;
+    color: #009345;
+    margin-left: 6px;
+}
+
+html[dir="ltr"] .topbar-item .icon-svg {
+    margin-right: 6px;
+    margin-left: 0;
+}
+
+/* آیکون‌های منوی اصلی */
+.nav-menu .icon-svg {
+    width: 10px;
+    height: 10px;
+}
+
+.submenu-arrow {
+    width: 10px;
+    height: 10px;
+}
+
+/* آیکون‌های دکمه‌ها */
+.search-btn .icon-svg,
+.mobile-menu-toggle .icon-svg {
+    width: 18px;
+    height: 18px;
+}
+
+.search-submit .icon-svg,
+.search-close .icon-svg {
+    width: 16px;
+    height: 16px;
+}
+
+.mobile-menu-close .icon-svg {
+    width: 20px;
+    height: 20px;
+}
+
+.mobile-nav .icon-svg {
+    width: 12px;
+    height: 12px;
+}
+
+/* آیکون‌های فوتر */
+.footer-link-more .icon-svg {
+    width: 14px;
+    height: 14px;
+}
+
+.footer-contact .icon-svg,
+.footer-hours .icon-svg {
+    width: 16px;
+    height: 16px;
+    color: #009345;
+    flex-shrink: 0;
+}
+
+.social-links .icon-svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
 /* ============================================
    HEADER MODERN - ساختار جدید
    ============================================ */
