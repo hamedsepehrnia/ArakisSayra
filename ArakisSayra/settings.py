@@ -107,30 +107,30 @@ WSGI_APPLICATION = "ArakisSayra.wsgi.application"
 # ========================================
 # SQLite database settings (for development)
 # ========================================
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # ========================================
 # MySQL database settings (for production)
 # ========================================
-# DATABASES = {
-#     'default': {
-#         'ENGINE': config('DB_ENGINE', default='django.db.backends.mysql'),
-#         'NAME': config('DB_NAME', default='arakissa_db'),
-#         'USER': config('DB_USER', default='arakissa_user'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST', default='localhost'),
-#         'PORT': config('DB_PORT', default='3306'),
-#         # 'OPTIONS': {
-#         #     'charset': 'utf8mb4',
-#         #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-#         # },
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': config('DB_ENGINE', default='django.db.backends.mysql'),
+        'NAME': config('DB_NAME', default='arakissa_db'),
+        'USER': config('DB_USER', default='arakissa_user'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='3306'),
+        # 'OPTIONS': {
+        #     'charset': 'utf8mb4',
+        #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        # },
+    }
+}
 
 
 # Password validation
