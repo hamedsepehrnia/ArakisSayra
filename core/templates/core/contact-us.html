@@ -437,9 +437,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize the map
-            // Coordinates for Isfahan, J Industrial Town (example coordinates)
-            // Replace with your exact coordinates
-            var map = L.map('map').setView([32.6546, 51.6680], 13);
+            // Coordinates: 32.676829, 51.833019
+            var map = L.map('map').setView([32.676829, 51.833019], 13);
             
             // Add OpenStreetMap tile layer
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -448,13 +447,13 @@
             }).addTo(map);
             
             // Add a marker at the location
-            var marker = L.marker([32.6546, 51.6680]).addTo(map);
+            var marker = L.marker([32.676829, 51.833019]).addTo(map);
             
             // Add popup to marker
             marker.bindPopup('{{ address }}').openPopup();
             
             // Optional: Add a circle around the location
-            var circle = L.circle([32.6546, 51.6680], {
+            var circle = L.circle([32.676829, 51.833019], {
                 color: '#009345',
                 fillColor: '#00b359',
                 fillOpacity: 0.2,
