@@ -1,0 +1,610 @@
+{
+  "system_name": "سیستم دسته‌بندی محصولات سلسله‌مراتبی (Hierarchical Product Category System)",
+  "framework": "Django 5.2",
+  "description": "سیستم کامل دسته‌بندی محصولات با ساختار درختی (Tree Structure) با استفاده از django-mptt برای مدیریت سلسله‌مراتبی دسته‌بندی‌ها",
+  
+  "dependencies": {
+    "required_packages": [
+      {
+        "package": "django-mptt",
+        "version": "0.17.0",
+        "purpose": "مدیریت ساختار درختی دسته‌بندی‌ها (Modified Preorder Tree Traversal)",
+        "documentation": "https://django-mptt.readthedocs.io/"
+      },
+      {
+        "package": "python-slugify",
+        "version": "8.0.4",
+        "purpose": "تولید خودکار slug از نام دسته‌بندی و محصول",
+        "documentation": "https://github.com/un33k/python-slugify"
+      },
+      {
+        "package": "Pillow",
+        "version": "11.2.1",
+        "purpose": "پردازش و بهینه‌سازی تصاویر محصولات"
+      }
+    ],
+    "installation": "pip install django-mptt==0.17.0 python-slugify==8.0.4 Pillow==11.2.1"
+  },
+  
+  "database_models": {
+    "Category": {
+      "description": "مدل دسته‌بندی با ساختار درختی",
+      "base_class": "MPTTModel",
+      "fields": {
+        "name": {
+          "type": "CharField",
+          "max_length": 100,
+          "required": false,
+          "description": "نام دسته‌بندی"
+        },
+        "slug": {
+          "type": "SlugField",
+          "unique": true,
+          "required": false,
+          "auto_generated": true,
+          "description": "اسلاگ یکتا برای URL - به صورت خودکار از name تولید می‌شود"
+        },
+        "parent": {
+          "type": "TreeForeignKey",
+          "related_model": "self",
+          "on_delete": "CASCADE",
+          "null": true,
+          "blank": true,
+          "related_name": "children",
+          "description": "دسته‌بندی والد - null برای دسته‌بندی‌های ریشه‌ای"
+        },
+        "mptt_fields": {
+          "lft": "شماره چپ (برای MPTT)",
+          "rght": "شماره راست (برای MPTT)",
+          "tree_id": "شناسه درخت",
+          "level": "سطح درخت (0 برای ریشه)"
+        }
+      },
+      "methods": {
+        "get_full_slug": {
+          "description": "تولید مسیر کامل slug از ریشه تا دسته‌بندی فعلی",
+          "example": "parent-category/child-category/subcategory",
+          "implementation": "جمع‌آوری تمام slugهای ancestors و join با '/'",
+          "return_type": "string"
+        },
+        "save": {
+          "description": "تولید خودکار slug در صورت عدم وجود",
+          "logic": "اگر slug وجود نداشته باشد، از name تولید می‌شود و در صورت تکراری بودن، شماره به آن اضافه می‌شود"
+        },
+        "__str__": {
+          "description": "نمایش نام دسته‌بندی"
+        }
+      },
+      "meta": {
+        "verbose_name_plural": "دسته‌بندی‌ها"
+      }
+    },
+    
+    "Product": {
+      "description": "مدل محصول که به یک دسته‌بندی متصل است",
+      "base_class": "Model",
+      "fields": {
+        "title": {
+          "type": "CharField",
+          "max_length": 255,
+          "required": false,
+          "description": "عنوان محصول"
+        },
+        "slug": {
+          "type": "SlugField",
+          "unique": true,
+          "allow_unicode": true,
+          "required": false,
+          "auto_generated": true,
+          "description": "اسلاگ یکتا برای URL محصول"
+        },
+        "short_description": {
+          "type": "TextField",
+          "required": false,
+          "description": "توضیح کوتاه محصول"
+        },
+        "description": {
+          "type": "TextField",
+          "required": false,
+          "description": "توضیحات کامل محصول"
+        },
+        "size": {
+          "type": "PositiveSmallIntegerField",
+          "required": false,
+          "description": "اندازه محصول"
+        },
+        "container_type": {
+          "type": "CharField",
+          "max_length": 100,
+          "required": false,
+          "description": "نوع بسته‌بندی"
+        },
+        "attributes": {
+          "type": "CharField",
+          "max_length": 255,
+          "required": false,
+          "description": "ویژگی‌های محصول"
+        },
+        "image": {
+          "type": "ImageField",
+          "upload_to": "products",
+          "required": false,
+          "description": "تصویر محصول - به صورت خودکار بهینه‌سازی می‌شود"
+        },
+        "category": {
+          "type": "ForeignKey",
+          "related_model": "Category",
+          "on_delete": "CASCADE",
+          "related_name": "products",
+          "required": true,
+          "description": "دسته‌بندی محصول"
+        }
+      },
+      "methods": {
+        "get_full_slug": {
+          "description": "تولید مسیر کامل slug دسته‌بندی محصول",
+          "return_type": "string",
+          "example": "parent-category/child-category"
+        },
+        "save": {
+          "description": "تولید خودکار slug و بهینه‌سازی تصویر",
+          "logic": [
+            "تولید slug از title در صورت عدم وجود",
+            "بهینه‌سازی تصویر با استفاده از optimize_product_image"
+          ]
+        }
+      },
+      "meta": {
+        "verbose_name": "محصول",
+        "verbose_name_plural": "محصولات"
+      }
+    }
+  },
+  
+  "url_routing": {
+    "base_path": "/products/",
+    "patterns": [
+      {
+        "pattern": "",
+        "view": "all_products",
+        "name": "all_products",
+        "description": "نمایش تمام محصولات با pagination"
+      },
+      {
+        "pattern": "category/<path:full_path>/",
+        "view": "category_products_by_path",
+        "name": "products_category",
+        "description": "نمایش محصولات یک دسته‌بندی بر اساس مسیر کامل slug",
+        "example": "/products/category/parent-category/child-category/",
+        "note": "از path converter استفاده می‌کند تا مسیر کامل با '/' را دریافت کند"
+      },
+      {
+        "pattern": "<slug:slug>/",
+        "view": "single_product",
+        "name": "product_detail",
+        "description": "صفحه جزئیات یک محصول",
+        "example": "/products/product-slug/"
+      },
+      {
+        "pattern": "search/",
+        "view": "product_search",
+        "name": "product_search",
+        "description": "جستجوی محصولات بر اساس عنوان",
+        "query_parameter": "query"
+      }
+    ],
+    "url_configuration": {
+      "file": "products/urls.py",
+      "include_in_main": "path('products/', include('products.urls'))"
+    }
+  },
+  
+  "views": {
+    "all_products": {
+      "description": "نمایش تمام محصولات با pagination",
+      "pagination": {
+        "items_per_page": 10,
+        "parameter": "page"
+      },
+      "context": {
+        "products": "Paginator page object",
+        "breadcrumb": "[] (empty list)"
+      },
+      "template": "products/products.html"
+    },
+    
+    "category_products_by_path": {
+      "description": "نمایش محصولات یک دسته‌بندی و زیردسته‌هایش",
+      "parameters": {
+        "full_path": "مسیر کامل slug دسته‌بندی (مثال: 'parent/child')"
+      },
+      "logic": [
+        "تقسیم full_path به لیست slugها",
+        "پیدا کردن دسته‌بندی نهایی با دنبال کردن مسیر",
+        "ساخت breadcrumb از تمام ancestors",
+        "دریافت تمام محصولات دسته‌بندی و زیردسته‌هایش با get_descendants(include_self=True)",
+        "استفاده از cache_tree_children برای بهینه‌سازی"
+      ],
+      "context": {
+        "category": "دسته‌بندی فعلی",
+        "products": "QuerySet محصولات دسته‌بندی و زیردسته‌ها",
+        "categories": "تمام دسته‌بندی‌های cache شده",
+        "breadcrumb": "لیست ancestors از ریشه تا دسته‌بندی فعلی"
+      },
+      "template": "products/products.html",
+      "important_notes": [
+        "از get_descendants(include_self=True) برای دریافت محصولات زیردسته‌ها استفاده می‌شود",
+        "از cache_tree_children برای بهینه‌سازی performance استفاده می‌شود"
+      ]
+    },
+    
+    "single_product": {
+      "description": "صفحه جزئیات یک محصول",
+      "parameters": {
+        "slug": "slug محصول"
+      },
+      "logic": [
+        "دریافت محصول با slug",
+        "ساخت breadcrumb از category ancestors",
+        "دریافت 4 محصول مرتبط از همان دسته‌بندی"
+      ],
+      "context": {
+        "product": "محصول فعلی",
+        "breadcrumb": "لیست ancestors دسته‌بندی محصول",
+        "related_products": "4 محصول مرتبط از همان دسته‌بندی"
+      },
+      "template": "products/single-product.html"
+    },
+    
+    "product_search": {
+      "description": "جستجوی محصولات",
+      "query_parameter": "query",
+      "logic": "فیلتر محصولات بر اساس title__icontains",
+      "context": {
+        "query": "متن جستجو",
+        "results": "QuerySet محصولات پیدا شده"
+      },
+      "template": "products/search-result.html"
+    }
+  },
+  
+  "admin_configuration": {
+    "Category": {
+      "admin_class": "DraggableMPTTAdmin",
+      "package": "django-mptt.admin",
+      "features": [
+        "قابلیت drag & drop برای تغییر ترتیب و parent",
+        "نمایش درختی دسته‌بندی‌ها",
+        "indented_title برای نمایش سلسله‌مراتب"
+      ],
+      "list_display": [
+        "tree_actions",
+        "indented_title"
+      ],
+      "list_display_links": [
+        "indented_title"
+      ]
+    },
+    "Product": {
+      "admin_class": "ModelAdmin (default)",
+      "description": "استفاده از admin پیش‌فرض Django"
+    }
+  },
+  
+  "context_processors": {
+    "categories_context": {
+      "file": "contex_processors/contex_processors.py",
+      "function": "categories_context",
+      "description": "در دسترس قرار دادن دسته‌بندی‌های ریشه‌ای در تمام templateها",
+      "logic": "Category.objects.filter(parent__isnull=True, slug__isnull=False).exclude(slug='')",
+      "context_variable": "categories",
+      "usage": "در navigation menu و sidebar استفاده می‌شود",
+      "registration": "در settings.py باید به TEMPLATES['OPTIONS']['context_processors'] اضافه شود"
+    }
+  },
+  
+  "template_structure": {
+    "base_template": "core/base.html",
+    "templates": {
+      "products.html": {
+        "description": "صفحه لیست محصولات و دسته‌بندی",
+        "features": [
+          "Breadcrumb navigation",
+          "Sidebar با لیست دسته‌بندی‌ها",
+          "نمایش محصولات در grid layout",
+          "Pagination",
+          "جستجو در sidebar"
+        ],
+        "template_tags": [
+          "mptt_tags (برای دسترسی به متدهای MPTT)",
+          "i18n (برای ترجمه)",
+          "category_filters (فیلترهای سفارشی)"
+        ],
+        "sidebar_logic": {
+          "if_category_exists": "نمایش children دسته‌بندی فعلی",
+          "else": "نمایش دسته‌بندی‌های ریشه‌ای (parent__isnull=True)"
+        },
+        "product_display": {
+          "layout": "Grid با 3 ستون در desktop",
+          "card_features": [
+            "تصویر محصول با aspect ratio 1:1",
+            "نام دسته‌بندی",
+            "عنوان محصول",
+            "لینک به صفحه جزئیات"
+          ]
+        }
+      },
+      "single-product.html": {
+        "description": "صفحه جزئیات محصول",
+        "features": [
+          "Breadcrumb navigation",
+          "تصویر بزرگ محصول",
+          "اطلاعات کامل محصول",
+          "محصولات مرتبط",
+          "دکمه‌های اشتراک‌گذاری"
+        ],
+        "sections": [
+          "Product image with badge",
+          "Product summary (title, category, short description)",
+          "Product info box (size, container_type, attributes)",
+          "Full description",
+          "Related products (4 items)"
+        ]
+      },
+      "search-result.html": {
+        "description": "صفحه نتایج جستجو",
+        "features": [
+          "Sidebar با دسته‌بندی‌های کامل (recursive)",
+          "نتایج جستجو",
+          "استفاده از {% recursetree %} برای نمایش درخت کامل"
+        ]
+      }
+    },
+    "template_tags": {
+      "mptt_tags": {
+        "usage": "{% load mptt_tags %}",
+        "tags": [
+          "{% recursetree %} - برای نمایش درختی",
+          "cache_tree_children - برای بهینه‌سازی"
+        ]
+      },
+      "category_filters": {
+        "file": "products/templatetags/category_filters.py",
+        "filters": [
+          {
+            "name": "split",
+            "description": "تقسیم رشته با جداکننده",
+            "usage": "{{ value|split:',' }}"
+          },
+          {
+            "name": "trim",
+            "description": "حذف فاصله‌های اضافی",
+            "usage": "{{ value|trim }}"
+          }
+        ]
+      }
+    }
+  },
+  
+  "key_features": {
+    "hierarchical_structure": {
+      "description": "ساختار درختی نامحدود برای دسته‌بندی‌ها",
+      "implementation": "django-mptt",
+      "benefits": [
+        "مدیریت آسان سلسله‌مراتب",
+        "Queryهای بهینه",
+        "نمایش درختی در admin"
+      ]
+    },
+    "full_path_slugs": {
+      "description": "استفاده از مسیر کامل slug برای URL",
+      "example": "/products/category/electronics/mobile-phones/",
+      "benefits": [
+        "SEO friendly URLs",
+        "نمایش واضح سلسله‌مراتب در URL",
+        "جلوگیری از تداخل slug"
+      ],
+      "implementation": "get_full_slug() method"
+    },
+    "breadcrumb_navigation": {
+      "description": "مسیریابی breadcrumb در تمام صفحات",
+      "implementation": "ساخت breadcrumb از ancestors دسته‌بندی",
+      "display": "در template با استفاده از loop"
+    },
+    "category_filtering": {
+      "description": "نمایش محصولات دسته‌بندی و تمام زیردسته‌هایش",
+      "implementation": "category.get_descendants(include_self=True)",
+      "benefit": "کاربر تمام محصولات مرتبط را می‌بیند"
+    },
+    "automatic_slug_generation": {
+      "description": "تولید خودکار slug از name/title",
+      "logic": "استفاده از python-slugify و handle کردن duplicates",
+      "fallback": "اضافه کردن شماره در صورت تکراری بودن"
+    },
+    "image_optimization": {
+      "description": "بهینه‌سازی خودکار تصاویر محصولات",
+      "implementation": "optimize_product_image function در save method",
+      "location": "core/image_optimizer.py"
+    },
+    "caching": {
+      "description": "استفاده از cache_tree_children برای بهینه‌سازی",
+      "usage": "در view category_products_by_path",
+      "benefit": "کاهش تعداد queryهای دیتابیس"
+    }
+  },
+  
+  "sitemap_integration": {
+    "ProductCategorySitemap": {
+      "class": "ProductCategorySitemap",
+      "file": "core/sitemap.py",
+      "changefreq": "monthly",
+      "priority": 0.6,
+      "location_method": "f'/products/category/{obj.get_full_slug()}/'",
+      "description": "افزودن تمام دسته‌بندی‌ها به sitemap"
+    },
+    "ProductSitemap": {
+      "class": "ProductSitemap",
+      "changefreq": "weekly",
+      "priority": 0.7,
+      "location_method": "f'/products/{obj.slug}/'"
+    }
+  },
+  
+  "navigation_integration": {
+    "main_menu": {
+      "location": "core/templates/core/base.html",
+      "implementation": "استفاده از categories از context processor",
+      "features": [
+        "نمایش دسته‌بندی‌های ریشه‌ای در منوی اصلی",
+        "Submenu برای دسته‌بندی‌های دارای children",
+        "استفاده از category_submenu.html برای recursive submenu"
+      ]
+    },
+    "mobile_menu": {
+      "description": "منوی موبایل با لیست دسته‌بندی‌ها",
+      "implementation": "loop روی categories در mobile navigation"
+    }
+  },
+  
+  "implementation_steps": {
+    "1_install_dependencies": [
+      "pip install django-mptt==0.17.0",
+      "pip install python-slugify==8.0.4",
+      "اضافه کردن 'mptt' به INSTALLED_APPS"
+    ],
+    "2_create_models": [
+      "تعریف Category model با MPTTModel",
+      "تعریف Product model با ForeignKey به Category",
+      "اجرای migrations"
+    ],
+    "3_setup_admin": [
+      "استفاده از DraggableMPTTAdmin برای Category",
+      "ثبت Category و Product در admin"
+    ],
+    "4_create_views": [
+      "all_products view",
+      "category_products_by_path view",
+      "single_product view",
+      "product_search view"
+    ],
+    "5_setup_urls": [
+      "تعریف urlpatterns در products/urls.py",
+      "include کردن در main urls.py"
+    ],
+    "6_create_templates": [
+      "products.html",
+      "single-product.html",
+      "search-result.html"
+    ],
+    "7_setup_context_processor": [
+      "ایجاد categories_context function",
+      "اضافه کردن به TEMPLATES context_processors",
+      "اضافه کردن path به settings.py"
+    ],
+    "8_integrate_navigation": [
+      "اضافه کردن categories به navigation menu",
+      "استفاده از category_submenu.html برای submenu"
+    ],
+    "9_setup_sitemap": [
+      "ایجاد ProductCategorySitemap",
+      "ایجاد ProductSitemap",
+      "اضافه کردن به sitemaps dict"
+    ]
+  },
+  
+  "important_notes": {
+    "url_pattern_order": "ترتیب url patterns مهم است - patternهای خاص‌تر باید قبل از patternهای عمومی باشند",
+    "full_path_handling": "استفاده از <path:full_path> برای دریافت مسیر کامل با '/'",
+    "slug_uniqueness": "slug باید unique باشد - سیستم به صورت خودکار duplicates را handle می‌کند",
+    "mptt_fields": "فیلدهای lft, rght, tree_id, level به صورت خودکار توسط MPTT مدیریت می‌شوند",
+    "cascade_delete": "حذف یک دسته‌بندی، تمام children و products آن را حذف می‌کند",
+    "performance": "استفاده از cache_tree_children و get_descendants برای بهینه‌سازی queryها",
+    "breadcrumb_logic": "ساخت breadcrumb با دنبال کردن parent chain از category تا root"
+  },
+  
+  "example_usage": {
+    "creating_category": {
+      "code": "Category.objects.create(name='الکترونیک', parent=None)",
+      "result": "slug به صورت خودکار 'الکترونیک' تولید می‌شود"
+    },
+    "creating_subcategory": {
+      "code": "parent = Category.objects.get(slug='الکترونیک'); Category.objects.create(name='موبایل', parent=parent)",
+      "result": "slug: 'موبایل', get_full_slug(): 'الکترونیک/موبایل'"
+    },
+    "creating_product": {
+      "code": "category = Category.objects.get(slug='موبایل'); Product.objects.create(title='گوشی سامسونگ', category=category)",
+      "result": "slug به صورت خودکار از title تولید می‌شود"
+    },
+    "getting_products": {
+      "code": "category.get_descendants(include_self=True)",
+      "result": "تمام زیردسته‌های category + خود category"
+    },
+    "url_example": {
+      "category_path": "/products/category/الکترونیک/موبایل/",
+      "product_path": "/products/گوشی-سامسونگ/"
+    }
+  },
+  
+  "testing_checklist": {
+    "category_operations": [
+      "ایجاد دسته‌بندی ریشه‌ای",
+      "ایجاد زیردسته‌بندی",
+      "تغییر parent با drag & drop در admin",
+      "تولید خودکار slug",
+      "get_full_slug() برای دسته‌بندی‌های nested"
+    ],
+    "product_operations": [
+      "ایجاد محصول با دسته‌بندی",
+      "تولید خودکار slug",
+      "بهینه‌سازی تصویر",
+      "نمایش محصولات در دسته‌بندی"
+    ],
+    "url_routing": [
+      "دسترسی به /products/",
+      "دسترسی به /products/category/parent/child/",
+      "دسترسی به /products/product-slug/",
+      "جستجوی محصولات"
+    ],
+    "template_rendering": [
+      "نمایش breadcrumb",
+      "نمایش sidebar با دسته‌بندی‌ها",
+      "نمایش محصولات",
+      "نمایش محصولات مرتبط",
+      "Pagination"
+    ],
+    "navigation": [
+      "نمایش دسته‌بندی‌ها در منوی اصلی",
+      "Submenu برای دسته‌بندی‌های nested",
+      "Mobile menu"
+    ]
+  },
+  
+  "common_issues_and_solutions": {
+    "slug_conflicts": {
+      "issue": "slug تکراری",
+      "solution": "سیستم به صورت خودکار شماره اضافه می‌کند (slug-1, slug-2, ...)"
+    },
+    "url_not_found": {
+      "issue": "404 برای category path",
+      "solution": "بررسی ترتیب url patterns و اطمینان از وجود slug برای تمام ancestors"
+    },
+    "performance": {
+      "issue": "Queryهای زیاد برای دسته‌بندی‌های nested",
+      "solution": "استفاده از cache_tree_children و select_related/prefetch_related"
+    },
+    "empty_categories": {
+      "issue": "دسته‌بندی‌های بدون slug در navigation",
+      "solution": "فیلتر کردن در context processor: exclude(slug='')"
+    }
+  },
+  
+  "extensions_and_customizations": {
+    "multi_language": "می‌توان از django-modeltranslation برای چندزبانه کردن استفاده کرد",
+    "category_images": "می‌توان فیلد image به Category اضافه کرد",
+    "category_description": "می‌توان فیلد description به Category اضافه کرد",
+    "product_variants": "می‌توان سیستم variant برای محصولات اضافه کرد",
+    "filtering": "می‌توان فیلترهای پیشرفته بر اساس attributes اضافه کرد",
+    "sorting": "می‌توان گزینه‌های sort (price, date, name) اضافه کرد"
+  }
+}
+

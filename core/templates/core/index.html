@@ -2,6 +2,8 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+          integrity="sha256-wyxAhbM2ymlk/wEYBLETymFcpnSUsctNk6heAQ7EzxE=" crossorigin="anonymous">
     <style>
         /* Hero Slider */
         .hero-slider {
@@ -9,12 +11,125 @@
             height: 600px;
             overflow: hidden;
             border-radius: 0 0 30px 30px;
+            background: #0b1f15;
         }
-        
-        .slider-container {
+
+        .hero-slider .swiper-wrapper,
+        .hero-slider .swiper-slide {
             height: 100%;
         }
-        
+
+        .hero-slider .swiper-slide {
+            position: relative;
+        }
+
+        .hero-slider .swiper-slide a {
+            display: block;
+            height: 100%;
+        }
+
+        .hero-slider .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.9s ease, filter 0.9s ease;
+            filter: saturate(1.05);
+        }
+
+        .hero-slider.is-ready .swiper-slide-active img {
+            transform: scale(1.02);
+        }
+
+        .hero-slider::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0, 147, 69, 0.18), rgba(0, 0, 0, 0.55));
+            pointer-events: none;
+        }
+
+        .hero-slider .swiper-pagination {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 3;
+        }
+
+        .hero-slider .swiper-pagination-bullet {
+            width: 28px;
+            height: 4px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.45);
+            opacity: 1;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+
+        .hero-slider .swiper-pagination-bullet-active {
+            width: 42px;
+            background: #ffffff;
+        }
+
+        .hero-slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 4;
+            width: 48px;
+            height: 48px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            color: #009345;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+            backdrop-filter: blur(6px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hero-slider-nav svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .hero-slider-nav:hover,
+        .hero-slider-nav:focus-visible {
+            background: #009345;
+            color: #fff;
+            box-shadow: 0 20px 40px rgba(0, 147, 69, 0.35);
+            outline: none;
+        }
+
+        .hero-slider-prev {
+            right: auto;
+        }
+
+        .hero-slider-next {
+            left: auto;
+        }
+
+        html[dir="rtl"] .hero-slider-prev {
+            right: 30px;
+        }
+
+        html[dir="rtl"] .hero-slider-next {
+            left: 30px;
+        }
+
+        html[dir="ltr"] .hero-slider-prev {
+            left: 30px;
+        }
+
+        html[dir="ltr"] .hero-slider-next {
+            right: 30px;
+        }
+
         /* Features Section */
         .features-home {
             margin-top: -60px;
@@ -398,6 +513,11 @@
             .hero-slider {
                 height: 450px;
             }
+
+            .hero-slider .hero-slider-nav {
+                width: 42px;
+                height: 42px;
+            }
             
             .about-title-home {
                 font-size: 28px;
@@ -419,6 +539,10 @@
                 height: 350px;
                 border-radius: 0 0 20px 20px;
             }
+
+            .hero-slider .swiper-pagination {
+                bottom: 15px;
+            }
             
             .features-home {
                 margin-top: -40px;
@@ -433,34 +557,45 @@
     
     <div class="main" role="main">
         <!-- Hero Slider -->
-        <div class="hero-slider">
-            <div class="slider-container light rev_slider_wrapper" style="height: 100%;">
-                <div class="slider rev_slider"
-                     data-plugin-options="{'delay': 5000, 'gridwidth': 1170, 'gridheight': 600, 'disableProgressBar': 'on', 'responsiveLevels': [4096,1200,992,500], 'navigation' : {'arrows': { 'enable': true, 'style': 'arrows-style-1 arrows-big arrows-dark' }, 'bullets': {'enable': true, 'style': 'bullets-style-1', 'h_align': 'center', 'v_align': 'bottom', 'space': 7, 'v_offset': 30, 'h_offset': 0}}}"
-                     data-plugin-revolution-slider="" data-version="5.4.8" id="revolutionSlider">
-                    <ul>
-                        {% for banner in banners %}
-                            <li data-transition="fade"
-                                {% if banner.url %}data-link="{{ banner.url }}" data-target="_blank"{% endif %}
-                                data-slideindex="{{ forloop.counter }}">
-                                <img alt="" class="rev-slidebg"
-                                     data-bgfit="cover"
-                                     data-bgposition="center center"
-                                     data-bgrepeat="no-repeat"
-                                     src="{{ banner.image.url }}"/>
-                            </li>
-                        {% empty %}
-                            <li data-transition="fade">
-                                <img alt="" class="rev-slidebg"
-                                     data-bgfit="cover"
-                                     data-bgposition="center center"
-                                     data-bgrepeat="no-repeat"
-                                     src="https://placehold.co/1920x600/009345/ffffff?text=آراکیس+سایرا"/>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+        <div class="hero-slider swiper" id="heroSlider" aria-live="polite">
+            <div class="swiper-wrapper">
+                {% for banner in banners %}
+                    <div class="swiper-slide">
+                        {% if banner.url %}
+                            <a href="{{ banner.url }}" target="_blank" rel="noopener">
+                        {% endif %}
+                                <img src="{{ banner.image.url }}"
+                                     alt="{{ banner.title|default:_('بنر آراکیس سایرا') }}"
+                                     {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}>
+                        {% if banner.url %}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% empty %}
+                    <div class="swiper-slide">
+                        <img src="https://placehold.co/1920x600/009345/ffffff?text=آراکیس+سایرا"
+                             alt="{% trans 'آراکیس سایرا' %}" loading="eager">
+                    </div>
+                {% endfor %}
             </div>
+
+            <div class="swiper-pagination d-md-none"></div>
+
+            <button class="hero-slider-nav hero-slider-prev swiper-button-prev d-none d-md-flex"
+                    id="heroSliderPrev" type="button" aria-label="{% trans 'بنر قبلی' %}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+
+            <button class="hero-slider-nav hero-slider-next swiper-button-next d-none d-md-flex"
+                    id="heroSliderNext" type="button" aria-label="{% trans 'بنر بعدی' %}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
         </div>
         
         <!-- Features Section -->
@@ -666,4 +801,52 @@
             </div>
         </section>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"
+            integrity="sha256-GAuCdb9h9NP7VDU18IbQxb7xGTfrbLPs3aMy8gdI10g=" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var sliderEl = document.getElementById('heroSlider');
+
+            if (!sliderEl || typeof Swiper === 'undefined') {
+                return;
+            }
+
+            var heroSlider = new Swiper(sliderEl, {
+                loop: true,
+                speed: 800,
+                spaceBetween: 0,
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
+                autoplay: {
+                    delay: 6000,
+                    disableOnInteraction: false
+                },
+                grabCursor: true,
+                watchSlidesProgress: true,
+                keyboard: {
+                    enabled: true
+                },
+                navigation: {
+                    nextEl: '#heroSliderNext',
+                    prevEl: '#heroSliderPrev'
+                },
+                pagination: {
+                    el: '#heroSlider .swiper-pagination',
+                    clickable: true
+                }
+            });
+
+            var markReady = function () {
+                sliderEl.classList.add('is-ready');
+            };
+
+            if (heroSlider.initialized) {
+                markReady();
+            } else {
+                heroSlider.on('afterInit', markReady);
+            }
+        });
+    </script>
 {% endblock %}
