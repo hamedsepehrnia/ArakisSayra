@@ -279,12 +279,12 @@ msgid "تمامی حقوق محفوظ است."
 msgstr "All rights reserved."
 
 #: core/templates/core/base.html:378
-msgid "طراحی و توسعه"
+msgid "طراحی و توسعه توسط"
 msgstr "Designed and Developed by"
 
 #: core/templates/core/base.html:380
-msgid "حامد سپهرنیا"
-msgstr "Hamed Sepehrnia"
+msgid "تیم سپهرنوا"
+msgstr "Sepehrnova Team"
 
 #: core/templates/core/base.html:457
 msgid "دفتر اصفهان"
